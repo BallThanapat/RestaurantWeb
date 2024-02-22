@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="mainPage.css">
+    
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -17,23 +19,48 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
-<!-- Font Header-->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
-<!-- Font Common-text -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!-- Font Header-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
-<!-- Icon -->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <!-- Font Common-text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 
+    <!-- Icon -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var radio1 = document.getElementById('btnradio1');
+            var radio2 = document.getElementById('btnradio2');
+            var form1 = document.getElementById('form1');
+            var form2 = document.getElementById('form2');
+        
+            radio1.addEventListener('change', function() {
+                if (radio1.checked) {
+                    form1.style.display = 'block';
+                    form2.style.display = 'none';
+                }
+            });
+        
+            radio2.addEventListener('change', function() {
+                if (radio2.checked) {
+                    form1.style.display = 'none';
+                    form2.style.display = 'block';
+                }
+            });
+        });
+        </script>
+
+    <title>Home</title>
 </head>
 
 <body>
@@ -43,10 +70,88 @@
             <a href="" class="links" id="">หน้าแรก</a>
             <a href="" class="links" id="">โปรโมชั่น</a>
             <a href="" class="links" id="">เมนูทั้งหมด</a>
-            <a href="" class="links" id="">เข้าสู่ระบบ/สมัครสมาชิก</a>
+            <a href="" class="links" data-bs-toggle="modal"
+                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
+            <!-- class="links" id="" -->
             <a href="" class="links" id="">ติดต่อเรา</a>
         </nav>
     </header>
+
+    <!-- Login/Register Modals -->
+    <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginRegisModalLabel">KhunGame Restaurant</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
+                            checked>
+                        <label class="btn btn-outline-primary" for="btnradio1">Login</label>
+
+                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label class="btn btn-outline-primary" for="btnradio2">Register</label>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <form id="form1">
+                        <div class="mb-3">
+                            <label for="uNameOrEmail" class="col-form-label">Username/Email:</label>
+                            <input type="text" class="form-control" id="uNameOrEmail">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lPassword" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="lPassword">
+                        </div>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form id="form2" style="display: none;">
+                        <div class="mb-3">
+                            <label for="uName" class="col-form-label">Username:</label>
+                            <input type="text" class="form-control" id="uName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="col-form-label">Email:</label>
+                            <input type="text" class="form-control" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rPassword" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="rPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="fName" class="col-form-label">ชื่อ:</label>
+                            <input type="text" class="form-control" id="fName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lName" class="col-form-label">นามสกุล:</label>
+                            <input type="text" class="form-control" id="lName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="col-form-label">เบอร์โทร:</label>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="dob" class="col-form-label">วันเกิด:</label>
+                            <input type="date" class="form-control" id="dob">
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
+                            <input type="text" class="form-control" id="address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="bgImg">
         <img src="Image_inventory/BGRestau9.webp" alt="" width="100%">
         <div class="box-text">
@@ -77,10 +182,12 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img class="d-block w-100" src="Image_inventory/newscms_thaihealth_c_aegikluv2489.webp" alt="First slide">
+                    <img class="d-block w-100" src="Image_inventory/newscms_thaihealth_c_aegikluv2489.webp"
+                        alt="First slide">
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block w-100" src="Image_inventory/pan-seared-top-sirloin-steak-h.jpg" alt="Second slide">
+                    <img class="d-block w-100" src="Image_inventory/pan-seared-top-sirloin-steak-h.jpg"
+                        alt="Second slide">
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100" src="Image_inventory/BGRestau3.jpg" alt="Third slide">
@@ -100,15 +207,17 @@
                 <h1>PROMOTION</h1>
                 <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, asperiores nulla? Temporibus iste
                     perspiciatis, excepturi error, ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-                    similique? Similique alias cum eos! Fuga optio facilis itaque velit omnis soluta distinctio, delectus
-                    veritatis suscipit debitis nam accusantium eum! Veritatis velit provident eaque quis laudantium! Lorem,
+                    similique? Similique alias cum eos! Fuga optio facilis itaque velit omnis soluta distinctio,
+                    delectus
+                    veritatis suscipit debitis nam accusantium eum! Veritatis velit provident eaque quis laudantium!
+                    Lorem,
                     ipsum dolor sit amet consectetur adipisicing elit. Corporis debitis quasi dolorem officiis nesciunt
                 </p>
                 <button type="button" class="btn btn-warning" id="btn1">โปรโมชั่น</button>
                 <button type="button" class="btn btn-outline-warning" id="btn2">สมัครสมาชิก</button>
             </div>
         </div>
-    </div>    
+    </div>
 
     <div class="bgImg page3">
         <div class="shadow-tab"></div>
@@ -119,7 +228,7 @@
                 perspiciatis, excepturi error, ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
                 similique? Similique alias cum eos! Fuga optio facilis itaque velit omnis soluta distinctio, delectus
                 veritatis suscipit debitis nam accusantium eum! Veritatis velit provident eaque quis laudantium! Lorem,
-                </p>
+            </p>
             <button type="button" class="btn btn-warning" id="btn1">ดูเมนูทั้งหมด</button>
             <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
         </div>
@@ -147,7 +256,8 @@
         <img src="Image_inventory/BGRestau10.jpg" alt="" width="100%">
         <div class="box-text">
             <h1>Contact Us</h1>
-            <p>คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
+            <p>คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1 แขวงลาดกระบัง
+                เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
             <i class="bi bi-facebook"></i>
             <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
         </div>
@@ -156,36 +266,37 @@
     <div class="footer">
         <footer>
             <div class="box-footer">
-                    <div class="row">
-                        <div class="col">
-                            <h2>KhunGame Restaurant</h2><br>
-                            <p class="icontext">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                                Ad vero vel quia facilis a hic aut laudantium, repudiandae doloribus alias! 
-                                Accusamus, asperiores similique voluptatum consequatur dolorem praesentium modi 
-                            </p>
-                            <p class="icon">
-                                <a href="#"><i class="fa-solid fa-phone"></i></a>
-                                <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                            </p>
-                        </div>
-                        <div class="col">
-                          <h2>FIND OUR RESTAURANT</h2>
-                          <p class="icontext"><i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
+                <div class="row">
+                    <div class="col">
+                        <h2>KhunGame Restaurant</h2><br>
+                        <p class="icontext">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                            Ad vero vel quia facilis a hic aut laudantium, repudiandae doloribus alias!
+                            Accusamus, asperiores similique voluptatum consequatur dolorem praesentium modi
+                        </p>
+                        <p class="icon">
+                            <a href="#"><i class="fa-solid fa-phone"></i></a>
+                            <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        </p>
+                    </div>
+                    <div class="col">
+                        <h2>FIND OUR RESTAURANT</h2>
+                        <p class="icontext"><i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
+                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
                             1 ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-                        </div>
-                        <div class="col" id="col3">
-                            <h2>WORKING HOURS</h2><br>
-                            <p class="icontext">MONDAY UNTIL FRIDAY <br>09.00 - 23.00 </p><br><br>
-                            <p>SATURDAY - SUNDAY <br>09.00 - 24.00</p>
-                        </div>
-                      </div>
-                <!-- <h1>LET ME COOK Restaurant</h1><br> -->
+                    </div>
+                    <div class="col" id="col3">
+                        <h2>WORKING HOURS</h2><br>
+                        <p class="icontext">MONDAY UNTIL FRIDAY <br>09.00 - 23.00 </p><br><br>
+                        <p>SATURDAY - SUNDAY <br>09.00 - 24.00</p>
+                    </div>
                 </div>
+                <!-- <h1>LET ME COOK Restaurant</h1><br> -->
+            </div>
         </footer>
     </div>
-    
+
 </body>
 
 </html>
