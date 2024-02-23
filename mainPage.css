@@ -17,6 +17,21 @@
     color: #fff;
     transition: .8s;
 }
+.header-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 40px;
+    bottom: 20px;
+    width: 0;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #ffd900;
+    transition: width 0.7s;
+}
+.header-link:hover::after {
+    width: 16%;
+}
 .navbar01 .links{
     color: #fff;
     text-decoration: none;
@@ -24,14 +39,14 @@
     margin-right: 20px;
 }
 #link-ref{
-    color: #ff4444;
+    color: #ffd900;
     transition: .5s;
 }
 #link-ref:hover{
     color: white;
 }
 .navbar01 a:hover{
-    color: #ff4444;
+    color: #ffd900;
     text-decoration: none;
     width: 100%;
     transition: .5s ;
@@ -188,4 +203,26 @@ i{
 .col h2{
     color: #ffc400;
     font-weight: bold;
+}
+.modal-lg {
+    width: 100vh;
+}
+.modal-lg .modal-title{
+    font-weight: bolder;
+    font-size: 36px;
+}
+#buttonBar1{
+    color: white;
+    border-color: #f79400;
+    background-color: #f79400;
+}
+#buttonBar1:hover, #buttonBar1:active, #buttonBar1:checked {
+    color: #fff;
+    background-color: #f79400;
+    border-color: #f79400;
+}
+#btnradio1:checked, #btnradio1:ac{
+    color: #fff;
+    background-color: #f79400;
+    border-color: #f79400;
 }
