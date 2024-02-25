@@ -40,23 +40,33 @@
 </head>
 <body>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             var radio1 = document.getElementById('btnradio1');
             var radio2 = document.getElementById('btnradio2');
             var form1 = document.getElementById('form1');
             var form2 = document.getElementById('form2');
-        
-            radio1.addEventListener('change', function() {
+            var buttonBar1 = document.getElementById('buttonBar1');
+            var buttonBar2 = document.getElementById('buttonBar2');
+
+            radio1.addEventListener('change', function () {
                 if (radio1.checked) {
                     form1.style.display = 'block';
                     form2.style.display = 'none';
+                    buttonBar1.style.backgroundColor = 'orange';
+                    buttonBar2.style.backgroundColor = 'white';
+                    buttonBar1.style.color = 'white';
+                    buttonBar2.style.color = 'black';
                 }
             });
-        
-            radio2.addEventListener('change', function() {
+
+            radio2.addEventListener('change', function () {
                 if (radio2.checked) {
                     form1.style.display = 'none';
                     form2.style.display = 'block';
+                    buttonBar2.style.backgroundColor = 'orange';
+                    buttonBar1.style.backgroundColor = 'white';
+                    buttonBar1.style.color = 'black';
+                    buttonBar2.style.color = 'white';
                 }
             });
         });
@@ -168,10 +178,10 @@
                     <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
                             checked>
-                        <label class="btn btn-outline-primary" id="buttonBar1" for="btnradio1">Login</label>
+                        <label class="btn btn-outline-warning" id="buttonBar1" for="btnradio1">Login</label>
 
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label class="btn btn-outline-primary" id="buttonBar2" for="btnradio2">Register</label>
+                        <label class="btn btn-outline-warning" id="buttonBar2" for="btnradio2">Register</label>
                     </div>
                     
                     <!-- Login Form -->
@@ -224,7 +234,7 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-warning">Submit</button>
                 </div>
             </div>
         </div>
