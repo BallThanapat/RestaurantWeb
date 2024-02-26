@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 body{
     font-family: "Mitr", sans-serif;
@@ -14,13 +15,17 @@ body{
     height: 100vh;
     display: flex;
 }
-.date{
+.datetime{
     color: white;
-    background-color: #4C1887;
+    background-color: #3f3f3f;
     height: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 50%;
+}
+#clock-icon{
+    margin-left: 10px;
 }
 .head-bar{
     display: flex;
@@ -30,6 +35,7 @@ body{
     color: white;
     align-items: center;
     justify-content: center;
+    z-index: 1;
 }
 .sidebar{
     width: 15%;
@@ -49,24 +55,33 @@ body{
     color: white;
     display: block;
     padding: 20px;
-    box-sizing: border-box;
     line-height: 50px;
 }
 .sidebar .menu .item a:hover{
     background-color:#4C1887;
     transition: 0.4s ease;
 }
-.sub-menu{
+.sub-btn{
     cursor: pointer;
 }
+.sidebar .menu .item a .dropdown{
+    position: relative;
+    margin-left: 49%;
+    transition: 0.5s ease;
+}
+.sidebar .menu .item .sub-menu{
+    display: none;
+    transition: display 0.5s ease;
+}
 .sub-item{
-    background-color: #464545;
+    cursor: pointer;
 }
-.sub-item .sub-item-a{
-    margin-left: 35px;
+.sub-item span{
+    margin-left: 50px;
+    color: #ffffff;
 }
-.sub-item .sub-item-a:hover{
-    margin-left: 35px;
+.sub-btn.active .dropdown {
+    transform: rotate(90deg);
 }
 /* ---- Sidebar ----- */
 
@@ -85,7 +100,8 @@ body{
     width: 100%;
     height: 100%;
     background-color: #fff;
-    color: white;
+    box-shadow: 5px 2px 20px;
+    color: rgb(0, 0, 0);
     display: flex;
     justify-content: end;
     align-items: center;
@@ -95,6 +111,7 @@ body{
     box-sizing: border-box;
 }
 .content{
+    color: white;
     padding: 20px;
     font-size: 40px;
 }

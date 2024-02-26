@@ -19,23 +19,65 @@
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
     <link rel="stylesheet" href="adminPage.css">
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
     <title>Document</title>
 </head>
 <body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+        var staffMenuItem = document.querySelector('.sub-btn');
+        var subMenu = document.querySelector('.sub-menu');
+
+        staffMenuItem.addEventListener('click', function(){
+            subMenu.style.display = (subMenu.style.display === "block") ? "none" : "block";
+            staffMenuItem.classList.toggle('active');
+        });
+    });
+
+    function getCurrentDateTime() {
+            var currentDateTime = new Date();
+            var year = currentDateTime.getFullYear();
+            var month = (currentDateTime.getMonth() + 1).toString().padStart(2, '0');
+            var day = currentDateTime.getDate().toString().padStart(2, '0');
+            var hours = currentDateTime.getHours().toString().padStart(2, '0');
+            var minutes = currentDateTime.getMinutes().toString().padStart(2, '0');
+            var seconds = currentDateTime.getSeconds().toString().padStart(2, '0');
+            
+            return hours + ':' + minutes + ':' + seconds + ' '+ year + '/' + month + '/' + day;
+        }
+
+        function updateDateTime() {
+            var datetimeElement = document.getElementById('clock-icon');
+            datetimeElement.textContent = getCurrentDateTime();
+        }
+
+        document.addEventListener('DOMContentLoaded', function(){
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+
+    </script>
     <div class="adminmain">
         <div class="sidebar">
             <div class="head-bar">KhunGame-Restaurant</div>
-            <div class="date">DATE</div>
+            <div class="datetime" id="datetime">
+                <i class="fa-regular fa-clock"></i>
+                <span id="clock-icon"></span>
+            </div>
             <div class="menu">
-                <div class="item"><a href=""><i class="fa-solid fa-desktop"></i>DASHBOARD</a></div>
-                <div class="item"><a href=""><i class="fa-regular fa-file"></i>MANAGE</a></div>
+                <div class="item"><a href=""><i class="fa-solid fa-desktop" onclick=""></i>DASHBOARD</a></div>
+                <div class="item"><a href=""><i class="fa-regular fa-file" onclick=""></i>MANAGE</a></div>
                 <div class="item">
-                    <a class="sub-menu"><i class="fa-regular fa-user"></i>STAFF</a>
-                    <div class="sub-item"><a href="" class="sub-item-a">All Staff</a></div>
-                    <div class="sub-item"><a href="" class="sub-item-a">Add Staff</a></div>
+                    <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
+                    <div class="sub-menu" id="sub-menu">
+                        <a class="sub-item" onclick=""><span>All Staff</span></a>
+                        <a class="sub-item" onclick=""><span>Add Staff</span></a>
+                    </div>
                 </div>
-                <div class="item"><a href=""><i class="fa-solid fa-utensils"></i>MENU</a></div>
-                <div class="item"><a href=""><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
+                <div class="item" onclick=""><a href=""><i class="fa-solid fa-utensils"></i>MENU</a></div>
+                <div class="item" onclick=""><a href=""><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
             </div>
         </div>
 
