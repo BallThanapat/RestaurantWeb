@@ -153,14 +153,14 @@
 }
 
 /* Modals */
-.modal-lg {
+/* .modal-lg {
     width: 100vh;
 }
 .modal-lg .modal-title{
     font-weight: bolder;
     font-size: 36px;
-}
-#buttonBar1{
+} */
+/* #buttonBar1{
     color: white;
     border-color: #f79400;
     background-color: #f79400;
@@ -174,7 +174,7 @@
     color: #fff;
     background-color: #f79400;
     border-color: #f79400;
-}
+} */
 
 /* Footer */
 .footer{
@@ -184,7 +184,7 @@
     background-color:#000000;
     /* text-align: center; */
 }
-.box-footer{
+.footer .box-footer{
     width: 100%;
     height: auto;
     /* border: 1px solid red; */
@@ -195,36 +195,36 @@
     z-index: 1;
     color: white;
 }
-.box-footer p{
+.footer .box-footer p{
     font-size: 20px;
 }
-.box-footer h1{
+.footer .box-footer h1{
     font-weight: bold;
 }
-i{
+.footer i{
     margin-top: 20px;
     margin-right: 30px;
     font-size: 30px;
     color: white;
 }
-#locate{
+.footer #locate{
     padding: 10px;
     margin-top: 10px;
     margin-right: 5px;
     color: #ff4444;
 }
-.row{
+.footer .row{
     font-family: "Mitr", sans-serif;
     font-style: normal;
     width: 100%;
 }
-.col{
+.footer .col{
     margin-left: 5%;
 }
-.col .icon{
+.footer .col .icon{
     text-align: left;
 }
-.col h2{
+.footer .col h2{
     color: #ffc400;
     font-weight: bold;
 }
