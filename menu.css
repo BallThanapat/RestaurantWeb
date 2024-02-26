@@ -107,6 +107,20 @@
 .pic-main a{
     text-decoration: none;
 }
+.shopping-cart{
+    position: relative;
+    left: 83%;
+    top: 60%;
+    padding: 0;
+}
+.shopping-cart i{
+    font-size: 24px;
+    margin-right: 14px;
+}
+.shopping-cart a{
+    color: white;
+    font-size: 18px;
+}
 .menu-bar{
     /* position: absolute; */
     width: 100%;
