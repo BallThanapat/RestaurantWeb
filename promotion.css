@@ -100,7 +100,7 @@
 
 .promotionSlide{
     width: 100%;
-    height: 75vh;
+    height: 70vh;
     position: relative;
     background-color: #ff4444;
 }
@@ -125,12 +125,30 @@
 }
 
 .boxes {
-    height: 25vh;
+    height: 30vh;
     background-color: #f79400;
+    display: flex;
+    flex-direction: row;
 }
 .boxes .box {
     background-color: #ffffff;
     height: 100%;
+    margin-right: 2%;
+    color: #000;
+    text-decoration: none;
+}
+.b-item {
+    width: 100%;
+}
+.b-item .img {
+    width: 60%;
+}
+.b-item .text {
+    width: 40%;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .allPromotionSection {
@@ -138,9 +156,12 @@
 }
 
 #allPromotion .item {
-    padding: 3vh;
+    /* padding: 3vh; */
     margin: 3vh;
-    background-color: #f79400;
+    background-color: #ffae44;
+}
+#allPromotion .item img {
+    width: 100%;
 }
 
 /* Footer */
