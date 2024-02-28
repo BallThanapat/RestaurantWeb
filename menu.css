@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 .navbar01{
     background-color: transparent;
@@ -22,8 +23,8 @@
     content: "";
     display: block;
     position: absolute;
-    left: 40px;
-    bottom: 20px;
+    left: 3%;
+    bottom: calc(1% + 16px);
     width: 0;
     height: 5px;
     border-radius: 10px;
@@ -36,8 +37,8 @@
 .navbar01 .links, .navbar01 .links i{
     color: #000;
     text-decoration: none;
-    font-size: 17px;
-    margin-right: 20px;
+    font-size: 18px;
+    margin-right: 10px;
 }
 #link-ref{
     color: #ffd900;
@@ -115,7 +116,7 @@
 }
 .shopping-cart i{
     font-size: 24px;
-    margin-right: 14px;
+    margin-right: 1%;
 }
 .shopping-cart a{
     color: white;
@@ -154,9 +155,31 @@
 .menu-box-bar-image{
     width: 100%;
     height: 70%;
+    box-sizing: border-box;
+    /* background-color: red; */
 }
 .menu-box-bar-image img{
-    width: 45%;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    top: 5%;
+    object-fit: cover;
+    /* background-color: rgb(104, 70, 70); */
+}
+/* #pic-sea{
+    bottom: 30%;
+    width: 55%;
+}
+#pic-steak{
+    width: 60%;
+    bottom: 46%;
+} 
+#pic-drink{
+    width: 60%;
+    /* bottom: 35%;
+} */
+.menu-box-bar-image img{
+    width: calc(100% - 55%);
     position: relative;
     bottom: 10px;
 }
@@ -165,18 +188,6 @@
     height: 30%;
     font-weight: bold;
     text-align: center;
-}
-#pic-sea{
-    bottom: 15px;
-    width: 55%;
-}
-#pic-steak{
-    width: 60%;
-    bottom: 30px;
-}
-#pic-drink{
-    width: 60%;
-    bottom: 20px;
 }
 .menu-bar-recommend h2{
     font-family: "Permanent Marker", cursive;
@@ -207,64 +218,65 @@
     justify-content: space-evenly;
     gap: 30px;
 }
-.col1 {
-    width: calc(30% - 20px);
-    height: 40vh;
-    box-sizing: border-box;
-    box-shadow: 5px 5px 20px;
-    background-color: white;
-}
-.col1-sub{
-    width: 100%;
-    height: 80%;
-    background-color: transparent;
-}
-.col1-sub img{
-    width: 100%;
-    height: 100%;
-    filter: brightness(100%);
-    cursor: pointer;
-}
-.col1-sub img:hover{
-    filter: brightness(115%);
-    transition: .8s;
-}
-.col1-sub-content{
-    position: inherit;
-    width: 100%;
-    height: 20%;
-    display: flex;
-}
-.col1-sub-content-1{
-    position: relative;
-    width: 70%;
-    height: 100%;
-    font-size: 32px;
-    font-weight: bold;
-    display: flex;
-    padding-left: 30px;
-    /* justify-content: center; */
-    align-items: center;
-    background-color: transparent;
-}
-.col1-sub-content-2{
-    position: relative;
-    width: 30%;
-    height: 100%;
-    background-color: transparent;
-    font-size: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #f71919;
-    font-weight: bold;
-    cursor: pointer;
-}
-.col1-sub-content-2:hover{
-    background-color: #f71919;
-    color: white;
-    transition: .8s;
-}
+    .col1 {
+        width: 31%;
+        height: 40vh;
+        box-sizing: border-box;
+        box-shadow: 5px 5px 20px;
+        background-color: white;
+    }
+    .col1-sub{
+        width: 100%;
+        height: 80%;
+        background-color: transparent;
+    }
+    .col1-sub img{
+        width: 100%;
+        height: 100%;
+        filter: brightness(100%);
+        cursor: pointer;
+    }
+    .col1-sub img:hover{
+        filter: brightness(115%);
+        transition: .8s;
+    }
+    .col1-sub-content{
+        position: inherit;
+        width: 100%;
+        height: 20%;
+        display: flex;
+    }
+    .col1-sub-content-1{
+        position: relative;
+        width: 70%;
+        height: 100%;
+        font-size: 28px;
+        font-weight: bold;
+        display: flex;
+        padding-left: 5%;
+        /* justify-content: center; */
+        align-items: center;
+        background-color: transparent;
+    }
+    .col1-sub-content-2{
+        position: relative;
+        width: 30%;
+        height: 100%;
+        background-color: transparent;
+        font-size: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #f71919;
+        font-weight: bold;
+        cursor: pointer;
+        /* padding-right: 10px; */
+    }
+    .col1-sub-content-2:hover{
+        background-color: #f71919;
+        color: white;
+        transition: .8s;
+    }
 
 
 /* Footer */
@@ -341,3 +353,110 @@ i{
     background-color: #f79400;
     border-color: #f79400;
 } */
+
+/* Responsive */
+
+/* Responsive Monitor Computer , Laptop Larger */
+@media screen and (max-width: 1562px) {
+    .col1-sub-content{
+        font-size: 18px;
+    }
+}
+@media screen and (max-width: 1440px){
+    .col1 {
+        width: calc(48% - 20px);
+    }
+    .col1-sub-content{
+        font-size: 18px;
+    }
+    /* .col1-sub-content-2{
+        m
+    } */
+    .shopping-cart{
+        position: relative;
+        left: calc(100% - 17%);
+        top: calc(100% - 40%);
+        padding: 0;
+    }
+    .header-link{
+        font-size: 24px;
+    }
+    .navbar01 .links{
+        font-size: 14px;
+    }
+    .header-link::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: calc(3% + 10px);
+        bottom: calc(1% + 16px);
+        width: 0;
+        height: 5px;
+        border-radius: 10px;
+        background-color: #ffd900;
+        transition: width 0.7s;
+    }
+    .header-link:hover::after {
+        width: calc(16%);
+    }
+    #backHome{
+        padding-left: 10px;
+    }
+}
+/* Responsive Laptop Monitor 1024px */
+@media screen and (max-width: 1024px){
+    .col1 {
+        width: calc(48%);
+    }
+    .shopping-cart{
+        position: relative;
+        left: calc(100% - 25%);
+        top: calc(100% - 40%);
+        padding: 0;
+    }
+    .shopping-cart i{
+        font-size: 18px;
+        margin-right: 1%;
+    }
+    .shopping-cart a{
+        color: white;
+        font-size: 18px;
+    }
+    .menu-box-bar{
+        font-size: 14px;
+        margin-right: calc(4% - 20px);
+    }
+    .menu-box-bar-image img{
+        width: calc(100% - 25%);
+    }
+    .header-link{
+        font-size: 24px;
+    }
+    .navbar01 .links{
+        font-size: 14px;
+    }
+    .header-link::after {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 5%;
+        bottom: calc(1% + 16px);
+        width: 0;
+        height: 5px;
+        border-radius: 10px;
+        background-color: #ffd900;
+        transition: width 0.7s;
+    }
+    .header-link:hover::after {
+        width: calc(23%);
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .col1 {
+        width: calc(50% - 20px);
+    }
+    .col1-sub-content{
+        font-size: 18px;
+    }
+}
