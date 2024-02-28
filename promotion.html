@@ -76,15 +76,30 @@
 
 <body>
     <header class="header">
-        <a href="index.html" class="header-link">KITCHENHOME</a>
-        <nav class="navbar01">
-            <a href="index.html" class="links" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
-            <a href="menu.html" class="links" id="">เมนู</a>
-            <a href="" class="links" data-bs-toggle="modal"
-                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
+        <nav class="navbar01 navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+                <a href="index.html" class="header-link">KITCHENHOME</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a href="index.html" class="links ms-auto" id="backHome"><i
+                            class="fa-solid fa-house-chimney"></i></a>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a href="menu.html" class="links" id="">เมนู</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="links" data-bs-toggle="modal"
+                                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
-
 
     <!-- Login/Register Modals -->
     <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
@@ -262,10 +277,6 @@
         }
     </script>
 
-    <!-- <a href="" class="links" data-bs-toggle="modal"
-data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
-
-
     <!-- Promotion Modals -->
     <div class="modal fade" id="promotionModal" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -319,38 +330,6 @@ data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัค
             </div>
         </div>
     </footer>
-    <!-- <div class="container w-100 h-100">
-            <div class="row d-flex justify-content-center h-100">
-                <a href="menu.html" class="col-lg-5 col-md-12 box">
-                    <div>
-                        <header class="h2 text-center p-2">
-                            ดูเมนู
-                        </header>
-                        <div class="b-item d-flex justify-content-center text-center">
-                            <div class="img"><img src="Image_inventory/Promotion/munu.jpg" class="w-100 h-100"></div>
-                            <div class="text">
-                                <p>เมนูอาหารน่าลอง<br>มากมากนับไม่ถ้วน</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="" class="col-lg-5 col-md-12 box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
-                    <div>
-                        <header class="h2 text-center p-2">
-                            สั่งอาหาร
-                        </header>
-                        <div class="b-item d-flex justify-content-center text-center">
-                            <div class="img"><img src="Image_inventory/Promotion/orderFood.png" class="w-100 h-100">
-                            </div>
-                            <div class="text">
-                                <p>สั่งอาหารได้จากทุกที่<br>
-                                    รับที่ร้าน/<br>บริการถึงบ้าน</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div> -->
 </body>
 
 </html>
