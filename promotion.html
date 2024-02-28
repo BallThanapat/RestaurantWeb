@@ -82,7 +82,6 @@
             <a href="menu.html" class="links" id="">เมนู</a>
             <a href="" class="links" data-bs-toggle="modal"
                 data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-            <!-- class="links" id="" -->
         </nav>
     </header>
 
@@ -175,12 +174,10 @@
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau2.webp"
-                            alt="First slide">
+                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau2.webp" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau3.jpg"
-                            alt="Second slide">
+                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau3.jpg" alt="Second slide">
                     </div>
                     <div class="carousel-item">
                         <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau4.jpg" alt="Third slide">
@@ -215,8 +212,7 @@
                         </div>
                     </div>
                 </a>
-                <div class="col-sm-5 h-100 box" data-bs-toggle="modal"
-                data-bs-target="#loginRegisModal">
+                <div class="col-sm-5 h-100 box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
                     <header class="h2 text-center p-2">
                         สั่งอาหาร
                     </header>
@@ -242,21 +238,49 @@
 
     <script>
         let parent = document.getElementById("allPromotion");
-        let count = 0;
         for (let i = 0; i < 50; i++) {
-            count += 1;
+            let a1 = document.createElement('a');
+            a1.setAttribute("data-bs-toggle", "modal");
+            a1.setAttribute("data-bs-target", "#promotionModal")
+            a1.className = "col-sm-5 test"
+
             let div1 = document.createElement('div');
-            div1.className = 'col-sm-5 item';
-            div1.id = count;
+            div1.className = 'item';
+            div1.id = i;
             let img1 = document.createElement('IMG');
             img1.setAttribute("src", "Image_inventory/Promotion/promotion.png")
             // let p1 = document.createElement('p');
             // p1.innerHTML = `test eiei` + count
             // div1.appendChild(p1);
             div1.appendChild(img1);
-            parent.appendChild(div1);
+            a1.appendChild(div1);
+            parent.appendChild(a1);
+            // parent.appendChild(div1);
         }
     </script>
+
+    <!-- <a href="" class="links" data-bs-toggle="modal"
+data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
+
+
+    <!-- Promotion Modals -->
+    <div class="modal fade" id="promotionModal" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="promotionModalLabel">Test Eiei</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-footer d-flex justify-content-center">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                        <input type="number">
+                        <button type="button" class="btn btn-warning">สั่งซื้อ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="footer">
         <footer>
