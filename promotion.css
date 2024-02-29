@@ -74,6 +74,20 @@
     box-shadow: 5px 5px 10px;
     z-index: 1;
 }
+@media screen and (max-width: 700px) {
+    .header {
+        position: relative;
+        width: 100%;
+    }
+    .header-link {
+        font-size: 1.5em;
+    }
+}
+@media screen and (max-width: 350px) {
+    .header-link {
+        font-size: 1em;
+    }
+}
 
 
 /* Modals */
@@ -102,6 +116,7 @@
 
 .promotionSlide{
     width: 100%;
+    /* height: auto; */
     height: 70vh;
     position: relative;
     background-color: #ff4444;
@@ -128,16 +143,19 @@
 
 .boxes {
     height: auto;
+    min-height: 30vh;
     background-color: #f79400;
     display: flex;
     flex-direction: row;
 }
 .boxes .box {
     background-color: #ffffff;
+    /* height: auto; */
     height: 30vh;
     /* margin-right: 2%; */
     color: #000;
     text-decoration: none;
+    display: flex;
 }
 .b-item {
     width: 100%;

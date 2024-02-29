@@ -20,6 +20,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
         integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
         crossorigin="anonymous"></script>
+        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <!-- Font Header-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,15 +79,17 @@
 
 <body>
     <header class="header">
-        <nav class="navbar01 navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a href="index.html" class="header-link">KITCHENHOME</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <!-- data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"  -->
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
                     <a href="index.html" class="links ms-auto" id="backHome"><i
                             class="fa-solid fa-house-chimney"></i></a>
                     <ul class="navbar-nav">
@@ -100,6 +105,20 @@
             </div>
         </nav>
     </header>
+
+    <script>
+        document.getElementById("navbarToggle").addEventListener("click", function () {
+            var nT = document.getElementById("navbarToggle");
+            console.log(nT.getAttribute("aria-expanded"));
+            if (nT.getAttribute("aria-expanded") == "false") {
+                nT.setAttribute("aria-expanded", true)
+                console.log(nT.getAttribute("aria-expanded") + " " + "true");
+            } else {
+                nT.setAttribute("aria-expanded", false)
+                console.log(nT.getAttribute("aria-expanded") + " " + "false");
+            }
+        });
+    </script>
 
     <!-- Login/Register Modals -->
     <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
@@ -213,7 +232,7 @@
     </div>
     <section class="boxes ">
         <div class="container w-100 h-100">
-            <div class="row d-flex justify-content-center h-100">
+            <div class="row d-flex justify-content-center h-100 w-100">
                 <a href="menu.html" class="col-lg-5 col-md-12 box">
                     <div>
                         <header class="h2 text-center p-2">
