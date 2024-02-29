@@ -96,7 +96,7 @@
 
 
 
-.bgImg {
+/* .bgImg {
     width: 100%;
     position: relative;
 }
@@ -105,7 +105,6 @@
     max-height: 100vh;
     filter: brightness(30%);
     width: 100%;
-    /* visibility: hidden; */
     z-index: -1;
 }
 
@@ -178,83 +177,8 @@
     .box-text button {
         width: 20%;
     }
-}
-
-
-.page3 .box-text {
-    left: 75%;
-}
-
-.page2 .box-text {
-    left: 50%;
-}
-
-.page2 h1 {
-    text-align: center;
-}
-
-.page2 img {
-    max-height: 120vh;
-}
-
-.page3 img {
-    /* filter: brightness(); */
-    max-height: 110vh;
-}
-
-/* .shadow-tab{
-    position: absolute;
-    background-color: rgb(0, 0, 0, 0.7);
-    width: 105%;
-    height: 100%;
-    z-index: 1;
 } */
-.page4 img {
-    width: 100%;
-    max-height: 120vh;
-}
 
-.page5 .box-text {
-    border-radius: 10px;
-    width: 70%;
-    top: 50%;
-    left: 50%;
-}
-
-.page5 .box-locat {
-    width: 100%;
-    height: 50vh;
-    border: 1px solid orange;
-}
-
-.page6 img {
-    width: 100%;
-    max-height: 120vh;
-}
-
-/* Modals */
-/* .modal-lg {
-    width: 100vh;
-}
-.modal-lg .modal-title{
-    font-weight: bolder;
-    font-size: 36px;
-} */
-/* #buttonBar1{
-    color: white;
-    border-color: #f79400;
-    background-color: #f79400;
-}
-#buttonBar1:hover, #buttonBar1:active, #buttonBar1:checked {
-    color: #fff;
-    background-color: #f79400;
-    border-color: #f79400;
-}
-#btnradio1:checked, #btnradio1:ac{
-    color: #fff;
-    background-color: #f79400;
-    border-color: #f79400;
-} */
 
 /* Footer */
 footer {
