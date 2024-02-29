@@ -96,55 +96,62 @@
 
 
 
-/* .bgImg {
+.bgImg {
     width: 100%;
     position: relative;
 }
 
 .bgImg img {
     max-height: 100vh;
+    min-height: 100vh;
     filter: brightness(30%);
     width: 100%;
     z-index: -1;
 }
 
 .bgImg .box-text {
+    /* background-image: url(Image_inventory/ContractUs/foodStrorage.jpg); */
     position: absolute;
     background-color: transparent;
-    width: 40%;
-    left: 30%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: 90%;
+    /* left: 30%;
+    top: 50%; */
+    transform: translate(5%, -100%);
     z-index: 1;
     height: auto;
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 1%;
+    border-radius: 50px;
+
 }
 
 .box-text h1 {
     font-family: "Permanent Marker", cursive;
     font-style: normal;
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: bold;
-    text-align: left;
-    z-index: 1;
-    color: rgb(255, 255, 255);
+    /* text-align: left;
+    z-index: 1; */
+    /* color: rgb(255, 255, 255); */
+    color: rgb(0, 0, 0);
 }
 
 .box-text p {
     font-family: "Mitr", sans-serif;
     font-style: normal;
-    font-size: 1rem;
-    z-index: 1;
-    color: white;
+    font-size: 1.5rem;
+    /* z-index: 1; */
+    /* color: white; */
+    color: rgb(0, 0, 0);
 }
 
-.box-text button {
-    margin-right: 10px;
-    font-weight: bold;
-    width: 15%;
-    z-index: 1;
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@media screen and (max-width: 1250px) {
+/* @media screen and (max-width: 1250px) {
     .bgImg .box-text {
         width: 50%;
         left: 50%;
