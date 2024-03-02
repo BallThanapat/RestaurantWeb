@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,6 +39,7 @@
 
     <title>Document</title>
 </head>
+
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -71,95 +73,101 @@
             });
         });
         function showMenu(menuType) {
-        var menuBarTopic = document.getElementById("menu-bar-topic");
-        var recommend = document.getElementById("row-recommend-menu");
-        var fried = document.getElementById("row-fried-menu");
-        var soup = document.getElementById("row-soup-menu");
-        var seafood = document.getElementById("row-seafood-menu");
-        var steak = document.getElementById("row-steak-menu");
-        var dessert = document.getElementById("row-dessert-menu");
-        var drink = document.getElementById("row-drink-menu");
+            var menuBarTopic = document.getElementById("menu-bar-topic");
+            var recommend = document.getElementById("row-recommend-menu");
+            var fried = document.getElementById("row-fried-menu");
+            var soup = document.getElementById("row-soup-menu");
+            var seafood = document.getElementById("row-seafood-menu");
+            var steak = document.getElementById("row-steak-menu");
+            var dessert = document.getElementById("row-dessert-menu");
+            var drink = document.getElementById("row-drink-menu");
 
-        if (menuType == "recommend") {
-            menuBarTopic.innerHTML = '<h2> เมนูแนะนำ </h2>';
-            recommend.style.display = 'flex';
-            fried.style.display = 'none';
-            soup.style.display = 'none';
-            seafood.style.display = 'none';
-            steak.style.display = 'none';
-            dessert.style.display = 'none';
-            drink.style.display = 'none';
+            if (menuType == "recommend") {
+                menuBarTopic.innerHTML = '<h2> เมนูแนะนำ </h2>';
+                recommend.style.display = 'flex';
+                fried.style.display = 'none';
+                soup.style.display = 'none';
+                seafood.style.display = 'none';
+                steak.style.display = 'none';
+                dessert.style.display = 'none';
+                drink.style.display = 'none';
 
-        } else if (menuType == "fried") {
-            menuBarTopic.innerHTML = '<h2> เมนูทอด </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'flex';
-            soup.style.display = 'none';
-            seafood.style.display = 'none';
-            steak.style.display = 'none';
-            dessert.style.display = 'none';
-            drink.style.display = 'none';
+            } else if (menuType == "fried") {
+                menuBarTopic.innerHTML = '<h2> เมนูทอด </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'flex';
+                soup.style.display = 'none';
+                seafood.style.display = 'none';
+                steak.style.display = 'none';
+                dessert.style.display = 'none';
+                drink.style.display = 'none';
 
-        } else if (menuType == "soup"){
-            menuBarTopic.innerHTML = '<h2> เมนูยำ/ต้ม </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'none';
-            soup.style.display = 'flex';
-            seafood.style.display = 'none';
-            steak.style.display = 'none';
-            dessert.style.display = 'none';
-            drink.style.display = 'none';
+            } else if (menuType == "soup") {
+                menuBarTopic.innerHTML = '<h2> เมนูยำ/ต้ม </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'none';
+                soup.style.display = 'flex';
+                seafood.style.display = 'none';
+                steak.style.display = 'none';
+                dessert.style.display = 'none';
+                drink.style.display = 'none';
 
-        } else if (menuType == "seafood"){
-            menuBarTopic.innerHTML = '<h2> อาหารทะเล </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'none';
-            soup.style.display = 'none';
-            seafood.style.display = 'flex';
-            steak.style.display = 'none';
-            dessert.style.display = 'none';
-            drink.style.display = 'none';
+            } else if (menuType == "seafood") {
+                menuBarTopic.innerHTML = '<h2> อาหารทะเล </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'none';
+                soup.style.display = 'none';
+                seafood.style.display = 'flex';
+                steak.style.display = 'none';
+                dessert.style.display = 'none';
+                drink.style.display = 'none';
 
-        } else if (menuType == "steak"){
-            menuBarTopic.innerHTML = '<h2> สเต็ก/เนื้อ </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'none';
-            soup.style.display = 'none';
-            seafood.style.display = 'none';
-            steak.style.display = 'flex';
-            dessert.style.display = 'none';
-            drink.style.display = 'none';
+            } else if (menuType == "steak") {
+                menuBarTopic.innerHTML = '<h2> สเต็ก/เนื้อ </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'none';
+                soup.style.display = 'none';
+                seafood.style.display = 'none';
+                steak.style.display = 'flex';
+                dessert.style.display = 'none';
+                drink.style.display = 'none';
 
-        } else if (menuType == "dessert"){
-            menuBarTopic.innerHTML = '<h2> ของหวาน </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'none';
-            soup.style.display = 'none';
-            seafood.style.display = 'none';
-            steak.style.display = 'none';
-            dessert.style.display = 'flex';
-            drink.style.display = 'none';
+            } else if (menuType == "dessert") {
+                menuBarTopic.innerHTML = '<h2> ของหวาน </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'none';
+                soup.style.display = 'none';
+                seafood.style.display = 'none';
+                steak.style.display = 'none';
+                dessert.style.display = 'flex';
+                drink.style.display = 'none';
 
-        } else if (menuType == "drink"){
-            menuBarTopic.innerHTML = '<h2> เครื่องดื่ม </h2>';
-            recommend.style.display = 'none';
-            fried.style.display = 'none';
-            soup.style.display = 'none';
-            seafood.style.display = 'none';
-            steak.style.display = 'none';
-            dessert.style.display = 'none';
-            drink.style.display = 'flex';
+            } else if (menuType == "drink") {
+                menuBarTopic.innerHTML = '<h2> เครื่องดื่ม </h2>';
+                recommend.style.display = 'none';
+                fried.style.display = 'none';
+                soup.style.display = 'none';
+                seafood.style.display = 'none';
+                steak.style.display = 'none';
+                dessert.style.display = 'none';
+                drink.style.display = 'flex';
+            }
+
         }
-
-    }
-        </script>
+    </script>
 
     <header class="header">
+
+
+
+
+
         <a href="index.html" class="header-link">KITCHENHOME</a>
         <nav class="navbar01">
             <a href="index.html" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
             <a href="" class="links">โปรโมชั่น</a>
-            <a href="" class="links" data-bs-toggle="modal"data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
+            <a href="" class="links" data-bs-toggle="modal"
+                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
             <i class="fa-solid fa-list-ul" id="list-menu"></i>
             <!-- class="links" id="" -->
         </nav>
@@ -183,7 +191,7 @@
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off">
                         <label class="btn btn-outline-warning" id="buttonBar2" for="btnradio2">Register</label>
                     </div>
-                    
+
                     <!-- Login Form -->
                     <form id="form1">
                         <div class="mb-3">
@@ -240,410 +248,496 @@
         </div>
     </div>
 
-        <div class="pic-main">
-            <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
-                <span id="span-i">> Menu</span></i></a>
-            </span>
-            <span class="shopping-cart"><a href="" id="sum-cost"><i class="fa-solid fa-cart-shopping"></i>THB 0.00</a></span>
-        </div>
-        <div class="menu-bar">
-            <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
-                <div class="menu-box-bar-image"><img src="/Image_inventory/Menu/recommend.png" alt=""></div>
-                <div class="menu-box-bar-content">เมนูแนะนำ</div>
-            </div>
+    <div class="pic-main">
+        <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
+                    <span id="span-i">> Menu</span></i></a>
+        </span>
+        <span class="shopping-cart"><a href="" id="sum-cost" data-bs-toggle="modal"
+                data-bs-target="#shoppingCartModal"><i class="fa-solid fa-cart-shopping"></i>THB
+                0.00</a></span>
+    </div>
 
-            <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
-                <div class="menu-box-bar-image"><img src="/Image_inventory/Menu/friedFood.png" alt=""></div>
-                <div class="menu-box-bar-content">เมนูทอด</div>
-            </div>
+    <!-- a href="" class="links" data-bs-toggle="modal"
+                data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
-            <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
-                <div class="menu-box-bar-image"><img src="/Image_inventory/Menu/Tomyumkung4.png" alt=""></div>
-                <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
-            </div>
-            <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
-                <div class="menu-box-bar-image"><img src="/Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea"></div>
-                <div class="menu-box-bar-content">อาหารทะเล</div>
-            </div>
-            <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
-                <div class="menu-box-bar-image"><img src="/Image_inventory/Menu/Steak.png" alt="" id="pic-steak"></div>
-                <div class="menu-box-bar-content">สเต็ก</div>
-            </div>
-            <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
-                <div class="menu-box-bar-image"><img src="Image_inventory/Menu/dessert2.png" alt=""></div>
-                <div class="menu-box-bar-content">ของหวาน</div>
-            </div>
-            <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
-                <div class="menu-box-bar-image"><img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink"></div>
-                <div class="menu-box-bar-content">เครื่องดื่ม</div>
-            </div>
-        </div>
-        <div class="menu-bar-recommend" id="menu-bar-topic">
-            <h2>เมนูแนะนำ</h2>
-        </div>
-
-        <div class="col-menu recommend-menu" id="recommend-menu">
-            <div class="row1" id="row-recommend-menu">
-                <div class="col1">
-                    <div class="col1-sub"><img src="Image_inventory/Menu/TomyumChonChon.webp" alt=""></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
-                        <div class="col1-sub-content-2">THB 229.00</div>
+    <!-- Shopping Cart Modals -->
+    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
+                        class="scrollspy-example" tabindex="0">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <img src="Image_inventory/Menu/friedFood.png" class="w-100">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p>Fied Chicken</p>
+                                                <hr>
+                                                <button type="button" class="w-25"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                                                    </svg></button>
+                                                <input type="number" class="w-25" min="0" id="cntFood1"  value="2">
+                                                <button type="button" class="w-25"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                                    </svg></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <img src="Image_inventory/Menu/dessert.png" class="w-100">
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p>Pancake</p>
+                                                <hr>
+                                                <button type="button" class="w-25"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+                                                    </svg></button>
+                                                <input type="number" class="w-25" min="0" id="cntFood2" value="1">
+                                                <button type="button" class="w-25"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                        fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                                    </svg></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <div class="col1">
-                    <div class="col1-sub"><a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1"></a></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
-                        <div class="col1-sub-content-2">THB 429.00</div>
-                    </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                    <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
                 </div>
-
-                <div class="col1">
-                    <div class="col1-sub"><img src="Image_inventory/Menu/TalayHot1.webp" alt=""></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1">ทะเลเดือด</div>
-                        <div class="col1-sub-content-2">THB 329.00</div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
             </div>
         </div>
+    </div>
 
-        <div class="col-menu fried-menu" id="fried-menu">
-            <div class="row1" id="row-fried-menu" style="display: none;">
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
 
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+    <div class="menu-bar">
+        <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/recommend.png" alt=""></div>
+            <div class="menu-box-bar-content">เมนูแนะนำ</div>
         </div>
 
-        <div class="col-menu soup-menu" id="soup-menu">
-            <div class="row1" id="row-soup-menu" style="display: none;">
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/friedFood.png" alt=""></div>
+            <div class="menu-box-bar-content">เมนูทอด</div>
         </div>
 
-        <div class="col-menu seafood-menu" id="seafood-menu">
-            <div class="row1" id="row-seafood-menu" style="display: none;">
-                <div class="col1">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: tomato;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/Tomyumkung4.png" alt=""></div>
+            <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
         </div>
-
-        <div class="col-menu steak-menu" id="steak-menu">
-            <div class="row1" id="row-steak-menu" style="display: none;">
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea"></div>
+            <div class="menu-box-bar-content">อาหารทะเล</div>
         </div>
-
-        <div class="col-menu dessert-menu" id="dessert-menu">
-            <div class="row1" id="row-dessert-menu" style="display: none;">
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: tomato;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: tomato;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak"></div>
+            <div class="menu-box-bar-content">สเต็ก</div>
         </div>
-
-        <div class="col-menu drink-menu" id="drink-menu">
-            <div class="row1" id="row-drink-menu" style="display: none;">
-                <div class="col1" style="background-color: burlywood;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-
-                <div class="col1" style="background-color: brown;">
-                    <div class="col1-sub"></div>
-                    <div class="col1-sub-content">
-                        <div class="col1-sub-content-1"></div>
-                        <div class="col1-sub-content-2"></div>
-                    </div>
-                </div>
-            
-            </div>
+        <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/dessert2.png" alt=""></div>
+            <div class="menu-box-bar-content">ของหวาน</div>
         </div>
+        <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
+            <div class="menu-box-bar-image"><img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink"></div>
+            <div class="menu-box-bar-content">เครื่องดื่ม</div>
+        </div>
+    </div>
+    <div class="menu-bar-recommend" id="menu-bar-topic">
+        <h2>เมนูแนะนำ</h2>
+    </div>
+
+    <div class="col-menu recommend-menu" id="recommend-menu">
+        <div class="row1" id="row-recommend-menu">
+            <div class="col1">
+                <div class="col1-sub"><img src="Image_inventory/Menu/TomyumChonChon.webp" alt=""></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
+                    <div class="col1-sub-content-2">THB 229.00</div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"><a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1"></a>
+                </div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
+                    <div class="col1-sub-content-2">THB 429.00</div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"><img src="Image_inventory/Menu/TalayHot1.webp" alt=""></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1">ทะเลเดือด</div>
+                    <div class="col1-sub-content-2">THB 329.00</div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu fried-menu" id="fried-menu">
+        <div class="row1" id="row-fried-menu" style="display: none;">
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu soup-menu" id="soup-menu">
+        <div class="row1" id="row-soup-menu" style="display: none;">
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu seafood-menu" id="seafood-menu">
+        <div class="row1" id="row-seafood-menu" style="display: none;">
+            <div class="col1">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: tomato;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu steak-menu" id="steak-menu">
+        <div class="row1" id="row-steak-menu" style="display: none;">
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu dessert-menu" id="dessert-menu">
+        <div class="row1" id="row-dessert-menu" style="display: none;">
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: tomato;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: tomato;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-menu drink-menu" id="drink-menu">
+        <div class="row1" id="row-drink-menu" style="display: none;">
+            <div class="col1" style="background-color: burlywood;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+            <div class="col1" style="background-color: brown;">
+                <div class="col1-sub"></div>
+                <div class="col1-sub-content">
+                    <div class="col1-sub-content-1"></div>
+                    <div class="col1-sub-content-2"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <div class="footer">
         <footer>
@@ -680,4 +774,5 @@
     </div>
 
 </body>
+
 </html>
