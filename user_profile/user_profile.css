@@ -159,6 +159,39 @@ body{
     text-align: right;
 }
 
+/* History bough */
+.history-bought{
+    display: block;
+    width: 100%;
+    height: 40%;
+    border: 1px solid black;
+    max-width: 100%;
+    padding: 6px 10px;
+    margin-bottom: 1%;
+}
+.bought{
+    height: 100%;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+}
+.img-bought{
+    width: 15%;
+    height: 75%;
+    border: 1px solid salmon;
+}
+.detail-menu{
+    padding: 4px 4px;
+    width: 85%;
+    height: 75%;
+    border: 1px solid rebeccapurple;
+    overflow: hidden;
+    font-size: 14px;
+}
+.detail-menu p{
+    margin-top: 0;
+}
+
 /* Footer */
 .footer{
     width: 100%;
