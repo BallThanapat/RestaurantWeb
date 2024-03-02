@@ -276,21 +276,28 @@
         for (let i = 0; i < 50; i++) {
             let a1 = document.createElement('a');
             a1.setAttribute("data-bs-toggle", "modal");
-            a1.setAttribute("data-bs-target", "#promotionModal")
-            a1.className = "col-lg-5 col-md-12 test"
+            a1.setAttribute("data-bs-target", "#promotionModal");
+            a1.className = "col-lg-5 col-md-12 test";
+            let btn1 = document.createElement('button');
+            let btn2 = document.createElement('button');
+            btn1.setAttribute("data-bs-toggle", "modal");
+            btn1.setAttribute("data-bs-target", "#promotionModal");
+            btn1.innerHTML = 'รายละเอียด';
+            btn2.innerHTML = 'สั่งซื้อ';
+            btn2.className = 'bg-success';
 
             let div1 = document.createElement('div');
+            let div2 = document.createElement('div');
             div1.className = 'item';
             div1.id = i;
             let img1 = document.createElement('IMG');
-            img1.setAttribute("src", "Image_inventory/Promotion/promotion.png")
-            // let p1 = document.createElement('p');
-            // p1.innerHTML = `test eiei` + count
-            // div1.appendChild(p1);
+            img1.setAttribute("src", "Image_inventory/Promotion/promotion.png");
             div1.appendChild(img1);
+            div2.appendChild(btn1);
+            div2.appendChild(btn2);
             a1.appendChild(div1);
+            a1.appendChild(div2);
             parent.appendChild(a1);
-            // parent.appendChild(div1);
         }
     </script>
 
