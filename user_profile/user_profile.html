@@ -56,11 +56,86 @@
             <span id="span-i">> Profile</span></i></a>
         </span>
     </div>
+    
+    <div class="show-profile">
+    <div class="list-menu">
+        <div class="account-item head1">
+            <i class="fa-solid fa-user"></i><h2>Account Name</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-regular fa-address-card"></i><h2>ข้อมูลส่วนตัว</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-solid fa-location-dot"></i><h2>ที่อยู่</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-solid fa-basket-shopping"></i><h2>ประวัติการสั่งซื้อ</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-solid fa-truck"></i><h2>สถานะการสั่งซื้อ</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-regular fa-credit-card"></i><h2>บัตรสมาชิกของฉัน</h2>
+        </div>
+        <div class="account-item">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i><h2>ออกจากระบบ</h2>
+        </div>
+    </div>
+    <div class="containers">
+        <div class="space" style="display: none;">
+            <div class="account-topic">
+                <h2>ข้อมูลส่วนตัว</h2>
+            </div>
+            <div class="detail-topic">
+                <form action="">
+                    <div class="row" id="row-username">
+                        <!-- <label for="staticEmail" class="col-form-label">Username</label> -->
+                        Username<input type="text" readonly id="staticEmail" value="email@example.com" class="form-control custom-input">
+                        <div class="col" id="col">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="firstname">ชื่อ</label>
+                            <input type="text" class="form-control" id="fname">
+                        </div>
+                        <div class="col">
+                            <label for="lastname">นามสกุล</label>
+                            <input type="text" class="form-control" id="lname">
+                        </div>
+                    </div>
 
-    <div class="container">
-        
+                    <div class="row">
+                        <div class="col">
+                            <label for="phone">เบอร์โทรศัพท์</label>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                        <div class="col">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" disabled>
+                        </div>
+                        <!-- <div class="col">
+                            <label for="dob">วันเกิด:</label>
+                            <input type="date" class="form-control" id="dob1" disabled>
+                        </div> -->
+
+                    
+                </div>
+                <button type="button" class="btn btn-danger">บันทึกข้อมูล</button>
+                </form>
+            </div>
+        </div>
+        <div class="space">
+            <div class="account-topic">
+                <h2>ที่อยู่</h2>
+            </div>
+            <div class="detail-topic">
+                <!-- ข้อมูลที่อยู่ของ user  -->
+            </div>
+        </div>
     </div>
 
+    </div>
     <div class="footer">
         <footer>
             <div class="box-footer">
