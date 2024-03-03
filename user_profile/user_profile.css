@@ -33,6 +33,18 @@ body{
 #space-address, #space-bought, #space-statuss, #space-member-card{
     display: none;
 }
+.modal-content.scale {
+    height: 55vh;
+}
+.btn1{
+    width: 100%;
+    display: flex;
+    padding: 0% 3%;
+    justify-content: end;
+}
+#btn-add-address{
+    width: 20%;
+}
 .account-item {
     display: flex;
     align-items: center;
