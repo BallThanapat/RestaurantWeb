@@ -39,6 +39,55 @@
     <title>Document</title>
 </head>
 <body>
+    <script>
+    
+        function profile(selectItem){
+
+            account = document.getElementById("space-account");
+            address = document.getElementById("space-address");
+            bought = document.getElementById("space-bought");
+            status01 = document.getElementById("space-statuss"); // ใช้ชื่อ status แล้วไม่ขึ้น
+            card = document.getElementById("space-member-card");
+
+            if(selectItem == "info"){
+                account.style.display = "inline";
+                address.style.display = "none";
+                bought.style.display = "none";
+                status01.style.display = "none";
+                card.style.display = "none";
+            }
+            else if(selectItem == "address"){
+                account.style.display = "none";
+                address.style.display = "inline";
+                bought.style.display = "none";
+                status01.style.display = "none";
+                card.style.display = "none";
+            }
+            else if(selectItem == "bought"){
+                account.style.display = "none";
+                address.style.display = "none";
+                bought.style.display = "inline";
+                status01.style.display = "none";
+                card.style.display = "none";
+            }
+            else if(selectItem == "statuss"){
+                account.style.display = "none";
+                address.style.display = "none";
+                bought.style.display = "none";
+                status01.style.display = "block";
+                card.style.display = "none";
+            }
+            else if(selectItem == "card"){
+                account.style.display = "none";
+                address.style.display = "none";
+                bought.style.display = "none";
+                status01.style.display = "none";
+                card.style.display = "inline";
+            }
+        }
+
+    </script>
+
     <header class="header">
         <a href="index.html" class="header-link">KITCHENHOME</a>
         <nav class="navbar01">
@@ -62,27 +111,33 @@
         <div class="account-item head1">
             <i class="fa-solid fa-user"></i><h2>Account Name</h2>
         </div>
-        <div class="account-item">
+
+        <div class="account-item" onclick="profile('info')">
             <i class="fa-regular fa-address-card"></i><h2>ข้อมูลส่วนตัว</h2>
         </div>
-        <div class="account-item">
+
+        <div class="account-item" onclick="profile('address')">
             <i class="fa-solid fa-location-dot"></i><h2>ที่อยู่</h2>
         </div>
-        <div class="account-item">
+
+        <div class="account-item" onclick="profile('bought')">
             <i class="fa-solid fa-basket-shopping"></i><h2>ประวัติการสั่งซื้อ</h2>
         </div>
-        <div class="account-item">
+
+        <div class="account-item" onclick="profile('statuss')">
             <i class="fa-solid fa-truck"></i><h2>สถานะการสั่งซื้อ</h2>
         </div>
-        <div class="account-item">
+
+        <div class="account-item" onclick="profile('card')">
             <i class="fa-regular fa-credit-card"></i><h2>บัตรสมาชิกของฉัน</h2>
         </div>
+
         <div class="account-item">
             <i class="fa-solid fa-arrow-right-from-bracket"></i><h2>ออกจากระบบ</h2>
         </div>
     </div>
     <div class="containers">
-        <div class="space" style="display: none;">
+        <div class="space" id="space-account">
             <div class="account-topic">
                 <h2>ข้อมูลส่วนตัว</h2>
             </div>
@@ -125,7 +180,7 @@
                 </form>
             </div>
         </div>
-        <div class="space" style="display: none;">
+        <div class="space" id="space-address">
             <div class="account-topic">
                 <h2>ที่อยู่ของฉัน</h2>
                 <button type="button" class="btn btn-warning">+ เพิ่มที่อยู่</button>
@@ -158,46 +213,222 @@
             </div>
         </div>
 
-        <div class="space">
+        <div class="space" id="space-bought">
             <div class="account-topic">
                 <h2>ประวัติการสั่งซื้อ</h2>
             </div>
             <div class="detail-topic">
-                <div class="history-bought">
-                    <div class="bought">
-                        <div class="img-bought">
-                            <img src="" alt="">
+                <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
+                    <p>วันที่ทำการสั่งซื้อ 03/03/2024</p>
+                    <div class="box-bought">
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/dessert2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿699</p>
+                            </div>
                         </div>
-                        <div class="detail-menu">
-                            <p>el laborioe harum porro, iure voluptate!</p>                        </div>
-                        <!-- <div class="menu-cost">
-                            <p>฿105</p>
-                        </div> -->
+
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/Steak2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿200</p>
+                            </div>
+                        </div>
+
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/friedFood2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿100</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-price">
+                        <p>ราคารวม: ฿999.99</p>
                     </div>
                 </div>
 
+                <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
+                    <p>วันที่ทำการสั่งซื้อ 02/03/2024</p>
+                    <div class="box-bought">
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/dessert2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿100</p>
+                            </div>
+                        </div>
 
-                <div class="history-bought">
-                    
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/Steak2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿100</p>
+                            </div>
+                        </div>
+
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/friedFood2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿100</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-price">
+                        <p>ราคารวม: ฿1999.99</p>
+                    </div>
                 </div>
+
+                <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
+                    <p>วันที่ทำการสั่งซื้อ 01/03/2024</p>
+                    <div class="box-bought">
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/dessert2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿299</p>
+                            </div>
+                        </div>
+
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/Steak2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+                            <div class="detail-cost">
+                                <p>฿100</p>
+                            </div>
+                        </div>
+
+                        <div class="bought"> <!-- รายการซื้อ -->
+                            <div class="img-bought">
+                                <img src="/Image_inventory/Menu/friedFood2.png" alt="">
+                            </div>
+                            <div class="detail-menu">
+                                <p>el laborioe harum porro, iure voluptate!</p>
+                                <p>x1</p> <!-- จำนวนการซื้อ -->
+                            </div>
+
+                            <div class="detail-cost">
+                                <p>฿200</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="total-price">
+                        <p>ราคารวม: ฿599.99</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <div class="space" style="display: none;">
+        <div class="space" id="space-statuss">
             <div class="account-topic">
                 <h2>สถานะการสั่งซื้อ</h2>
             </div>
             <div class="detail-topic">
-                <!-- ข้อมูลที่อยู่ของ user  -->
+                <div class="box-status">
+                    <div class="table-status">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>คำสั่งซื้อ</th>
+                                <th>ราคารวม</th>
+                                <th>สถานะการสั่งซื้อ</th>
+                                <th>เตรียมอาหาร</th>
+                                <th>จัดส่งอาหาร</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td><a href="">0001</a></td>
+                                <td>฿999.99</td>
+                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                <td><i class="fa-regular fa-circle-check"></i></td>
+                              </tr>
+                              <tr>
+                                <td><a href="">0002</a></td>
+                                <td>฿1999.99</td>
+                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                              </tr>
+                              <tr>
+                                <td><a href="">0003</a></td>
+                                <td>฿2999.99</td>
+                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="space" style="display: none;">
+        <div class="space" id="space-member-card">
             <div class="account-topic">
                 <h2>บัตรสมาชิกของฉัน</h2>
             </div>
             <div class="detail-topic">
-                <!-- ข้อมูลที่อยู่ของ user  -->
+                <div class="box-point">
+                    <div class="img-point">
+                        <img src="/Image_inventory/credit-card2.png" alt="">
+                    </div>
+                    <div class="detail-point">
+                        <div class="detail-text">
+                            <h5>คะแนนสะสมปัจจุบัน</h5><h1>999 Points</h1><br>
+                            <p style="text-align: start;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>• ซื้อสินค้าครบ 10 บาท = 1 Points</p>
+                        </div>
+                        <button type="button" class="btn btn-info" id="code">แลกโค้ดส่วนลด</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
