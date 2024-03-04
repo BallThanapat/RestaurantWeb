@@ -1,0 +1,62 @@
+* {
+    font-family: "Permanent Marker", cursive;
+    font-style: normal;
+    font-size: 1.15rem;
+}
+
+body {
+    height: 100vh;
+}
+
+.numbered-hr {
+    position: relative;
+    height: 40px;
+    /* ปรับความสูงตามต้องการ */
+    line-height: 40px;
+    /* ปรับตามความสูง */
+}
+
+.numbered-hr:before {
+    content: "";
+    display: block;
+    border-top: 1px solid black;
+    /* สีของเส้น hr */
+    position: absolute;
+    top: 35%;
+    width: 100%;
+}
+
+.numbered-hr .number {
+    background: white;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 30px;
+    /* ขนาดของวงกลม */
+    height: 30px;
+    /* ขนาดของวงกลม */
+    text-align: center;
+    line-height: 25px;
+    /* ปรับตามขนาด */
+    display: inline-block;
+    position: absolute;
+}
+
+.numbered-hr .number:nth-child(1) {
+    left: 10%;
+}
+
+.numbered-hr .number:nth-child(2) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.numbered-hr .number:nth-child(3) {
+    right: 10%;
+}
+
+
+.order {
+    min-height: 55vh;
+    max-height: 55vh;
+    overflow-y: auto;
+}
