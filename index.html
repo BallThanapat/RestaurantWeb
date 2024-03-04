@@ -671,7 +671,7 @@
             },
             success: (response) => {
               console.log("valid", response);
-              console.log(response)
+              console.log(response);
               var responseObject = JSON.parse(response);
               if (responseObject.RespCode == 200) {
                 localStorage.setItem("username", responseObject.RespUsername);
@@ -681,7 +681,7 @@
                   title: "Login success!!",
                   timer: 1000,
                 });
-                window.location.href ='./menu.html'
+                window.location.href = "./menu.html";
               } else {
                 Swal.fire({
                   icon: "error",
