@@ -138,10 +138,12 @@ body {
 .below {
     margin-bottom: 5vh;
 }
+
 .d-flex {
     justify-content: end;
 }
-#btn-order{
+
+#btn-order {
     color: white;
     background-color: orangered;
 }
@@ -173,4 +175,16 @@ body {
     color: #fff;
     border-color: #ffd900;
     /* Border color for selected option */
+}
+
+iframe {
+    width: 100%;
+    height: 450px;
+}
+
+.file {
+    border: #888888;
+}
+label {
+    border-radius: 1px;
 }

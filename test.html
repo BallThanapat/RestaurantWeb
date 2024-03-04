@@ -42,12 +42,17 @@
         //     });
         // });
         $(document).ready(function () {
-
             $(".select-option").click(function () {
                 $(this).siblings().removeClass("selected");
                 $(this).addClass("selected");
                 var selectedValue = $(this).data("value");
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
+
+                // Hide all item containers
+                $(".item-container").hide();
+
+                // Show the item container for the selected option
+                $("#div" + selectedValue.slice(-1)).show();
             });
 
             $(".get-selected-btn").click(function () {
@@ -56,6 +61,8 @@
                 alert("Selected value: " + selectedValue);
             });
         });
+
+
     </script>
 
     <title>สั่งซื้อสินค้า</title>
@@ -67,20 +74,16 @@
         <div class="select-option" data-value="option2">Option 2</div>
         <div class="select-option" data-value="option3">Option 3</div>
         <!-- Add more options as needed -->
-      </div>
-      <input type="hidden" class="selected-option" name="selected-option1">
-      
-      <div class="custom-select" id="custom-select2">
-        <div class="select-option" data-value="optionA">Option A</div>
-        <div class="select-option" data-value="optionB">Option B</div>
-        <div class="select-option" data-value="optionC">Option C</div>
-        <!-- Add more options as needed -->
-      </div>
-      <input type="hidden" class="selected-option" name="selected-option2">
-      
-      <button class="get-selected-btn" data-target="custom-select1">Get Selected Value 1</button>
-      <button class="get-selected-btn" data-target="custom-select2">Get Selected Value 2</button>
-      
+    </div>
+    <input type="hidden" class="selected-option" name="selected-option1">
+    <div id="div1" class="item-container" style="display: none;">Content for Option 1</div>
+    <div id="div2" class="item-container" style="display: none;">Content for Option 2</div>
+    <div id="div3" class="item-container" style="display: none;">Content for Option 3</div>
+
+    <button class="get-selected-btn" data-target="custom-select1">Get Selected Value 1</button>
+
+
+
 
 </body>
 
