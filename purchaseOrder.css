@@ -138,6 +138,13 @@ body {
 .below {
     margin-bottom: 5vh;
 }
+.d-flex {
+    justify-content: end;
+}
+#btn-order{
+    color: white;
+    background-color: orangered;
+}
 
 .address {
     text-decoration: none;
