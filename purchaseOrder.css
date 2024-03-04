@@ -169,8 +169,8 @@ body {
 }
 
 .select-option.selected {
-    background-color: #007bff;
+    background-color: #ffd900;
     color: #fff;
-    border-color: #007bff;
+    border-color: #ffd900;
     /* Border color for selected option */
 }
