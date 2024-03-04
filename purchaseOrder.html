@@ -18,6 +18,16 @@
             document.getElementById("num1").style.color = "black";
             document.getElementById("num2").style.background = "#ffd900";
             document.getElementById("num2").style.color = "white";
+            document.getElementById("page1").style.display = "none";
+            document.getElementById("page2").style.display = "block";
+        }
+        function click2() {
+            document.getElementById("num2").style.background = "white";
+            document.getElementById("num2").style.color = "black";
+            document.getElementById("num3").style.background = "#ffd900";
+            document.getElementById("num3").style.color = "white";
+            document.getElementById("page1").style.display = "block";
+            document.getElementById("page2").style.display = "none";
         }
 
         function check() {
@@ -32,15 +42,17 @@
         //     });
         // });
         $(document).ready(function () {
+
             $(".select-option").click(function () {
-                $(".select-option").removeClass("selected");
+                $(this).siblings().removeClass("selected");
                 $(this).addClass("selected");
                 var selectedValue = $(this).data("value");
-                $("#selected-option").val(selectedValue);
+                $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
             });
 
-            $("#get-selected-btn").click(function () {
-                var selectedValue = $("#selected-option").val();
+            $(".get-selected-btn").click(function () {
+                var targetCustomSelect = $(this).data("target");
+                var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
                 alert("Selected value: " + selectedValue);
             });
         });
@@ -69,7 +81,7 @@
                 </div>
             </div>
             <!-- First Page -->
-            <div class="mt-2" style="display: none;">
+            <div class="mt-2" id="page1" style="display: none;">
                 <h2 class="mb-4">รายการของคุณ</h2>
                 <div class="order bg-secondary p-2 w-80 d-flex justify-content-center">
                     <div class="container">
@@ -245,12 +257,12 @@
                 </div>
 
                 <div class="d-flex below">
-                    <button class="btn btn-warning" id="btn-order">สั่งซื้อสินค้า</button>
+                    <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
 
             <!-- Second Page -->
-            <div class="mt-3">
+            <div class="mt-3" id="page2">
                 <h2>รายละเอียดการจัดส่ง</h2>
                 <div>
                     <h3>ที่อยู่จัดส่ง</h3>
@@ -310,6 +322,44 @@
                     </table>
                 </div>
 
+                <div class="d-flex mt-3">
+                    <div>
+                        <h4>ราคารวม</h4>
+                    </div>
+                    <div class="ms-3">
+                        <p>1000฿</p>
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <div>
+                        <h4>การรับส่งสินค้า</h4>
+                    </div>
+                    <div class="ms-3">
+                        <div class="custom-select" id="custom-select2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="select-option selected col-sm-5 me-3" data-value="optionA">
+                                        <p>บริการถึงบ้าน</p>
+                                    </div>
+                                    <div class="select-option col-sm-5" data-value="optionB">
+                                        <p>รับที่ร้าน</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <input type="hidden" class="selected-option" name="selected-option2">
+                    </div>
+                </div>
+
+                
+
+                <div class="d-flex below">
+                    <button class="btn btn-warning get-selected-btn" id="btn-order" data-target="custom-select2">จ่ายสินค้า</button>
+                    <!-- onclick="click2()" -->
+                </div>
+
                 <!-- Address Modals -->
                 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
                     aria-hidden="true">
@@ -325,7 +375,7 @@
                                     class="scrollspy-example" tabindex="0">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="custom-select">
+                                            <div class="custom-select" id="custom-select1">
                                                 <div class="select-option selected" data-value="option1">
                                                     <p>นายกุนเชียง เซ้งเม้ง<br>
                                                         Tel. 000-000-0000<br>
@@ -341,33 +391,17 @@
                                                         Tel. 000-000-0000<br>
                                                         xxxxxxxxxxxxxxxxxxxxx</p>
                                                 </div>
-                                                <!-- Add more options as needed -->
                                             </div>
-                                            <input type="hidden" id="selected-option" name="selected-option">
+                                            <input type="hidden" class="selected-option" name="selected-option1">
                                             <!-- <button id="get-selected-btn">Get Selected Value</button> -->
-                                            <!-- <div class="col-sm-12">
-                                        <a class="text-black address" data-bs-toggle="modal"
-                                            data-bs-target="#addressModal">
-                                            <div class="container">
-                                                <div
-                                                    class="row d-flex justify-content-center align-items-center bg-secondary">
-                                                    <div class="col-sm-12">
-                                                        <p>นายกุนเชียง เซ้งเม้ง<br>
-                                                            Tel. 000-000-0000<br>
-                                                            xxxxxxxxxxxxxxxxxxxxx</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div> -->
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                <button type="button" class="btn btn-warning" id="get-selected-btn">ตกลง</button>
+                                <button type="button" class="btn btn-warning get-selected-btn" id="custom-select1"
+                                    data-target="custom-select1">ตกลง</button>
                             </div>
                         </div>
                     </div>
