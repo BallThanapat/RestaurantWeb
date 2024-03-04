@@ -8,6 +8,66 @@ body {
     height: auto;
 }
 
+.navbar01 {
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.header-link {
+    font-size: 2em;
+    color: #ffd900;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.header-link:hover {
+    text-decoration: none;
+    color: #ffc400;
+    transition: .8s;
+}
+
+.header-link::after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 1%;
+    bottom: 5px;
+    width: 0;
+    height: 5px;
+    border-radius: 10px;
+    background-color: #ffd900;
+    transition: width 0.7s;
+}
+
+.header-link:hover::after {
+    width: 17%;
+}
+
+.navbar01 a:hover {
+    color: #ffd900;
+    text-decoration: none;
+    width: 100%;
+    transition: .5s;
+}
+
+.header {
+    /* position: absolute; */
+    top: 0;
+    left: 50%;
+    /* transform: translate(12.5%); */
+    width: 100%;
+    padding: 20px 40px;
+    box-shadow: 5px 10px #888888;
+    /* background-color: black; */
+    /* background-color: transparent; */
+    /* backdrop-filter: blur(40px); */
+    border-radius: 16px;
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    z-index: 1;
+}
+
 .numbered-hr {
     position: relative;
     height: 40px;
@@ -27,7 +87,7 @@ body {
 }
 
 .numbered-hr .number {
-    background: white;
+    /* background: white; */
     border: 1px solid black;
     border-radius: 50%;
     width: 30px;
@@ -39,6 +99,21 @@ body {
     /* ปรับตามขนาด */
     display: inline-block;
     position: absolute;
+}
+
+.num1 {
+    background: #ffd900;
+    color: white;
+}
+
+.num2 {
+    background: white;
+    color: black;
+}
+
+.num3 {
+    background: white;
+    color: black;
 }
 
 .numbered-hr .number:nth-child(1) {
@@ -58,10 +133,37 @@ body {
 .order {
     min-height: 50vh;
     height: auto;
-    /* max-height: 50vh; */
-    /* overflow-y: auto; */
 }
 
 .below {
     margin-bottom: 5vh;
+}
+
+.address {
+    text-decoration: none;
+}
+
+.change {
+    text-decoration: underline;
+    color: blue;
+}
+
+.custom-select {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-option {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.select-option.selected {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+    /* Border color for selected option */
 }
