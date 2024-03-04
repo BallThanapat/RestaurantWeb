@@ -186,11 +186,11 @@
 }
 
 .b-item .img {
-    width: 60%;
+    width: 50%;
 }
 
 .b-item .text {
-    width: 40%;
+    width: 50%;
     font-size: 1.5em;
     display: flex;
     justify-content: center;
@@ -225,6 +225,23 @@
 
 .item img {
     width: 100%;
+}
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#0C9;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
 }
 
 /* Footer */
