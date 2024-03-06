@@ -401,9 +401,9 @@ i {
 	position: fixed;
 	width:60px;
 	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:#ff4444;
+	bottom:50px;
+	right: 50px;
+	background-color: #f71919;
 	color:#FFF;
 	border-radius:50px;
 	text-align:center;
@@ -416,11 +416,10 @@ i {
 
 .my-float{
 	font-size: 18px;
-    margin: 0 auto;
 }
 
 .float .my-float:hover{
-    color: #00ffd5;
+    color: #ff4444;
     transition: .5s;
 }
 
