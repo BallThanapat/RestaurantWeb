@@ -397,6 +397,33 @@ i {
     font-size: 36px;
 }
 
+.float{
+	position: fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#ff4444;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.my-float{
+	font-size: 18px;
+    margin: 0 auto;
+}
+
+.float .my-float:hover{
+    color: #00ffd5;
+    transition: .5s;
+}
+
 /* #buttonBar1{
     color: white;
     border-color: #f79400;
