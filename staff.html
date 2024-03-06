@@ -32,6 +32,27 @@
 </head>
 <body>
     <script>
+
+    function clickMenu(menuType) {
+        var order01 = document.getElementById('order');
+        var payment01 = document.getElementById('payment');
+        var order_history01 = document.getElementById('order-history');
+
+        if (menuType == "order") {
+            order01.style.display = 'block';
+            payment01.style.display = 'none';
+            order_history01.style.display = 'none';
+        } else if (menuType == "payment") {
+            order01.style.display = 'none';
+            payment01.style.display = 'block';
+            order_history01.style.display = 'none';
+        } else if (menuType == "order_history") {
+            order01.style.display = 'none';
+            payment01.style.display = 'none';
+            order_history01.style.display = 'block';
+        }
+    }
+
         function getCurrentDateTime() {
             var currentDateTime = new Date();
             var year = currentDateTime.getFullYear();
@@ -99,8 +120,8 @@
                 <span id="clock-icon"></span>
             </div>
             <div class="menu">
-                <div class="item"><a href=""><i class="fa-solid fa-user-pen"></i></i>ORDER</a></div>
-                <div class="item"><a href=""><i class="fa-solid fa-cash-register"></i>PAYMENT</a></div>
+                <div class="item" onclick="clickMenu('order')"><a><i class="fa-solid fa-user-pen"></i></i>ORDER</a></div>
+                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-cash-register"></i>PAYMENT</a></div>
                 <!-- <div class="item">
                     <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
                     <div class="sub-menu" id="sub-menu">
@@ -108,9 +129,9 @@
                         <a class="sub-item" onclick=""><span>Add Staff</span></a>
                     </div>
                 </div> -->
-                <div class="item" onclick=""><a href=""><i class="fa-regular fa-clipboard"></i>ORDER HISTORY</a></div>
-                <div class="item" onclick=""><a href=""><i class="fa-solid fa-utensils"></i>MENU</a></div>
-                <div class="item" onclick=""><a href=""><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
+                <div class="item" onclick="clickMenu('order_history')"><a><i class="fa-regular fa-clipboard"></i>ORDER HISTORY</a></div>
+                <div class="item" onclick=""><a><i class="fa-solid fa-utensils"></i>MENU</a></div>
+                <div class="item" onclick=""><a><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
             </div>
         </div>
 
@@ -118,7 +139,7 @@
             <div class="mainbar">
                 <div class="account-staff">Staff1</div>
             </div>
-            <div class="content" style="display: none;"> <!--  -->
+            <div class="content" id="order"> <!--  -->
                 <h1>รายการคำสั่งซื้อ</h1>
                 <div class="box-list-order">
                     <div class="order">
@@ -167,7 +188,7 @@
                 </div>
             </div>
             
-            <div class="content" style="display: none;">
+            <div class="content" id="payment">
                 <h1>ตรวจสอบการชำระเงิน</h1>
                 <div class="status-payment">
                     <div class="box-list-order">
@@ -225,7 +246,7 @@
                 </div>
             </div>
 
-            <div class="content" style="display: none;"> <!--  -->
+            <div class="content" id="order-history"> <!--  -->
                 <h1>รายการคำสั่งซื้อ</h1>
                 <div class="box-list-order">
                     <div class="order">
@@ -274,7 +295,7 @@
                 </div>
             </div>
 
-            
+
     </div>
 </body>
 </html>
