@@ -284,13 +284,12 @@ if (!empty($_GET["action"])) {
 
         <div class="pic-main">
           <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
-                <span id="span-i">> Menu</span></i></a>
+            <span id="span-i">> Menu</span></i></a>
           </span>
         </div>
-
+        
         <!-- a href="" class="links" data-bs-toggle="modal"
-                data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
-
+        data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
         <div class="menu-bar">
           <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
@@ -342,6 +341,7 @@ if (!empty($_GET["action"])) {
           <h2>เมนูแนะนำ</h2>
         </div>
 
+        <!-- เมนูแนะนำ -->
         <div class="col-menu recommend-menu" id="recommend-menu">
           <div class="row1" id="row-recommend-menu">
             <div class="col1">
@@ -656,6 +656,7 @@ if (!empty($_GET["action"])) {
     </div>
   </div>
 
+
   <div class="footer">
     <footer>
       <div class="box-footer">
@@ -696,6 +697,7 @@ if (!empty($_GET["action"])) {
       </div>
     </footer>
   </div>
-  
+
+
 </body>
 </html>

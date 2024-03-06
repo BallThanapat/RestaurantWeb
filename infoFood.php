@@ -18,7 +18,7 @@
         echo $detail['foodDetail'] . "<br>";
         echo $detail['price'] . "<br>";
         echo "<img src='" . $detail['picture'] . "' alt=''>";
-        ?>
+    ?>
 
 </body>
 </html>

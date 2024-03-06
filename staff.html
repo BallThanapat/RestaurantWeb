@@ -121,7 +121,7 @@
             </div>
             <div class="menu">
                 <div class="item" onclick="clickMenu('order')"><a><i class="fa-solid fa-user-pen"></i></i>ORDER</a></div>
-                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-cash-register"></i>PAYMENT</a></div>
+                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-cash-register"></i>CONFIRM-ORDER</a></div>
                 <!-- <div class="item">
                     <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
                     <div class="sub-menu" id="sub-menu">
@@ -151,6 +151,11 @@
                             <h6>รายการอาหาร</h6>
                             <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
                         </div>
+
+                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                        </div>
+
                         <div class="content-order order-type">
                             <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
                         </div>
@@ -172,9 +177,15 @@
                         <div class="content-order order-detail"> <!-- รายการอาหาร -->
                             
                         </div>
+
+                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                        </div>
+                        
                         <div class="content-order order-type">
                             <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
                         </div>
+
                         <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
                             <h4>Total</h4>
                             <h5>299.00฿</h5>
@@ -266,8 +277,8 @@
                             <h5>120.00฿</h5>
                         </div>
                         <div class="content-order order-btn">
-                            <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button>
+                            <!-- <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button> -->
                         </div>
                     </div>
 
@@ -287,8 +298,8 @@
                             <h5>299.00฿</h5>
                         </div>
                         <div class="content-order order-btn">
-                            <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button>
+                            <!-- <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button> -->
                         </div>
                     </div>
 
