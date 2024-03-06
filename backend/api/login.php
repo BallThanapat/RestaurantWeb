@@ -15,7 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($txt_password === $row['password']) {
 
                 session_start();
-                // echo "<script></script>";
+                // Get the session ID
+                $session_id = session_id();
+
+                // Output the session ID
+                // echo "<script>console.log('Session ID: $session_id')</script>";
                 $_SESSION['username'] = $row['id'];
                 $_SESSION['uID'] = $row['uid'];
 

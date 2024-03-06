@@ -1,5 +1,10 @@
 <?php
 session_start();
+// Get the session ID
+// $session_id = session_id();
+
+// Output the session ID
+// echo "<script>console.log('Session ID: $session_id')</script>";
 ?>
 
 
@@ -96,6 +101,7 @@ session_start();
                             <a href="menu.html" class="links nav-link" id="">เมนูทั้งหมด</a>
                         </li>
                         <?php
+                        // echo $_SESSION["username"];
                         if (isset($_SESSION["username"])) {
                             $username = $_SESSION["username"];
                             echo "<li class=\"nav-item dropdown\">
@@ -433,49 +439,49 @@ session_start();
                 Swal.fire({
                     icon: "error",
                     title: "Username must be at least 8 characters!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if (!validateEmail($("#email").val())) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "email is invalid!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#rPassword").val().length <= 8) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "Password must be at least 8 characters!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#fName").val().length <= 0) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "First name can't be empty!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#lName").val().length <= 0) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "Last name can't be empty!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#phone").val().length <= 8) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "Phone must be at least 8 characters!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#address").val().length <= 20) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "Address must be at least 20 characters!!",
-                    timer: 1000,
+                    timer: 5000,
                 });
             }
 
@@ -501,7 +507,7 @@ session_start();
                             Swal.fire({
                                 icon: "success",
                                 title: "Signup success!!",
-                                timer: 1000,
+                                timer: 5000,
                             });
                             window.location.href = "./test.php";
 
@@ -509,7 +515,7 @@ session_start();
                             Swal.fire({
                                 icon: "error",
                                 title: "Signup failed!!",
-                                timer: 1000,
+                                timer: 5000,
                             });
                         }
                     },
@@ -527,14 +533,14 @@ session_start();
                 Swal.fire({
                     icon: "error",
                     title: "Please insert username",
-                    timer: 1000,
+                    timer: 5000,
                 });
             } else if ($("#lPassword").val().length <= 0) {
                 pass = false;
                 Swal.fire({
                     icon: "error",
                     title: "Please insert username",
-                    timer: 1000,
+                    timer: 5000,
                 });
             }
             if (pass) {
@@ -557,7 +563,7 @@ session_start();
                             Swal.fire({
                                 icon: "success",
                                 title: "Login success!!",
-                                timer: 1000,
+                                timer: 5000,
                             });
                             window.location.href = "./test.php";
                             // window.location.href = "./menu.html";
@@ -566,7 +572,7 @@ session_start();
                             Swal.fire({
                                 icon: "error",
                                 title: "Something went wrong!",
-                                timer: 1000,
+                                timer: 5000,
                             });
                         }
                     },
@@ -581,12 +587,23 @@ session_start();
 
         function gotologout() {
             console.log("go to logout");
-            <?php
-            unset($_SESSION['username']);
-            unset($_SESSION['uID']);
-            session_destroy();
-            ?>
-            window.location.href = "./test.php";
+            $.ajax({
+                url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
+                type: "POST",
+                success: function (response) {
+                    // Redirect to the login page or perform any other actions after logout
+                    Swal.fire({
+                        icon: "success",
+                        title: "Logout success!!",
+                        timer: 5000,
+                    });
+                    window.location.href = "./test.php";
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if AJAX request fails
+                    console.log("AJAX Error: " + error);
+                }
+            });
         }
     </script>
 </body>

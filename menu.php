@@ -4,30 +4,34 @@ require_once('menuController.php');
 $db_handle = new MenuControll();
 
 if (!empty($_GET["action"])) {
-    switch ($_GET["action"]) {
-        case "add":
-            if (!empty($_GET["foodDetail"]) && !empty($_GET["quantity"])) {
-                $productByDetail = $db_handle->runQuery("SELECT * FROM menu where foodDetail='" . $_GET["foodDetail"] . "'");
-                $itemArray = array($productByDetail[0]["foodDetail"] => (array(
-                    'foodName' => $productByDetail[0]["foodName"],
-                    'foodDetail' => $productByDetail[0]["foodDetail"],
-                    'quantity' => $_GET["quantity"],
-                    'price' => $productByDetail[0]["price"],
-                    'picture' => $productByDetail[0]["picture"]
-                )));
+  switch ($_GET["action"]) {
+    case "add":
+      if (!empty($_GET["foodDetail"]) && !empty($_GET["quantity"])) {
+        $productByDetail = $db_handle->runQuery("SELECT * FROM menu where foodDetail='" . $_GET["foodDetail"] . "'");
+        $itemArray = array(
+          $productByDetail[0]["foodDetail"] => (
+            array(
+              'foodName' => $productByDetail[0]["foodName"],
+              'foodDetail' => $productByDetail[0]["foodDetail"],
+              'quantity' => $_GET["quantity"],
+              'price' => $productByDetail[0]["price"],
+              'picture' => $productByDetail[0]["picture"]
+            )
+          )
+        );
 
-                if (!empty($_SESSION["cart_item"])) {
-                    if (array_key_exists($productByDetail[0]["foodDetail"], $_SESSION["cart_item"])) {
-                        $_SESSION["cart_item"][$productByDetail[0]["foodDetail"]]["quantity"] += $_GET["quantity"];
-                    } else {
-                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
-                    }
-                } else {
-                    $_SESSION["cart_item"] = $itemArray;
-                }
-            }
-            break;
-    }
+        if (!empty($_SESSION["cart_item"])) {
+          if (array_key_exists($productByDetail[0]["foodDetail"], $_SESSION["cart_item"])) {
+            $_SESSION["cart_item"][$productByDetail[0]["foodDetail"]]["quantity"] += $_GET["quantity"];
+          } else {
+            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
+          }
+        } else {
+          $_SESSION["cart_item"] = $itemArray;
+        }
+      }
+      break;
+  }
 }
 ?>
 <!DOCTYPE html>
@@ -181,17 +185,17 @@ if (!empty($_GET["action"])) {
     }
 
     function addToCart(foodDetail) {
-            var quantity = document.getElementById("quantity_" + foodDetail).value;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    alert("เพิ่มสินค้าสำเร็จ");
-                }
-            };
-            xhr.send();
+      var quantity = document.getElementById("quantity_" + foodDetail).value;
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          alert("เพิ่มสินค้าสำเร็จ");
         }
+      };
+      xhr.send();
+    }
   </script>
 
   <header class="header">
@@ -282,312 +286,348 @@ if (!empty($_GET["action"])) {
     </div>
   </div>
 
-        <div class="pic-main">
-          <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
-                <span id="span-i">> Menu</span></i></a>
-          </span>
-        </div>
+  <div class="pic-main">
+    <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
+          <span id="span-i">> Menu</span></i></a>
+    </span>
+  </div>
 
-        <!-- a href="" class="links" data-bs-toggle="modal"
+  <!-- a href="" class="links" data-bs-toggle="modal"
                 data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
 
-        <div class="menu-bar">
-          <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/recommend.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">เมนูแนะนำ</div>
-          </div>
-
-          <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/friedFood.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">เมนูทอด</div>
-          </div>
-
-          <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
-          </div>
-          <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
-            </div>
-            <div class="menu-box-bar-content">อาหารทะเล</div>
-          </div>
-          <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
-            </div>
-            <div class="menu-box-bar-content">สเต็ก</div>
-          </div>
-          <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/dessert2.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">ของหวาน</div>
-          </div>
-          <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
-            </div>
-            <div class="menu-box-bar-content">เครื่องดื่ม</div>
-          </div>
-        </div>
-        <div class="menu-bar-recommend" id="menu-bar-topic">
-          <h2>เมนูแนะนำ</h2>
-        </div>
-
-        <div class="col-menu recommend-menu" id="recommend-menu">
-          <div class="row1" id="row-recommend-menu">
-            <div class="col1">
-              <div class="col1-sub">
-                <img src="Image_inventory/Menu/TomyumChonChon.webp" alt="" />
-              </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
-                <div class="col1-sub-content-2">THB 229.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub">
-                <a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1" /></a>
-              </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
-                <div class="col1-sub-content-2">THB 429.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub">
-                <img src="Image_inventory/Menu/TalayHot1.webp" alt="" />
-              </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">ทะเลเดือด</div>
-                <div class="col1-sub-content-2">THB 329.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-menu fried-menu" id="fried-menu">
-          <div class="row1" id="row-fried-menu" style="display: none;">
-          <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub" ><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt="" ></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
-              </div>
-              <?php
-                      }
-                  }
-              ?>
-          
-          </div>
+  <div class="menu-bar">
+    <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/recommend.png" alt="" />
       </div>
+      <div class="menu-box-bar-content">เมนูแนะนำ</div>
+    </div>
+
+    <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/friedFood.png" alt="" />
+      </div>
+      <div class="menu-box-bar-content">เมนูทอด</div>
+    </div>
+
+    <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
+      </div>
+      <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
+    </div>
+    <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
+      </div>
+      <div class="menu-box-bar-content">อาหารทะเล</div>
+    </div>
+    <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
+      </div>
+      <div class="menu-box-bar-content">สเต็ก</div>
+    </div>
+    <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/dessert2.png" alt="" />
+      </div>
+      <div class="menu-box-bar-content">ของหวาน</div>
+    </div>
+    <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
+      </div>
+      <div class="menu-box-bar-content">เครื่องดื่ม</div>
+    </div>
+  </div>
+  <div class="menu-bar-recommend" id="menu-bar-topic">
+    <h2>เมนูแนะนำ</h2>
+  </div>
+
+  <div class="col-menu recommend-menu" id="recommend-menu">
+    <div class="row1" id="row-recommend-menu">
+      <div class="col1">
+        <div class="col1-sub">
+          <img src="Image_inventory/Menu/TomyumChonChon.webp" alt="" />
+        </div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
+          <div class="col1-sub-content-2">THB 229.00</div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub">
+          <a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1" /></a>
+        </div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
+          <div class="col1-sub-content-2">THB 429.00</div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub">
+          <img src="Image_inventory/Menu/TalayHot1.webp" alt="" />
+        </div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1">ทะเลเดือด</div>
+          <div class="col1-sub-content-2">THB 329.00</div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+
+      <div class="col1">
+        <div class="col1-sub"></div>
+        <div class="col1-sub-content">
+          <div class="col1-sub-content-1"></div>
+          <div class="col1-sub-content-2"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-menu fried-menu" id="fried-menu">
+    <div class="row1" id="row-fried-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
+              </div>
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
 
   <!-- เมนูยำ/ต้ม -->
-      <div class="col-menu soup-menu" id="soup-menu">
-          <div class="row1" id="row-soup-menu" style="display: none;">
-              <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'soup' or type = 'yum' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
+  <div class="col-menu soup-menu" id="soup-menu">
+    <div class="row1" id="row-soup-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'soup' or type = 'yum' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
               </div>
-              <?php
-                      }
-                  }
-              ?>
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
           </div>
-      </div>
+          <?php
+        }
+      }
+      ?>
+    </div>
+  </div>
 
   <!-- เมนูทะเล -->
-      <div class="col-menu seafood-menu" id="seafood-menu">
-          <div class="row1" id="row-seafood-menu" style="display: none;">
-              <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'seafood' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
+  <div class="col-menu seafood-menu" id="seafood-menu">
+    <div class="row1" id="row-seafood-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'seafood' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
               </div>
-              <?php
-                      }
-                  }
-              ?>
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
           </div>
-      </div>
+          <?php
+        }
+      }
+      ?>
+    </div>
+  </div>
 
   <!-- เมนูเสต็ก-->
-      <div class="col-menu steak-menu" id="steak-menu">
-          <div class="row1" id="row-steak-menu" style="display: none;">
-              <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'steak' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
+  <div class="col-menu steak-menu" id="steak-menu">
+    <div class="row1" id="row-steak-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'steak' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
               </div>
-              <?php
-                      }
-                  }
-              ?>
-          
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
           </div>
-      </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
 
   <!-- เมนูของหวาน -->
-      <div class="col-menu dessert-menu" id="dessert-menu">
-          <div class="row1" id="row-dessert-menu" style="display: none;">
-              <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'dessert' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
+  <div class="col-menu dessert-menu" id="dessert-menu">
+    <div class="row1" id="row-dessert-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'dessert' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
               </div>
-              <?php
-                      }
-                  }
-              ?>
-          
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
           </div>
-      </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
 
   <!-- เมนูเครื่องดื่ม -->
-      <div class="col-menu drink-menu" id="drink-menu">
-          <div class="row1" id="row-drink-menu" style="display: none;">
-              <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'drink' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
+  <div class="col-menu drink-menu" id="drink-menu">
+    <div class="row1" id="row-drink-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'drink' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
               </div>
-              <?php
-                      }
-                  }
-              ?>
-          
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
           </div>
-      </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
 
   <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
     <i class="fa-solid fa-cart-shopping my-float"></i>
@@ -656,46 +696,47 @@ if (!empty($_GET["action"])) {
     </div>
   </div>
 
-        <div class="footer">
-          <footer>
-            <div class="box-footer">
-              <div class="row">
-                <div class="col">
-                  <h2>KhunGame Restaurant</h2>
-                  <br />
-                  <p class="icontext">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-                    vel quia facilis a hic aut laudantium, repudiandae doloribus
-                    alias! Accusamus, asperiores similique voluptatum consequatur
-                    dolorem praesentium modi
-                  </p>
-                  <p class="icon">
-                    <a href="#"><i class="fa-solid fa-phone"></i></a>
-                    <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                  </p>
-                </div>
-                <div class="col">
-                  <h2>FIND OUR RESTAURANT</h2>
-                  <p class="icontext">
-                    <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-                    สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
-                    แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
-                  </p>
-                </div>
-                <div class="col" id="col3">
-                  <h2>WORKING HOURS</h2>
-                  <br />
-                  <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
-                  <br /><br />
-                  <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
-                </div>
-              </div>
-              <!-- <h1>LET ME COOK Restaurant</h1><br> -->
-            </div>
-          </footer>
+  <div class="footer">
+    <footer>
+      <div class="box-footer">
+        <div class="row">
+          <div class="col">
+            <h2>KhunGame Restaurant</h2>
+            <br />
+            <p class="icontext">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
+              vel quia facilis a hic aut laudantium, repudiandae doloribus
+              alias! Accusamus, asperiores similique voluptatum consequatur
+              dolorem praesentium modi
+            </p>
+            <p class="icon">
+              <a href="#"><i class="fa-solid fa-phone"></i></a>
+              <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </p>
+          </div>
+          <div class="col">
+            <h2>FIND OUR RESTAURANT</h2>
+            <p class="icontext">
+              <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
+              สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
+              แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
+            </p>
+          </div>
+          <div class="col" id="col3">
+            <h2>WORKING HOURS</h2>
+            <br />
+            <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
+            <br /><br />
+            <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
+          </div>
         </div>
+        <!-- <h1>LET ME COOK Restaurant</h1><br> -->
+      </div>
+    </footer>
+  </div>
 
 </body>
+
 </html>
