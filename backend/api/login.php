@@ -13,11 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($num == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($txt_password === $row['password']) {
+
+                session_start();
+                $_SESSION['username'] = $row['id'];
+                $_SESSION['uID'] = $row['uid'];
+
                 $object = new stdClass();
                 $object->RespCode = 200;
                 $object->RespMessage = 'loginsuccess';
                 $object->RespUsername = $row['id'];
                 $object->RespUid = $row['uid'];
+
+
+
             } else {
                 $object = new stdClass();
                 $object->RespCode = 400;
