@@ -53,7 +53,43 @@
             updateDateTime();
             setInterval(updateDateTime, 1000);
         });
+
+        function viewPay(clickImg){
+
+            // var img = document.getElementById('img-payment');
+            var modal_img = document.getElementById('modalBodyContent');
+            var delImg = modal_img.querySelector('img');
+            // console.log(img);
+            // console.log(view_payment);
+            if (delImg) {
+                    delImg.remove();
+                }
+                var imgClone = clickImg.cloneNode(true);
+                modal_img.appendChild(imgClone);
+        }
+                
     </script>
+
+    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="staticBackdropLabel">หลักฐานการชำระเงิน</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalBodyContent">
+            <!-- ร -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------- -->
 
     <div class="adminmain">
         <div class="sidebar">
@@ -82,7 +118,7 @@
             <div class="mainbar">
                 <div class="account-staff">Staff1</div>
             </div>
-            <div class="content">
+            <div class="content" style="display: none;"> <!--  -->
                 <h1>รายการคำสั่งซื้อ</h1>
                 <div class="box-list-order">
                     <div class="order">
@@ -130,7 +166,115 @@
 
                 </div>
             </div>
-        </div>
+            
+            <div class="content" style="display: none;">
+                <h1>ตรวจสอบการชำระเงิน</h1>
+                <div class="status-payment">
+                    <div class="box-list-order">
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6> 
+                                <h1>0001</h1>
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                            </div>
+                            <div class="content-order order-type">
+                                <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>120.00฿</h5>
+                            </div>
+
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                                <button class="btn btn-danger mt-2">Decline</button>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                    <div class="box-list-order">
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6> 
+                                <h1>0002</h1>
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/BGRestau1.jpg" alt="" id="img-payment">
+                            </div>
+                            <div class="content-order order-type">
+                                <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>120.00฿</h5>
+                            </div>
+
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                                <button class="btn btn-danger mt-2">Decline</button>
+                            </div>
+                        </div>
+    
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content" style="display: none;"> <!--  -->
+                <h1>รายการคำสั่งซื้อ</h1>
+                <div class="box-list-order">
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6> 
+                            <h1>0199</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                            <h6>รายการอาหาร</h6>
+                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                        </div>
+                        <div class="content-order order-type">
+                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>120.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button>
+                        </div>
+                    </div>
+
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6>
+                            <h1>0200</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                            
+                        </div>
+                        <div class="content-order order-type">
+                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>299.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
     </div>
 </body>
 </html>

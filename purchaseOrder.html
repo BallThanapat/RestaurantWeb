@@ -302,7 +302,7 @@
                 <h4>รายละเอียดการจัดส่ง</h4>
                 <div class="mt-3">
                     <div>
-                        <h5>การรับส่งสินค้า</h5>
+                        <h5 style="text-align: center;">เลือกรูปแบบการรับสินค้า</h5>
                     </div>
                     <div class="ms-3">
                         <div class="custom-select" id="custom-select1">
@@ -399,7 +399,7 @@
 
                 <div class="d-flex below mt-3">
                     <button class="btn btn-secondary me-1" onclick="back1()">ย้อนกลับ</button>
-                    <button class="btn get-selected-btn" id="btn-order" data-target="custom-select2">จ่ายสินค้า</button>
+                    <button class="btn get-selected-btn" id="btn-order" data-target="custom-select2">ชำระเงิน</button>
                     <!-- onclick="click2()" -->
                 </div>
 
@@ -450,7 +450,7 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                <button type="button" class="btn get-selected-btn" id="custom-select1"
+                                <button type="button" class="btn get-selected-btn" id="custom-select1" style="background-color: #ff7b00; color: white;"
                                     data-target="custom-select1">ตกลง</button>
                             </div>
                         </div>
@@ -460,24 +460,23 @@
 
             <!-- Third Page -->
             <div class="mt-2 mb-5" id="page3" style="display: none;">
-                <h2 class="mb-4">ชำระสินค้า</h2>
+                <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
                 <div class="container">
                     <div class="row">
                         <div class="qr-payment">
                             <img src="Image_inventory/PurchaseOrder/payment.png">
                         </div>
-                        <div class="col-sm-5 h-auto d-flex justify-content-center align-items-center">
+                        <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
                             <div class="contanier">
                                 <div class="row">
                                     <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
                                     <form class="col-sm-8 d-flex justify-content-center">
                                         <input type="file" class="input-file" />
                                     </form>
-                                    <div class="d-flex below mt-3">
+                                    <div class="pay-btn">
                                         <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                        <button class="btn bg-success get-selected-btn" id="btn-order"
-                                            data-target="custom-select2">ตกลง</button>
-                                        <!-- onclick="click2()" -->
+                                        <button class="btn get-selected-btn" id="btn-order"
+                                            data-target="custom-select2">ยืนยัน</button>
                                     </div>
                                 </div>
                             </div>
