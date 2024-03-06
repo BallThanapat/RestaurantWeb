@@ -85,7 +85,9 @@
         border-radius: 0px;
     }
 }
+
 @media screen and (max-width: 700px) {
+
     /* .header {
         position: relative;
         width: 100%;
@@ -96,6 +98,7 @@
         font-size: 1.5em;
     }
 }
+
 @media screen and (max-width: 350px) {
     .header-link {
         font-size: 1em;
@@ -152,45 +155,12 @@
     z-index: 1;
 }
 
-@media screen and (max-width: 1250px) {
-    .bgImg .box-text {
-        width: 50%;
-        left: 50%;
-    } 
-}
-@media screen and (max-width: 1100px) {
-    .bgImg .box-text {
-        width: 75%;
-        left: 45%;
-    } 
-}
-@media screen and (max-width: 1000px) {
-    .box-text h1 {
-        font-size: 3rem;
-    }
-    .box-text p, .box-text button {
-        font-size: 0.75rem;
-    }
-    .box-text button {
-        width: 20%;
-    }
-}
-@media screen and (max-width: 800px) {
-    .box-text h1 {
-        font-size: 2rem;
-    }
-    .box-text p, .box-text button {
-        font-size: 0.5rem;
-    }
-    .box-text button {
-        width: 20%;
-    }
-}
 
 
-.page3 .box-text {
+
+/* .page3 .box-text {
     left: 75%;
-}
+} */
 
 .page2 .box-text {
     left: 50%;
@@ -239,6 +209,64 @@
     max-height: 120vh;
 }
 
+@media screen and (max-width: 1250px) {
+    .bgImg .box-text {
+        width: 50%;
+        left: 50%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .box-text h1 {
+        font-size: 3rem;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .box-text h1 {
+        font-size: 3rem;
+    }
+
+    .box-text p,
+    .box-text button {
+        font-size: 0.75rem;
+    }
+
+    .box-text button {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .box-text h1 {
+        font-size: 2rem;
+    }
+
+    .box-text p,
+    .box-text button {
+        font-size: 0.5rem;
+    }
+
+    .box-text button {
+        width: 20%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .box-text h1 {
+        font-size: 0.75rem;
+    }
+
+    .box-text p,
+    .box-text button {
+        font-size: 0.15rem;
+    }
+
+    .box-text button {
+        width: 10%;
+    }
+}
+
 /* Modals */
 /* .modal-lg {
     width: 100vh;
@@ -266,8 +294,9 @@
 /* Footer */
 footer {
     height: auto;
-    background-color:#000000;
+    background-color: #000000;
 }
+
 .footer {
     width: 100%;
     /* padding: 20px; */

@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,18 +13,6 @@
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script> -->
 
   <!-- Font Header-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -85,7 +77,7 @@
   <header class="header">
     <nav class="navbar navbar-expand-xxl navbar-dark">
       <div class="container-fluid">
-        <a href="index.html" class="header-link">KITCHENHOME</a>
+        <a href="index.php" class="header-link">KITCHENHOME</a>
         <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
           aria-label="Toggle navigation">
@@ -94,20 +86,36 @@
         <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a href="index.html" class="links nav-link" id="">หน้าแรก</a>
+              <a href="index.php" class="links nav-link" id="">หน้าแรก</a>
             </li>
             <li class="nav-item">
-              <a href="promotion.html" class="links nav-link" id="">โปรโมชั่น</a>
+              <a href="promotion.php" class="links nav-link" id="">โปรโมชั่น</a>
             </li>
             <li class="nav-item">
               <a href="menu.php" class="links nav-link" id="">เมนูทั้งหมด</a>
             </li>
+            <?php
+            if (isset($_SESSION["username"])) {
+              $username = $_SESSION["username"];
+              echo "<li class=\"nav-item dropdown\">
+                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            $username
+                            </a>
+                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                            </ul>
+                        </li>";
+            } else {
+              echo "<li class=\"nav-item\">
+                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
+                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                            </li>";
+            }
+            ?>
             <li class="nav-item">
-              <a href="" class="links nav-link" data-bs-toggle="modal"
-                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-            </li>
-            <li class="nav-item">
-              <a href="contractUs.html" class="links nav-link" id="">ติดต่อเรา</a>
+              <a href="contractUs.php" class="links nav-link" id="">ติดต่อเรา</a>
             </li>
           </ul>
         </div>
@@ -194,17 +202,6 @@
             </div>
           </form>
         </div>
-        <!-- <div class="modal-footer d-flex justify-content-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-success" id="btnlogin">Submit</button>
-            <button onclick="gotosignup()" type="button" class="btn btn-warning" id="btnsignup" style="display: none">Submit</button>
-          </div> -->
       </div>
     </div>
   </div>
@@ -291,12 +288,12 @@
   </div>
 
   <div class="bgImg page3">
-    <div class="shadow-tab"></div>
+    <!-- <div class="shadow-tab"></div> -->
     <img src="Image_inventory/Home/BGRestau5.png" alt="" width="100%" />
     <div class="box-text">
       <h1>Menu</h1>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
+        Lorem ipsum dolor sit,asda amet consectetur adipisicing elit. Est,
         asperiores nulla? Temporibus iste perspiciatis, excepturi error,
         ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
         similique? Similique alias cum eos! Fuga optio facilis itaque velit
@@ -307,7 +304,6 @@
       <button type="button" class="btn btn-warning" id="btn1">
         ดูเมนูทั้งหมด
       </button>
-      <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
     </div>
   </div>
 
@@ -335,7 +331,6 @@
       <button type="button" class="btn btn-outline-warning" id="btn1">
         รับที่ร้าน
       </button>
-      <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
     </div>
   </div>
 
@@ -348,7 +343,6 @@
         ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
       </p>
       <i class="bi bi-facebook"></i>
-      <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
     </div>
   </div>
 
@@ -413,49 +407,49 @@
         Swal.fire({
           icon: "error",
           title: "Username must be at least 8 characters!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if (!validateEmail($("#email").val())) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "email is invalid!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#rPassword").val().length <= 8) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "Password must be at least 8 characters!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#fName").val().length <= 0) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "First name can't be empty!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#lName").val().length <= 0) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "Last name can't be empty!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#phone").val().length <= 8) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "Phone must be at least 8 characters!!",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#address").val().length <= 20) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "Address must be at least 20 characters!!",
-          timer: 1000,
+          timer: 5000,
         });
       }
 
@@ -474,24 +468,33 @@
           },
           success: function (response) {
             console.log("good", response);
-            var responseObject = JSON.parse(response);
-            console.log(responseObject.RespCode);
-            if (responseObject.RespCode == 200) {
+            try {
+              var responseObject = JSON.parse(response);
+              console.log(responseObject.RespCode);
+              if (responseObject.RespCode == 200) {
 
-              localStorage.setItem("username", responseObject.RespUsername);
-              
-              Swal.fire({
-                icon: "success",
-                title: "Signup success!!",
-                timer: 1000,
-              });
-            } else if (responseObject.RespCode == 400) {
+                Swal.fire({
+                  icon: "success",
+                  title: "Signup success!!",
+                  timer: 5000,
+                });
+                window.location.href = "./index.php";
+
+              } else if (responseObject.RespCode == 400) {
+                Swal.fire({
+                  icon: "error",
+                  title: "Signup failed!!",
+                  timer: 5000,
+                });
+              }
+            } catch (error) {
               Swal.fire({
                 icon: "error",
-                title: "Signup failed!!",
-                timer: 1000,
+                title: "Something went wrong!",
+                timer: 5000,
               });
             }
+
           },
           error: function (err) {
             console.log("badmakmak", err);
@@ -507,14 +510,14 @@
         Swal.fire({
           icon: "error",
           title: "Please insert username",
-          timer: 1000,
+          timer: 5000,
         });
       } else if ($("#lPassword").val().length <= 0) {
         pass = false;
         Swal.fire({
           icon: "error",
           title: "Please insert username",
-          timer: 1000,
+          timer: 5000,
         });
       }
       if (pass) {
@@ -529,24 +532,34 @@
           success: (response) => {
             console.log("valid", response);
             console.log(response);
-            var responseObject = JSON.parse(response);
-            if (responseObject.RespCode == 200) {
-              localStorage.setItem("username", responseObject.RespUsername);
-              localStorage.setItem("uid", responseObject.RespUid);
-              Swal.fire({
-                icon: "success",
-                title: "Login success!!",
-                timer: 1000,
-              });
-              window.location.href = "./menu.php";
-            } else {
-              console.log('test1')
+            try {
+              var responseObject = JSON.parse(response);
+              if (responseObject.RespCode == 200) {
+
+                localStorage.setItem("username", responseObject.RespUsername);
+                localStorage.setItem("uid", responseObject.RespUid);
+                Swal.fire({
+                  icon: "success",
+                  title: "Login success!!",
+                  timer: 5000,
+                });
+                window.location.href = "./index.php";
+              } else {
+                console.log('test1')
+                Swal.fire({
+                  icon: "error",
+                  title: "Something went wrong!",
+                  timer: 5000,
+                });
+              }
+            } catch (error) {
               Swal.fire({
                 icon: "error",
                 title: "Something went wrong!",
-                timer: 1000,
+                timer: 5000,
               });
             }
+
           },
           error: (err) => {
             console.log('test1')
@@ -555,6 +568,27 @@
           },
         });
       }
+    }
+
+    function gotologout() {
+      console.log("go to logout");
+      $.ajax({
+        url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
+        type: "POST",
+        success: function (response) {
+          // Redirect to the login page or perform any other actions after logout
+          Swal.fire({
+            icon: "success",
+            title: "Logout success!!",
+            timer: 5000,
+          });
+          window.location.href = "./index.php";
+        },
+        error: function (xhr, status, error) {
+          // Handle error if AJAX request fails
+          console.log("AJAX Error: " + error);
+        }
+      });
     }
   </script>
 </body>

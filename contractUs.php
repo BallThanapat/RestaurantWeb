@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +81,7 @@
     <header class="header">
         <nav class="navbar navbar-expand-xxl navbar-dark">
             <div class="container-fluid">
-                <a href="index.html" class="header-link">KITCHENHOME</a>
+                <a href="index.php" class="header-link">KITCHENHOME</a>
                 <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -86,43 +90,60 @@
                 <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="index.html" class="links nav-link" id="">หน้าแรก</a>
+                            <a href="index.php" class="links nav-link" id="">หน้าแรก</a>
                         </li>
                         <li class="nav-item">
-                            <a href="promotion.html" class="links nav-link" id="">โปรโมชั่น</a>
+                            <a href="promotion.php" class="links nav-link" id="">โปรโมชั่น</a>
                         </li>
                         <li class="nav-item">
                             <a href="menu.php" class="links nav-link" id="">เมนูทั้งหมด</a>
                         </li>
+                        <?php
+                        if (isset($_SESSION["username"])) {
+                            $username = $_SESSION["username"];
+                            echo "<li class=\"nav-item dropdown\">
+                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            $username
+                            </a>
+                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                            </ul>
+                        </li>";
+                        } else {
+                            echo "<li class=\"nav-item\">
+                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
+                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                            </li>";
+                        }
+                        ?>
                         <li class="nav-item">
-                            <a href="" class="links nav-link" data-bs-toggle="modal"
-                                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="contractUs.html" class="links nav-link" id="">ติดต่อเรา</a>
+                            <a href="contractUs.php" class="links nav-link" id="">ติดต่อเรา</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-
     <!-- Login/Register Modals -->
     <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginRegisModalLabel">KhunGame Restaurant</h5>
+                    <h5 class="modal-title" id="loginRegisModalLabel">
+                        KhunGame Restaurant
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
-                            checked>
+                            checked />
                         <label class="btn btn-outline-warning" id="buttonBar1" for="btnradio1">Login</label>
 
-                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off">
+                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off" />
                         <label class="btn btn-outline-warning" id="buttonBar2" for="btnradio2">Register</label>
                     </div>
 
@@ -130,53 +151,62 @@
                     <form id="form1">
                         <div class="mb-3">
                             <label for="uNameOrEmail" class="col-form-label">Username/Email:</label>
-                            <input type="text" class="form-control" id="uNameOrEmail">
+                            <input type="text" class="form-control" id="uNameOrEmail" />
                         </div>
                         <div class="mb-3">
                             <label for="lPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="lPassword">
+                            <input type="password" class="form-control" id="lPassword" />
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin()">
+                                Submit
+                            </button>
                         </div>
                     </form>
 
                     <!-- Register Form -->
-                    <form id="form2" style="display: none;">
+                    <form id="form2" style="display: none">
                         <div class="mb-3">
                             <label for="uName" class="col-form-label">Username:</label>
-                            <input type="text" class="form-control" id="uName">
+                            <input type="text" class="form-control" id="uName" />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="col-form-label">Email:</label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" class="form-control" id="email" />
                         </div>
                         <div class="mb-3">
                             <label for="rPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="rPassword">
+                            <input type="password" class="form-control" id="rPassword" />
                         </div>
                         <div class="mb-3">
                             <label for="fName" class="col-form-label">ชื่อ:</label>
-                            <input type="text" class="form-control" id="fName">
+                            <input type="text" class="form-control" id="fName" />
                         </div>
                         <div class="mb-3">
                             <label for="lName" class="col-form-label">นามสกุล:</label>
-                            <input type="text" class="form-control" id="lName">
+                            <input type="text" class="form-control" id="lName" />
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="col-form-label">เบอร์โทร:</label>
-                            <input type="text" class="form-control" id="phone">
+                            <input type="text" class="form-control" id="phone" />
                         </div>
-                        <div class="mb-3">
-                            <label for="dob" class="col-form-label">วันเกิด:</label>
-                            <input type="date" class="form-control" id="dob">
-                        </div>
+                        <!-- <div class="mx -->
                         <div class="mb-3">
                             <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
-                            <input type="text" class="form-control" id="address">
+                            <input type="text" class="form-control" id="address" />
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button onclick="gotosignup()" type="button" class="btn btn-warning" id="btnsignup">
+                                Submit
+                            </button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning">Submit</button>
                 </div>
             </div>
         </div>
@@ -262,7 +292,211 @@
             </div>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        //email valudation
+        const validateEmail = (email) => {
+            return email.match(
+                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+            );
+        };
 
+        // register example
+        function gotosignup() {
+            //ฝากไปทำ validate หน่อยนะ frontend
+            var pass = true;
+            if ($("#uName").val().length <= 8) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Username must be at least 8 characters!!",
+                    timer: 5000,
+                });
+            } else if (!validateEmail($("#email").val())) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "email is invalid!!",
+                    timer: 5000,
+                });
+            } else if ($("#rPassword").val().length <= 8) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Password must be at least 8 characters!!",
+                    timer: 5000,
+                });
+            } else if ($("#fName").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "First name can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#lName").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Last name can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#phone").val().length <= 8) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Phone must be at least 8 characters!!",
+                    timer: 5000,
+                });
+            } else if ($("#address").val().length <= 20) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Address must be at least 20 characters!!",
+                    timer: 5000,
+                });
+            }
+
+            if (pass) {
+                $.ajax({
+                    method: "post",
+                    url: "./backend/api/signup.php",
+                    data: {
+                        username: $("#uName").val(),
+                        password: $("#rPassword").val(),
+                        email: $("#email").val(),
+                        firstname: $("#fName").val(),
+                        lastname: $("#lName").val(),
+                        phone: $("#phone").val(),
+                        address: $("#address").val(),
+                    },
+                    success: function (response) {
+                        console.log("good", response);
+                        try {
+                            var responseObject = JSON.parse(response);
+                            console.log(responseObject.RespCode);
+                            if (responseObject.RespCode == 200) {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Signup success!!",
+                                    timer: 5000,
+                                });
+                                window.location.href = "./index.php";
+
+                            } else if (responseObject.RespCode == 400) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Signup failed!!",
+                                    timer: 5000,
+                                });
+                            }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Something went wrong!",
+                                timer: 5000,
+                            });
+                        }
+
+                    },
+                    error: function (err) {
+                        console.log("badmakmak", err);
+                    },
+                });
+            }
+        }
+
+        function gotologin() {
+            var pass = true;
+            if ($("#uNameOrEmail").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Please insert username",
+                    timer: 5000,
+                });
+            } else if ($("#lPassword").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Please insert username",
+                    timer: 5000,
+                });
+            }
+            if (pass) {
+                console.log("go to login...");
+                $.ajax({
+                    method: "post",
+                    url: "./backend/api/login.php",
+                    data: {
+                        username: $("#uNameOrEmail").val(),
+                        password: $("#lPassword").val(),
+                    },
+                    success: (response) => {
+                        console.log("valid", response);
+                        console.log(response);
+                        try {
+                            var responseObject = JSON.parse(response);
+                            if (responseObject.RespCode == 200) {
+
+                                localStorage.setItem("username", responseObject.RespUsername);
+                                localStorage.setItem("uid", responseObject.RespUid);
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Login success!!",
+                                    timer: 5000,
+                                });
+                                window.location.href = "./index.php";
+                                // window.location.href = "./menu.html";
+                            } else {
+                                console.log('test1')
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 5000,
+                                });
+                            }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Something went wrong!",
+                                timer: 5000,
+                            });
+                        }
+
+                    },
+                    error: (err) => {
+                        console.log('test1')
+
+                        console.log("error", err);
+                    },
+                });
+            }
+        }
+
+        function gotologout() {
+            console.log("go to logout");
+            $.ajax({
+                url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
+                type: "POST",
+                success: function (response) {
+                    // Redirect to the login page or perform any other actions after logout
+                    Swal.fire({
+                        icon: "success",
+                        title: "Logout success!!",
+                        timer: 5000,
+                    });
+                    window.location.href = "./index.php";
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if AJAX request fails
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
