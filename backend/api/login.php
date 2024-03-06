@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             if ($txt_password === $row['password']) {
 
                 session_start();
+                // echo "<script></script>";
                 $_SESSION['username'] = $row['id'];
                 $_SESSION['uID'] = $row['uid'];
 
