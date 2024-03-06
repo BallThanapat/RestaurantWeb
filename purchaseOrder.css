@@ -279,3 +279,13 @@ iframe {
 label {
     border-radius: 1px;
 }
+
+.pay-btn{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin-top: 2%;
+    /* border: 1px solid salmon; */
+}
