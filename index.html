@@ -179,10 +179,7 @@
               <label for="phone" class="col-form-label">เบอร์โทร:</label>
               <input type="text" class="form-control" id="phone" />
             </div>
-            <div class="mb-3">
-              <label for="dob" class="col-form-label">วันเกิด:</label>
-              <input type="date" class="form-control" id="dob" />
-            </div>
+            <!-- <div class="mx -->
             <div class="mb-3">
               <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
               <input type="text" class="form-control" id="address" />
@@ -480,7 +477,9 @@
             var responseObject = JSON.parse(response);
             console.log(responseObject.RespCode);
             if (responseObject.RespCode == 200) {
+
               localStorage.setItem("username", responseObject.RespUsername);
+              
               Swal.fire({
                 icon: "success",
                 title: "Signup success!!",
@@ -541,6 +540,7 @@
               });
               window.location.href = "./menu.html";
             } else {
+              console.log('test1')
               Swal.fire({
                 icon: "error",
                 title: "Something went wrong!",
@@ -549,6 +549,8 @@
             }
           },
           error: (err) => {
+            console.log('test1')
+
             console.log("error", err);
           },
         });
