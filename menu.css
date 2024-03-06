@@ -397,6 +397,33 @@ i {
     font-size: 36px;
 }
 
+.float{
+	position: fixed;
+	width:60px;
+	height:60px;
+	bottom:50px;
+	right: 50px;
+	background-color: rgb(0, 62, 87);
+	color:white;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.my-float{
+    margin: 0 auto;
+	font-size: 18px;
+}
+
+.float .my-float:hover{
+    color: #fd3300;
+    transition: .5s;
+}
+
 /* #buttonBar1{
     color: white;
     border-color: #f79400;
@@ -562,22 +589,4 @@ i {
         width: calc(23%);
     }
 
-}
-
-
-.float {
-    position: fixed;
-    width: 60px;
-    height: 60px;
-    bottom: 40px;
-    right: 40px;
-    background-color: #0C9;
-    color: #FFF;
-    border-radius: 50px;
-    text-align: center;
-    box-shadow: 2px 2px 3px #999;
-}
-
-.my-float {
-    margin-top: 22px;
 }
