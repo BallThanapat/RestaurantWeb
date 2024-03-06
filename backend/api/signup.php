@@ -27,9 +27,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else {
         $query = "insert into users (id, password, email, firstName, lastName, address, telephone, groupID) values (?,?,?,?,?,?,?,?)";
         $stmt = $conn->prepare($query);
-        if ($stmt->execute([
-            $username, $password, $email, $firstname, $lastname, $address, $phone, 1
-        ])) {
+        if (
+            $stmt->execute([
+                $username,
+                $password,
+                $email,
+                $firstname,
+                $lastname,
+                $address,
+                $phone,
+                1
+            ])
+        ) {
+            session_start();
+            $_SESSION['username'] = $username;
+            // $_SESSION['uID'] = $row['uid'];
+
+
             $object = new stdClass();
             $object->RespCode = 200;
             $object->RespMessage = 'good';

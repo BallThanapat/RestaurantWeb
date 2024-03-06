@@ -117,7 +117,7 @@ session_start();
                             <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
                                 <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.html\">โปรไฟล์</a></li>
                                 <li><hr class=\"dropdown-divider\"></li>
-                                <li><a class=\"dropdown-item text-danger\" href=\"#\">logout</a></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
                             </ul>
                         </li>";
                         } else {
@@ -586,14 +586,13 @@ session_start();
                         console.log(responseObject.RespCode);
                         if (responseObject.RespCode == 200) {
 
-                            // $_SESSION['username'] = responseObject.RespUsername;
-                            // localStorage.setItem("username", responseObject.RespUsername);
-
                             Swal.fire({
                                 icon: "success",
                                 title: "Signup success!!",
                                 timer: 1000,
                             });
+                            window.location.href = "./test.php";
+
                         } else if (responseObject.RespCode == 400) {
                             Swal.fire({
                                 icon: "error",
@@ -641,11 +640,6 @@ session_start();
                         var responseObject = JSON.parse(response);
                         if (responseObject.RespCode == 200) {
 
-                            <?php
-                            // $_SESSION["username"] = responseObject.RespUsername;
-                            // $_SESSION["uid"] = responseObject.RespUid;
-                            ?>
-
                             localStorage.setItem("username", responseObject.RespUsername);
                             localStorage.setItem("uid", responseObject.RespUid);
                             Swal.fire({
@@ -671,6 +665,17 @@ session_start();
                     },
                 });
             }
+        }
+
+        function gotologout() {
+            console.log("go to logout");
+            <?php
+            unset($_SESSION['username']);
+            unset($_SESSION['uID']);
+            session_destroy();
+            ?>
+            window.location.href = "./test.php";
+
         }
     </script>
 </body>

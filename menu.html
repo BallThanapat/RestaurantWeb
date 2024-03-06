@@ -732,6 +732,73 @@
     </div>
   </div>
 
+  <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+    <i class="fa-solid fa-cart-shopping my-float"></i>
+  </a>
+
+  <!-- Shopping Cart Modals -->
+  <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
+            tabindex="0">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-6"> <!-- Item of menu to order -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <img src="Image_inventory/Menu/friedFood.png" class="w-100">
+                        <!-- รูปภาพจาก MENU -->
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
+                        <hr>
+                        <div class="d-flex">
+                          <p class="w-25">x 2</p> <!-- จำนวน -->
+                          <p class="w-25 ms-auto text-danger">259</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6"> <!-- Item of menu to order -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <img src="Image_inventory/Menu/dessert.png" class="w-100">
+                        <!-- รูปภาพจาก MENU -->
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Pancake</p> <!-- ชื่อของเมนู -->
+                        <hr>
+                        <div class="d-flex">
+                          <p class="w-25">x 1</p>
+                          <p class="w-25 ms-auto text-danger">72</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+          <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     <footer>
       <div class="box-footer">
