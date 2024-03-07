@@ -43,7 +43,9 @@ if (!empty($_GET["action"])) {
   <link rel="stylesheet" href="menu.css">
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -54,7 +56,7 @@ if (!empty($_GET["action"])) {
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 
   <!-- Font Header-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,7 +75,13 @@ if (!empty($_GET["action"])) {
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-  <title>Document</title>
+  <!-- User Authentication -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="userAuthen.js"></script>
+
+  <title>Menu</title>
 </head>
 
 <body>
@@ -199,15 +207,58 @@ if (!empty($_GET["action"])) {
   </script>
 
   <header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a href="index.php" class="header-link">KITCHENHOME</a>
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation" id="navbarToggle">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
+          <a href="index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
+            </li>
+            <?php
+            if (isset($_SESSION["username"])) {
+              $username = $_SESSION["username"];
+              echo "<li class=\"nav-item dropdown\">
+                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            $username
+                            </a>
+                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                            </ul>
+                        </li>";
+            } else {
+              echo "<li class=\"nav-item\">
+                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
+                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                            </li>";
+            }
+            ?>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- <header class="header">
+    
     <a href="index.html" class="header-link">KITCHENHOME</a>
     <nav class="navbar01">
       <a href="index.html" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
       <a href="" class="links">โปรโมชั่น</a>
       <a href="" class="links" data-bs-toggle="modal" data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
       <i class="fa-solid fa-list-ul" id="list-menu"></i>
-      <!-- class="links" id="" -->
     </nav>
-  </header>
+  </header> -->
+
+
 
   <!-- Login/Register Modals -->
   <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel" aria-hidden="true">
@@ -238,6 +289,14 @@ if (!empty($_GET["action"])) {
               <label for="lPassword" class="col-form-label">Password:</label>
               <input type="password" class="form-control" id="lPassword" />
             </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin('menu')">
+                Submit
+              </button>
+            </div>
           </form>
 
           <!-- Register Form -->
@@ -266,139 +325,38 @@ if (!empty($_GET["action"])) {
               <label for="phone" class="col-form-label">เบอร์โทร:</label>
               <input type="text" class="form-control" id="phone" />
             </div>
-            <div class="mb-3">
-              <label for="dob" class="col-form-label">วันเกิด:</label>
-              <input type="date" class="form-control" id="dob" />
-            </div>
+            <!-- <div class="mx -->
             <div class="mb-3">
               <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
               <input type="text" class="form-control" id="address" />
             </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button onclick="gotosignup('menu')" type="button" class="btn btn-warning" id="btnsignup">
+                Submit
+              </button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-warning">Submit</button>
         </div>
       </div>
     </div>
   </div>
 
-        <div class="pic-main">
-          <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
-            <span id="span-i">> Menu</span></i></a>
-          </span>
-        </div>
-        
-        <!-- a href="" class="links" data-bs-toggle="modal"
+  <div class="pic-main">
+    <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
+          <span id="span-i">> Menu</span></i></a>
+    </span>
+  </div>
+
+  <!-- a href="" class="links" data-bs-toggle="modal"
         data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
-        <div class="menu-bar">
-          <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/recommend.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">เมนูแนะนำ</div>
-          </div>
-
-          <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/friedFood.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">เมนูทอด</div>
-          </div>
-
-          <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
-          </div>
-          <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
-            </div>
-            <div class="menu-box-bar-content">อาหารทะเล</div>
-          </div>
-          <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
-            </div>
-            <div class="menu-box-bar-content">สเต็ก</div>
-          </div>
-          <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/dessert2.png" alt="" />
-            </div>
-            <div class="menu-box-bar-content">ของหวาน</div>
-          </div>
-          <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
-            <div class="menu-box-bar-image">
-              <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
-            </div>
-            <div class="menu-box-bar-content">เครื่องดื่ม</div>
-          </div>
-        </div>
-        <div class="menu-bar-recommend" id="menu-bar-topic">
-          <h2>เมนูแนะนำ</h2>
-        </div>
-
-        <!-- เมนูแนะนำ -->
-        <div class="col-menu recommend-menu" id="recommend-menu">
-          <div class="row1" id="row-recommend-menu">
-          <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where recommend = 1 order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub" ><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt="" ></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
-              </div>
-              <?php
-                      }
-                  }
-              ?>
-          
-          </div>
-      </div>
-            
-
-        <div class="col-menu fried-menu" id="fried-menu">
-          <div class="row1" id="row-fried-menu" style="display: none;">
-          <?php
-                  $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
-                  if(!empty($product_array)){
-                      foreach($product_array as $key => $value) {
-              ?> 
-              <div class="col1">
-                  <div class="col1-sub" ><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt="" ></a></div>
-                  <div class="col1-sub-content">
-                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
-                      <div class="cart-action">
-                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
-                      </div>
-                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
-                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
-                      </div>
-                  </div>
-              </div>
-              <?php
-                      }
-                  }
-              ?>
-          
-          </div>
+  <div class="menu-bar">
+    <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+      <div class="menu-box-bar-image">
+        <img src="Image_inventory/Menu/recommend.png" alt="" />
       </div>
       <div class="menu-box-bar-content">เมนูแนะนำ</div>
     </div>
@@ -440,6 +398,118 @@ if (!empty($_GET["action"])) {
       </div>
       <div class="menu-box-bar-content">เครื่องดื่ม</div>
     </div>
+  </div>
+  <div class="menu-bar-recommend" id="menu-bar-topic">
+    <h2>เมนูแนะนำ</h2>
+  </div>
+
+  <!-- เมนูแนะนำ -->
+  <div class="col-menu recommend-menu" id="recommend-menu">
+    <div class="row1" id="row-recommend-menu">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where recommend = 1 order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
+              </div>
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
+
+
+  <div class="col-menu fried-menu" id="fried-menu">
+    <div class="row1" id="row-fried-menu" style="display: none;">
+      <?php
+      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
+      if (!empty($product_array)) {
+        foreach ($product_array as $key => $value) {
+          ?>
+          <div class="col1">
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub-content">
+              <div class="col1-sub-content-1">
+                <?php echo $product_array[$key]["foodName"]; ?>
+              </div>
+              <div class="cart-action">
+                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
+              </div>
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
+                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                </button>
+              </div>
+            </div>
+          </div>
+          <?php
+        }
+      }
+      ?>
+
+    </div>
+  </div>
+  <div class="menu-box-bar-content">เมนูแนะนำ</div>
+  </div>
+
+  <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/friedFood.png" alt="" />
+    </div>
+    <div class="menu-box-bar-content">เมนูทอด</div>
+  </div>
+
+  <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
+    </div>
+    <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
+  </div>
+  <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
+    </div>
+    <div class="menu-box-bar-content">อาหารทะเล</div>
+  </div>
+  <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
+    </div>
+    <div class="menu-box-bar-content">สเต็ก</div>
+  </div>
+  <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/dessert2.png" alt="" />
+    </div>
+    <div class="menu-box-bar-content">ของหวาน</div>
+  </div>
+  <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
+    <div class="menu-box-bar-image">
+      <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
+    </div>
+    <div class="menu-box-bar-content">เครื่องดื่ม</div>
+  </div>
   </div>
   <div class="menu-bar-recommend" id="menu-bar-topic">
     <h2>เมนูแนะนำ</h2>
@@ -720,7 +790,6 @@ if (!empty($_GET["action"])) {
               </div>
             </div>
           </div>
-<<<<<<< Updated upstream
           <?php
         }
       }
@@ -728,77 +797,75 @@ if (!empty($_GET["action"])) {
 
     </div>
   </div>
-=======
-      </div>
-    <div>
-        <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
-        <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-    
->>>>>>> Stashed changes
+  </div>
+  <div>
+    <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </a>
+  </div>
 
-    <!-- Shopping Cart Modals -->
-    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
-                tabindex="0">
-                <div class="container">
-                <div class="row">
-                    <div class="col-sm-6"> <!-- Item of menu to order -->
-                    <div class="container">
-                        <div class="row">
-                        <div class="col-sm-5">
-                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                            <!-- รูปภาพจาก MENU -->
-                        </div>
-                        <div class="col-sm-6">
-                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                            <hr>
-                            <div class="d-flex">
-                            <p class="w-25">x 2</p> <!-- จำนวน -->
-                            <p class="w-25 ms-auto text-danger">259</p>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div class="col-sm-6"> <!-- Item of menu to order -->
-                    <div class="container">
-                        <div class="row">
-                        <div class="col-sm-5">
-                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                            <!-- รูปภาพจาก MENU -->
-                        </div>
-                        <div class="col-sm-6">
-                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                            <hr>
-                            <div class="d-flex">
-                            <p class="w-25">x 1</p>
-                            <p class="w-25 ms-auto text-danger">72</p>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-            <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
-            </div>
+  <!-- Shopping Cart Modals -->
+  <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
+            tabindex="0">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-6"> <!-- Item of menu to order -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <img src="Image_inventory/Menu/friedFood.png" class="w-100">
+                        <!-- รูปภาพจาก MENU -->
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
+                        <hr>
+                        <div class="d-flex">
+                          <p class="w-25">x 2</p> <!-- จำนวน -->
+                          <p class="w-25 ms-auto text-danger">259</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-6"> <!-- Item of menu to order -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-sm-5">
+                        <img src="Image_inventory/Menu/dessert.png" class="w-100">
+                        <!-- รูปภาพจาก MENU -->
+                      </div>
+                      <div class="col-sm-6">
+                        <p>Pancake</p> <!-- ชื่อของเมนู -->
+                        <hr>
+                        <div class="d-flex">
+                          <p class="w-25">x 1</p>
+                          <p class="w-25 ms-auto text-danger">72</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+          <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
+        </div>
+      </div>
     </div>
-    </div>
+  </div>
 
 
   <div class="footer">
@@ -841,13 +908,9 @@ if (!empty($_GET["action"])) {
       </div>
     </footer>
   </div>
-<<<<<<< Updated upstream
+  <<<<<<< Updated upstream=======</div>
 
-
-=======
-  </div>
-  
->>>>>>> Stashed changes
+    >>>>>>> Stashed changes
 </body>
 
 </html>

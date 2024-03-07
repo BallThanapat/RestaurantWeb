@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,24 +9,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="promotion.css">
+    <!-- <link rel="stylesheet" href="promotion.css"> -->
+    <style>
+        <?php include("promotion.css");?>
+    </style>
 
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Font Header-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,6 +34,13 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- User Authentication -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="userAuthen.js"></script>
+
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -81,23 +82,39 @@
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
-                <a href="index.html" class="header-link">KITCHENHOME</a>
+                <a href="index.php" class="header-link">KITCHENHOME</a>
                 <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
-                    <a href="index.html" class="links ms-auto" id="backHome"><i
+                    <a href="index.php" class="nav-link links ms-auto" id="backHome"><i
                             class="fa-solid fa-house-chimney"></i></a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="menu.html" class="links" id="">เมนู</a>
+                            <a href="menu.php" class="nav-link links" id="">เมนูทั้งหมด</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="" class="links" data-bs-toggle="modal"
-                                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                        </li>
+                        <?php
+                        if (isset($_SESSION["username"])) {
+                            $username = $_SESSION["username"];
+                            echo "<li class=\"nav-item dropdown\">
+                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            $username
+                            </a>
+                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                            </ul>
+                        </li>";
+                        } else {
+                            echo "<li class=\"nav-item\">
+                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
+                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                            </li>";
+                        }
+                        ?>
                     </ul>
                 </div>
             </div>
@@ -124,16 +141,18 @@
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginRegisModalLabel">KhunGame Restaurant</h5>
+                    <h5 class="modal-title" id="loginRegisModalLabel">
+                        KhunGame Restaurant
+                    </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
-                            checked>
+                            checked />
                         <label class="btn btn-outline-warning" id="buttonBar1" for="btnradio1">Login</label>
 
-                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off">
+                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off" />
                         <label class="btn btn-outline-warning" id="buttonBar2" for="btnradio2">Register</label>
                     </div>
 
@@ -141,53 +160,62 @@
                     <form id="form1">
                         <div class="mb-3">
                             <label for="uNameOrEmail" class="col-form-label">Username/Email:</label>
-                            <input type="text" class="form-control" id="uNameOrEmail">
+                            <input type="text" class="form-control" id="uNameOrEmail" />
                         </div>
                         <div class="mb-3">
                             <label for="lPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="lPassword">
+                            <input type="password" class="form-control" id="lPassword" />
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin('promotion')">
+                                Submit
+                            </button>
                         </div>
                     </form>
 
                     <!-- Register Form -->
-                    <form id="form2" style="display: none;">
+                    <form id="form2" style="display: none">
                         <div class="mb-3">
                             <label for="uName" class="col-form-label">Username:</label>
-                            <input type="text" class="form-control" id="uName">
+                            <input type="text" class="form-control" id="uName" />
                         </div>
                         <div class="mb-3">
                             <label for="email" class="col-form-label">Email:</label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" class="form-control" id="email" />
                         </div>
                         <div class="mb-3">
                             <label for="rPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="rPassword">
+                            <input type="password" class="form-control" id="rPassword" />
                         </div>
                         <div class="mb-3">
                             <label for="fName" class="col-form-label">ชื่อ:</label>
-                            <input type="text" class="form-control" id="fName">
+                            <input type="text" class="form-control" id="fName" />
                         </div>
                         <div class="mb-3">
                             <label for="lName" class="col-form-label">นามสกุล:</label>
-                            <input type="text" class="form-control" id="lName">
+                            <input type="text" class="form-control" id="lName" />
                         </div>
                         <div class="mb-3">
                             <label for="phone" class="col-form-label">เบอร์โทร:</label>
-                            <input type="text" class="form-control" id="phone">
+                            <input type="text" class="form-control" id="phone" />
                         </div>
-                        <div class="mb-3">
-                            <label for="dob" class="col-form-label">วันเกิด:</label>
-                            <input type="date" class="form-control" id="dob">
-                        </div>
+                        <!-- <div class="mx -->
                         <div class="mb-3">
                             <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
-                            <input type="text" class="form-control" id="address">
+                            <input type="text" class="form-control" id="address" />
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button onclick="gotosignup('promotion')" type="button" class="btn btn-warning" id="btnsignup">
+                                Submit
+                            </button>
                         </div>
                     </form>
-                </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-warning">Submit</button>
                 </div>
             </div>
         </div>
@@ -314,36 +342,6 @@
         </div>
     </section>
 
-    <!-- <script>
-        let parent = document.getElementById("allPromotion");
-        for (let i = 0; i < 25; i++) {
-            let a1 = document.createElement('a');
-            a1.setAttribute("data-bs-toggle", "modal");
-            a1.setAttribute("data-bs-target", "#promotionModal");
-            a1.className = "col-lg-5 col-md-12 test";
-            let btn1 = document.createElement('button');
-            let btn2 = document.createElement('button');
-            btn1.setAttribute("data-bs-toggle", "modal");
-            btn1.setAttribute("data-bs-target", "#promotionModal");
-            btn1.innerHTML = 'รายละเอียด';
-            btn2.innerHTML = 'สั่งซื้อ';
-            btn2.className = 'bg-success';
-
-            let div1 = document.createElement('div');
-            let div2 = document.createElement('div');
-            div1.className = 'item';
-            div1.id = i;
-            let img1 = document.createElement('IMG');
-            img1.setAttribute("src", "Image_inventory/Promotion/promotion.png");
-            div1.appendChild(img1);
-            div2.appendChild(btn1);
-            div2.appendChild(btn2);
-            a1.appendChild(div1);
-            a1.appendChild(div2);
-            parent.appendChild(a1);
-        }
-    </script> -->
-
     <!-- Promotion Modals -->
     <div class="modal fade" id="promotionModal" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -455,7 +453,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -504,6 +502,7 @@
             </div>
         </div>
     </footer>
+
 </body>
 
 </html>

@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+body {
+    background-color: rgb(70, 70, 70);
+}
+
 .navbar01 {
     background-color: transparent;
     font-weight: bold;
@@ -81,7 +85,7 @@
     .header {
         position: relative;
         width: 100%;
-        background-color: gray;
+        background-color: rgba(76, 76, 76, 0.9);
         border-radius: 0px;
     }
 }
@@ -158,9 +162,9 @@
 
 
 
-/* .page3 .box-text {
+.page3 .box-text {
     left: 75%;
-} */
+}
 
 .page2 .box-text {
     left: 50%;
@@ -252,7 +256,7 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
     .box-text h1 {
         font-size: 0.75rem;
     }
