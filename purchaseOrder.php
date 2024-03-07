@@ -86,26 +86,26 @@
                 var selectedValue = $(this).data("value");
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
 
-                if (selectedValue.slice(-1) == "1" || selectedValue.slice(-1) == "2") {
+                if (selectedValue == "1" || selectedValue == "2") {
                     // Hide all item containers
                     $(".item-container").hide();
 
                     // Show the item container for the selected option
-                    $("#div" + selectedValue.slice(-1)).show();
+                    $("#div" + selectedValue).show();
                 }
 
 
             });
 
-            $(".get-selected-btn").click(function () {
+            $(".get-selected-btn").click(function () { 
                 var targetCustomSelect = $(this).data("target");
                 var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
                 console.log("Selected value: " + selectedValue);
                 // click2();
                 var targetCustomSelect = $(this).data("target");
-                if (targetCustomSelect === "custom-select1") {
+                if (targetCustomSelect === "custom-select1") { //ปุ่มเลือก addrs
                     alert("Button 1 was clicked.");
-                } else if (targetCustomSelect === "custom-select2") {
+                } else if (targetCustomSelect === "custom-select2") { 
                     // alert("Button 2 was clicked.");
                     click2();
                 };
@@ -215,10 +215,10 @@
                         <div class="custom-select" id="custom-select1">
                             <div class="container">
                                 <div class="row5" id="row-select">
-                                    <div class="select-option selected col-sm-5" data-value="option1">
+                                    <div class="select-option selected col-sm-5" data-value="1">
                                         <h6 class="delivery">เดลิเวอรี่ <i class="fa-solid fa-truck"></i></h6>
                                     </div>
-                                    <div class="select-option col-sm-5" data-value="option2">
+                                    <div class="select-option col-sm-5" data-value="2">
                                         <h6 class="delivery">รับที่ร้าน <i class="fa-solid fa-shop"></i></h6>
                                     </div>
                                 </div>
