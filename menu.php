@@ -56,7 +56,9 @@ if (!empty($_GET["action"])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -67,7 +69,7 @@ if (!empty($_GET["action"])) {
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
     integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script> -->
 
   <!-- Font Header-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -85,11 +87,16 @@ if (!empty($_GET["action"])) {
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-  <title>Document</title>
   <style>
     <?php include "menu.css" ?>
   </style>
+  <!-- User Authentication -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="userAuthen.js"></script>
+
+  <title>Menu</title>
 </head>
 
 <body>
@@ -232,15 +239,58 @@ if (!empty($_GET["action"])) {
   </script>
 
   <header class="header">
-    <a href="index.php" class="header-link">KITCHENHOME</a>
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container-fluid">
+        <a href="index.php" class="header-link">KITCHENHOME</a>
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation" id="navbarToggle">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
+          <a href="index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a href="promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
+            </li>
+            <?php
+            if (isset($_SESSION["username"])) {
+              $username = $_SESSION["username"];
+              echo "<li class=\"nav-item dropdown\">
+                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
+                            $username
+                            </a>
+                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
+                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
+                                <li><hr class=\"dropdown-divider\"></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                            </ul>
+                        </li>";
+            } else {
+              echo "<li class=\"nav-item\">
+                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
+                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
+                            </li>";
+            }
+            ?>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- <header class="header">
+    
+    <a href="index.html" class="header-link">KITCHENHOME</a>
     <nav class="navbar01">
       <a href="index.php" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
       <a href="" class="links">โปรโมชั่น</a>
       <a href="" class="links" data-bs-toggle="modal" data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
       <i class="fa-solid fa-list-ul" id="list-menu"></i>
-      <!-- class="links" id="" -->
     </nav>
-  </header>
+  </header> -->
+
+
 
   <!-- Login/Register Modals -->
   <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel" aria-hidden="true">
@@ -271,6 +321,14 @@ if (!empty($_GET["action"])) {
               <label for="lPassword" class="col-form-label">Password:</label>
               <input type="password" class="form-control" id="lPassword" />
             </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin('menu')">
+                Submit
+              </button>
+            </div>
           </form>
 
           <!-- Register Form -->
@@ -299,21 +357,20 @@ if (!empty($_GET["action"])) {
               <label for="phone" class="col-form-label">เบอร์โทร:</label>
               <input type="text" class="form-control" id="phone" />
             </div>
-            <div class="mb-3">
-              <label for="dob" class="col-form-label">วันเกิด:</label>
-              <input type="date" class="form-control" id="dob" />
-            </div>
+            <!-- <div class="mx -->
             <div class="mb-3">
               <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
               <input type="text" class="form-control" id="address" />
             </div>
+            <div class="modal-footer d-flex justify-content-center">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button onclick="gotosignup('menu')" type="button" class="btn btn-warning" id="btnsignup">
+                Submit
+              </button>
+            </div>
           </form>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-          <button type="button" class="btn btn-warning">Submit</button>
         </div>
       </div>
     </div>
@@ -601,7 +658,6 @@ if (!empty($_GET["action"])) {
 
     </div>
   </div>
-=======
       </div>
     <div>
         <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
@@ -675,15 +731,6 @@ if (!empty($_GET["action"])) {
         </div>
     </div>
 
-
-  
-<<<<<<< Updated upstream
-
-
-=======
-  </div>
-  
->>>>>>> Stashed changes
 </body>
 
 </html>

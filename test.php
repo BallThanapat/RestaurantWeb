@@ -500,24 +500,33 @@ session_start();
                     },
                     success: function (response) {
                         console.log("good", response);
-                        var responseObject = JSON.parse(response);
-                        console.log(responseObject.RespCode);
-                        if (responseObject.RespCode == 200) {
+                        try {
+                            var responseObject = JSON.parse(response);
+                            console.log(responseObject.RespCode);
+                            if (responseObject.RespCode == 200) {
 
-                            Swal.fire({
-                                icon: "success",
-                                title: "Signup success!!",
-                                timer: 5000,
-                            });
-                            window.location.href = "./test.php";
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Signup success!!",
+                                    timer: 5000,
+                                });
+                                window.location.href = "./index.php";
 
-                        } else if (responseObject.RespCode == 400) {
+                            } else if (responseObject.RespCode == 400) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Signup failed!!",
+                                    timer: 5000,
+                                });
+                            }
+                        } catch (error) {
                             Swal.fire({
                                 icon: "error",
-                                title: "Signup failed!!",
+                                title: "Something went wrong!",
                                 timer: 5000,
                             });
                         }
+
                     },
                     error: function (err) {
                         console.log("badmakmak", err);
@@ -555,26 +564,34 @@ session_start();
                     success: (response) => {
                         console.log("valid", response);
                         console.log(response);
-                        var responseObject = JSON.parse(response);
-                        if (responseObject.RespCode == 200) {
+                        try {
+                            var responseObject = JSON.parse(response);
+                            if (responseObject.RespCode == 200) {
 
-                            localStorage.setItem("username", responseObject.RespUsername);
-                            localStorage.setItem("uid", responseObject.RespUid);
-                            Swal.fire({
-                                icon: "success",
-                                title: "Login success!!",
-                                timer: 5000,
-                            });
-                            window.location.href = "./test.php";
-                            // window.location.href = "./menu.html";
-                        } else {
-                            console.log('test1')
+                                localStorage.setItem("username", responseObject.RespUsername);
+                                localStorage.setItem("uid", responseObject.RespUid);
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Login success!!",
+                                    timer: 5000,
+                                });
+                                window.location.href = "./index.php";
+                            } else {
+                                console.log('test1')
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 5000,
+                                });
+                            }
+                        } catch (error) {
                             Swal.fire({
                                 icon: "error",
                                 title: "Something went wrong!",
                                 timer: 5000,
                             });
                         }
+
                     },
                     error: (err) => {
                         console.log('test1')
@@ -597,7 +614,7 @@ session_start();
                         title: "Logout success!!",
                         timer: 5000,
                     });
-                    window.location.href = "./test.php";
+                    window.location.href = "./index.php";
                 },
                 error: function (xhr, status, error) {
                     // Handle error if AJAX request fails
