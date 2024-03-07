@@ -11,6 +11,7 @@ if (!empty($_GET["action"])) {
         $itemArray = array(
           $productByDetail[0]["foodDetail"] => (
             array(
+              'foodID' => $productByDetail[0]["foodID"],
               'foodName' => $productByDetail[0]["foodName"],
               'foodDetail' => $productByDetail[0]["foodDetail"],
               'quantity' => $_GET["quantity"],
@@ -31,6 +32,19 @@ if (!empty($_GET["action"])) {
         }
       }
       break;
+      case "remove";
+                if(!empty($_SESSION["cart_item"])){
+                    foreach($_SESSION["cart_item"] as $k => $v) {
+                        if($_GET["foodDetail"] == $k)
+                            unset($_SESSION["cart_item"][$k]);
+                        if(empty($_SESSION["cart_item"]))
+                            unset($_SESSION["cart_item"]);
+                    }
+                }
+      break;
+      case "empty";
+          unset($_SESSION["cart_item"]);
+      break;
   }
 }
 ?>
@@ -40,7 +54,6 @@ if (!empty($_GET["action"])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="menu.css">
 
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -74,6 +87,9 @@ if (!empty($_GET["action"])) {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <title>Document</title>
+  <style>
+    <?php include "menu.css" ?>
+  </style>
 </head>
 
 <body>
@@ -187,6 +203,7 @@ if (!empty($_GET["action"])) {
     function addToCart(foodDetail) {
       var quantity = document.getElementById("quantity_" + foodDetail).value;
       var xhr = new XMLHttpRequest();
+      $('.modal-cart').load(location.href + ' .modal-cart');
       xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function () {
@@ -196,12 +213,28 @@ if (!empty($_GET["action"])) {
       };
       xhr.send();
     }
+    function clear_cart() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "menu.php?action=empty", true); // ปรับแก้ URL ให้ถูกต้องที่นี่
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          $('.modal-cart').load(location.href + ' .modal-cart');
+          alert("ล้างตะกร้าสำเร็จ");
+        }
+      };
+      xhr.send(); // ส่งพารามิเตอร์ foodDetail และ quantity ไปยัง menu.php
+    }
+    // function clear_cart(){
+    //   unset($_SESSION["cart_item"]);
+    //   $('.modal-cart').load(location.href + ' .modal-cart');
+    // }
   </script>
 
   <header class="header">
-    <a href="index.html" class="header-link">KITCHENHOME</a>
+    <a href="index.php" class="header-link">KITCHENHOME</a>
     <nav class="navbar01">
-      <a href="index.html" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
+      <a href="index.php" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
       <a href="" class="links">โปรโมชั่น</a>
       <a href="" class="links" data-bs-toggle="modal" data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
       <i class="fa-solid fa-list-ul" id="list-menu"></i>
@@ -287,7 +320,7 @@ if (!empty($_GET["action"])) {
   </div>
 
         <div class="pic-main">
-          <span><a href="index.html" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
+          <span><a href="index.php" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
             <span id="span-i">> Menu</span></i></a>
           </span>
         </div>
@@ -373,7 +406,7 @@ if (!empty($_GET["action"])) {
           </div>
       </div>
             
-
+<!-- เมนูทอด -->
         <div class="col-menu fried-menu" id="fried-menu">
           <div class="row1" id="row-fried-menu" style="display: none;">
           <?php
@@ -400,165 +433,6 @@ if (!empty($_GET["action"])) {
           
           </div>
       </div>
-      <div class="menu-box-bar-content">เมนูแนะนำ</div>
-    </div>
-
-    <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/friedFood.png" alt="" />
-      </div>
-      <div class="menu-box-bar-content">เมนูทอด</div>
-    </div>
-
-    <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
-      </div>
-      <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
-    </div>
-    <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
-      </div>
-      <div class="menu-box-bar-content">อาหารทะเล</div>
-    </div>
-    <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
-      </div>
-      <div class="menu-box-bar-content">สเต็ก</div>
-    </div>
-    <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/dessert2.png" alt="" />
-      </div>
-      <div class="menu-box-bar-content">ของหวาน</div>
-    </div>
-    <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
-      <div class="menu-box-bar-image">
-        <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
-      </div>
-      <div class="menu-box-bar-content">เครื่องดื่ม</div>
-    </div>
-  </div>
-  <div class="menu-bar-recommend" id="menu-bar-topic">
-    <h2>เมนูแนะนำ</h2>
-  </div>
-
-  <div class="col-menu recommend-menu" id="recommend-menu">
-    <div class="row1" id="row-recommend-menu">
-      <div class="col1">
-        <div class="col1-sub">
-          <img src="Image_inventory/Menu/TomyumChonChon.webp" alt="" />
-        </div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
-          <div class="col1-sub-content-2">THB 229.00</div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub">
-          <a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1" /></a>
-        </div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
-          <div class="col1-sub-content-2">THB 429.00</div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub">
-          <img src="Image_inventory/Menu/TalayHot1.webp" alt="" />
-        </div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1">ทะเลเดือด</div>
-          <div class="col1-sub-content-2">THB 329.00</div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-
-      <div class="col1">
-        <div class="col1-sub"></div>
-        <div class="col1-sub-content">
-          <div class="col1-sub-content-1"></div>
-          <div class="col1-sub-content-2"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-menu fried-menu" id="fried-menu">
-    <div class="row1" id="row-fried-menu" style="display: none;">
-      <?php
-      $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
-      if (!empty($product_array)) {
-        foreach ($product_array as $key => $value) {
-          ?>
-          <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
-                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
-            <div class="col1-sub-content">
-              <div class="col1-sub-content-1">
-                <?php echo $product_array[$key]["foodName"]; ?>
-              </div>
-              <div class="cart-action">
-                <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
-                  name="quantity" value="1" size="1">
-              </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
-                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
-                </button>
-              </div>
-            </div>
-          </div>
-          <?php
-        }
-      }
-      ?>
-
-    </div>
-  </div>
 
   <!-- เมนูยำ/ต้ม -->
   <div class="col-menu soup-menu" id="soup-menu">
@@ -720,7 +594,6 @@ if (!empty($_GET["action"])) {
               </div>
             </div>
           </div>
-<<<<<<< Updated upstream
           <?php
         }
       }
@@ -735,7 +608,7 @@ if (!empty($_GET["action"])) {
         <i class="fa-solid fa-cart-shopping"></i>
         </a>
     
->>>>>>> Stashed changes
+    
 
     <!-- Shopping Cart Modals -->
     <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
@@ -747,100 +620,63 @@ if (!empty($_GET["action"])) {
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+            <div class="modal-cart">
             <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
                 tabindex="0">
                 <div class="container">
                 <div class="row">
-                    <div class="col-sm-6"> <!-- Item of menu to order -->
-                    <div class="container">
-                        <div class="row">
-                        <div class="col-sm-5">
-                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                            <!-- รูปภาพจาก MENU -->
-                        </div>
-                        <div class="col-sm-6">
-                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                            <hr>
-                            <div class="d-flex">
-                            <p class="w-25">x 2</p> <!-- จำนวน -->
-                            <p class="w-25 ms-auto text-danger">259</p>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
+                  <?php
+                    if(isset($_SESSION["cart_item"])){
+                        $total_quantity = 0;
+                        $total_price = 0;
+                        foreach($_SESSION["cart_item"] as $item) {
+                          $item_price = $item["quantity"] * $item["price"];
+                  ?>
+                      <div class="col-sm-6"> <!-- Item of menu to order -->
+                      <div class="container">
+                          <div class="row">
+                          <div class="col-sm-5">
+                              <img src="<?php echo $item["picture"]; ?>" class="w-100">
+                              <!-- รูปภาพจาก MENU -->
+                          </div>
+                          <div class="col-sm-6">
+                              <p><?php echo $item["foodName"]; ?></p> <!-- ชื่อของเมนู -->
+                              <hr>
+                              <div class="d-flex">
+                              <p class="w-25"><?php echo "x" . $item["quantity"]; ?></p> <!-- จำนวน -->
+                              <p class="w-25 ms-auto text-danger"><?php echo "THB". number_format($item["quantity"] * $item["price"], 2); ?></p>
+                              </div>
+                          </div>
+                          </div>
+                      </div>
+                      </div>
 
-                    <div class="col-sm-6"> <!-- Item of menu to order -->
-                    <div class="container">
-                        <div class="row">
-                        <div class="col-sm-5">
-                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                            <!-- รูปภาพจาก MENU -->
-                        </div>
-                        <div class="col-sm-6">
-                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                            <hr>
-                            <div class="d-flex">
-                            <p class="w-25">x 1</p>
-                            <p class="w-25 ms-auto text-danger">72</p>
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                </div>
+                        <?php
+                            $total_quantity += $item["quantity"];
+                            $total_price += $item["price"]*$item["quantity"];
+                            }
+                        ?>
+                  <?php
+                      }else{
+                  ?>
+                  <div class="no-records">ตระกร้าว่างเปล่า</div>
+                  <?php
+                      }
+                  ?>
+            </div>
             </div>
             </div>
             <div class="modal-footer d-flex justify-content-center">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-            <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
+            <button onclick="clear_cart()" class="btn btn-warning">ล้างตะกร้า</button>
+            <button type="button" onclick="location.href='purchaseOrder.php'" class="btn btn-warning">ทำการสั่งซื้อ</button>
             </div>
         </div>
-    </div>
-    </div>
-
-
-  <div class="footer">
-    <footer>
-      <div class="box-footer">
-        <div class="row">
-          <div class="col">
-            <h2>KhunGame Restaurant</h2>
-            <br />
-            <p class="icontext">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-              vel quia facilis a hic aut laudantium, repudiandae doloribus
-              alias! Accusamus, asperiores similique voluptatum consequatur
-              dolorem praesentium modi
-            </p>
-            <p class="icon">
-              <a href="#"><i class="fa-solid fa-phone"></i></a>
-              <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-              <a href="#"><i class="fa-brands fa-instagram"></i></a>
-              <a href="#"><i class="fa-brands fa-youtube"></i></a>
-            </p>
-          </div>
-          <div class="col">
-            <h2>FIND OUR RESTAURANT</h2>
-            <p class="icontext">
-              <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-              สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
-              แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
-            </p>
-          </div>
-          <div class="col" id="col3">
-            <h2>WORKING HOURS</h2>
-            <br />
-            <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
-            <br /><br />
-            <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
-          </div>
         </div>
-        <!-- <h1>LET ME COOK Restaurant</h1><br> -->
-      </div>
-    </footer>
-  </div>
+    </div>
+
+
+  
 <<<<<<< Updated upstream
 
 

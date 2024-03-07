@@ -1,5 +1,4 @@
 <?php
-    
     session_start();
     require_once('menuController.php');
     $db_handle = new MenuControll();

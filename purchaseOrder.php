@@ -1,3 +1,26 @@
+<?php
+    session_start();
+    require_once('menuController.php');
+    $db_handle = new MenuControll();
+
+    if(!empty($_GET["action"])){
+        switch($_GET["action"]){
+            case "remove";
+                if(!empty($_SESSION["cart_item"])){
+                    foreach($_SESSION["cart_item"] as $k => $v) {
+                        if($_GET["foodDetail"] == $k)
+                            unset($_SESSION["cart_item"][$k]);
+                        if(empty($_SESSION["cart_item"]))
+                            unset($_SESSION["cart_item"]);
+                    }
+                }
+            break;
+            case "empty";
+                unset($_SESSION["cart_item"]);
+            break;
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -97,7 +120,7 @@
     <header class="header">
         <nav class="navbar navbar-expand-xxl navbar-dark">
             <div class="container-fluid">
-                <a href="index.html" class="header-link">KITCHENHOME</a>
+                <a href="index.php" class="header-link">KITCHENHOME</a>
             </div>
         </nav>
     </header>
@@ -113,163 +136,49 @@
                     <span class="number num3" id="num3">3</span>
                 </div>
             </div>
+            
             <!-- First Page -->
             <div class="mt-2" id="page1">
                 <h4 class="mb-4">รายการของคุณ</h4>
                 <div class="order p-2 w-80 d-flex justify-content-center">
                     <div class="container">
                         <div class="row d-flex justify-content-center">
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/friedFood.png" alt="">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 2</p> <!-- จำนวน -->
-                                                <p class="w-25 ms-auto text-danger">฿259</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php
+                            if(isset($_SESSION["cart_item"])){
+                                $total_quantity = 0;
+                                $total_price = 0;
+                                foreach($_SESSION["cart_item"] as $item) {
+                                    $item_price = $item["quantity"] * $item["price"];
+                            ?>
 
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 1</p>
-                                                <p class="w-25 ms-auto text-danger">฿72</p>
+                                <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
+                                    <div class="container">
+                                        <div class="row row1">
+                                            <div class="col-sm-5">
+                                                <img src="Image_inventory/Menu/friedFood.png" alt="">
+                                                <!-- รูปภาพจาก MENU -->
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p><?php echo $item["foodName"]; ?></p> <!-- ชื่อของเมนู -->
+                                                <hr>
+                                                <div class="d-flex">
+                                                    <p class="w-25"><?php echo "x" . $item["quantity"]; ?></p> <!-- จำนวน -->
+                                                    <p class="w-25 ms-auto text-danger"><?php echo "THB". number_format($item["quantity"] * $item["price"], 2); ?></p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                           
+                                <?php
+                                    $total_quantity += $item["quantity"];
+                                    $total_price += $item["price"]*$item["quantity"];
+                                    }
+                                ?>
+                            <?php
+                                }
+                            ?>
 
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 2</p> <!-- จำนวน -->
-                                                <p class="w-25 ms-auto text-danger">฿259</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 1</p>
-                                                <p class="w-25 ms-auto text-danger">฿72</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 2</p> <!-- จำนวน -->
-                                                <p class="w-25 ms-auto text-danger">฿259</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 1</p>
-                                                <p class="w-25 ms-auto text-danger">฿72</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 2</p> <!-- จำนวน -->
-                                                <p class="w-25 ms-auto text-danger">฿259</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                <div class="container">
-                                    <div class="row row1">
-                                        <div class="col-sm-5">
-                                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                                            <!-- รูปภาพจาก MENU -->
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <p>Pancake</p> <!-- ชื่อของเมนู -->
-                                            <hr>
-                                            <div class="d-flex">
-                                                <p class="w-25">x 1</p>
-                                                <p class="w-25 ms-auto text-danger">฿72</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -282,13 +191,12 @@
                         <input type="text">
                     </div>
                 </div>
-
                 <div class="d-flex mt-3">
                     <div>
                         <h5>ราคารวม</h5>
                     </div>
                     <div class="ms-5">
-                        <p>1000฿</p>
+                        <p><?php echo "THB". number_format($total_price, 2); ?></p>
                     </div>
                 </div>
 
@@ -296,7 +204,6 @@
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
-
             <!-- Second Page -->
             <div class="mt-3" id="page2" style="display: none;">
                 <h4>รายละเอียดการจัดส่ง</h4>
@@ -350,6 +257,12 @@
 
                 <div class="mt-5">
                     <h2>สั่งซื้อสินค้าแล้ว</h2>
+                    <?php
+                        if(isset($_SESSION["cart_item"])){
+                            $total_quantity = 0;
+                            $total_price = 0;
+                        
+                    ?>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -358,34 +271,29 @@
                                 <th scope="col">จำนวน</th>
                                 <th scope="col">ราคารวม</th>
                             </tr>
+                            <?php
+                                foreach($_SESSION["cart_item"] as $item) {
+                                    $item_price = $item["quantity"] * $item["price"];
+                                
+                            ?>
                         </thead>
                         <tbody>
                             <tr>
-                                <td scope="row">Fied Chicken</td>
-                                <td>1</td>
-                                <td>999</td>
-                                <td>999</td>
+                                <td scope="row"><?php echo $item["foodName"]; ?></td>
+                                <td><?php echo $item["price"]; ?></td>
+                                <td><?php echo $item["quantity"]; ?></td>
+                                <td><?php echo number_format($item["quantity"] * $item["price"], 2); ?></td>
                             </tr>
-                            <tr>
-                                <td scope="row">Pancake</td>
-                                <td>2</td>
-                                <td>678</td>
-                                <td>1356</td>
-                            </tr>
-                            <tr>
-                                <td scope="row">Fied Chicken</td>
-                                <td>1</td>
-                                <td>999</td>
-                                <td>999</td>
-                            </tr>
-                            <tr>
-                                <td scope="row">Pancake</td>
-                                <td>2</td>
-                                <td>678</td>
-                                <td>1356</td>
-                            </tr>
+                            <?php
+                                $total_quantity += $item["quantity"];
+                                $total_price += $item["price"]*$item["quantity"];
+                                }
+                            ?>
                         </tbody>
                     </table>
+                    <?php
+                        }
+                    ?>
                 </div>
 
                 <div class="d-flex mt-3">
@@ -393,7 +301,7 @@
                         <h4>ราคารวม</h4>
                     </div>
                     <div class="ms-3">
-                        <p>1000฿</p>
+                        <p><?php echo "THB". number_format($total_price, 2); ?></p>
                     </div>
                 </div>
 

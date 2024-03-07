@@ -1,3 +1,38 @@
+<?php
+session_start();
+require_once('menuController.php');
+$db_handle = new MenuControll();
+
+if (!empty($_GET["action"])) {
+  switch ($_GET["action"]) {
+    case "add":
+      if (!empty($_GET["foodDetail"]) && !empty($_GET["quantity"])) {
+        $productByDetail = $db_handle->runQuery("SELECT * FROM menu where foodDetail='" . $_GET["foodDetail"] . "'");
+        $itemArray = array(
+          $productByDetail[0]["foodDetail"] => (
+            array(
+              'foodName' => $productByDetail[0]["foodName"],
+              'foodDetail' => $productByDetail[0]["foodDetail"],
+              'quantity' => $_GET["quantity"],
+              'price' => $productByDetail[0]["price"],
+              'picture' => $productByDetail[0]["picture"]
+            )
+          )
+        );
+        if (!empty($_SESSION["cart_item"])) {
+          if (array_key_exists($productByDetail[0]["foodDetail"], $_SESSION["cart_item"])) {
+            $_SESSION["cart_item"][$productByDetail[0]["foodDetail"]]["quantity"] += $_GET["quantity"];
+          } else {
+            $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
+          }
+        } else {
+          $_SESSION["cart_item"] = $itemArray;
+        }
+      }
+      break;
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,10 +71,25 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     
-    <link rel="stylesheet" href="./menu.css">
+    
 </head>
 <body>
+    <script>
+        function addToCart(foodDetail) {
+        var quantity = document.getElementById("quantity_" + foodDetail).value;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+            alert("เพิ่มสินค้าสำเร็จ");
+            }
+        };
+        xhr.send();
+    }
+    </script>
     <style>
+        <?php include "menu.css" ?>
         body {
             background-image: url(../Image_inventory/WallPaper.webp);
         }
@@ -83,21 +133,38 @@
                   <img src="<?php echo $detail['picture']; ?>" alt="">
               </div>
               <div class="nav">
+              <?php 
+                $product_array = $db_handle->runQuery("SELECT * FROM menu WHERE foodDetail = '{$detail['foodDetail']}' ORDER BY foodID ASC"); 
+                if(!empty($product_array)){
+                    foreach($product_array as $key => $value) {
+                ?>
                   <div class="btn-group" role="group" aria-label="First group">
-                      <button type="button" class="btn btn-outline-dark" onclick="minusNum()">-</button>
-                      <input type="text" id="count" value= 1>
-                      <button type="button" class="btn btn-outline-dark" onclick="addNum()">+</button>
+                      <!-- <button type="button" class="btn btn-outline-dark" onclick="minusNum()">-</button> -->
+                      <input type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value= 1>
+                      <!-- <button type="button" class="btn btn-outline-dark" onclick="addNum()">+</button> -->
                     </div><br>
                     <h3><?php echo $detail['price']; ?></h3>
                 </div>
                 <div class="detail-of-menu">
                     <p><?php echo $detail['foodDetail']; ?></p>
                 </div>
-              <button class="danger2">เพิ่มลงตะกร้า</button>
+              <!-- <button class="danger2">เพิ่มลงตะกร้า</button> -->
+
+              <button  class="danger2" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>');">
+              เพิ่มลงตะกร้า</button>
               <button class="btn btn-outline-dark" id="btn-cart" onclick="backPage()">ย้อนกลับ</button>
+            <?php 
+                    }
+                }
+            ?>
             </div>
           </div>
         </div>
+        <?php 
+            echo $product_array[$key]['foodName'];
+            echo $product_array[$key]['foodDetail'];
+        ?>
     </div>
 
     <script>
