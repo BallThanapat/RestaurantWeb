@@ -1,7 +1,7 @@
 <?php
 $db_host = 'localhost';
 // $db_name = 'kruagame';
-$db_name = 'game_kitchen';
+$db_name = 'kruagame';
 $db_user = 'root';
 $db_password = '';
 
