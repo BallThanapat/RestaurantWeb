@@ -348,85 +348,31 @@ if (!empty($_GET["action"])) {
         <!-- เมนูแนะนำ -->
         <div class="col-menu recommend-menu" id="recommend-menu">
           <div class="row1" id="row-recommend-menu">
-            <div class="col1">
-              <div class="col1-sub">
-                <img src="Image_inventory/Menu/TomyumChonChon.webp" alt="" />
+          <?php
+                  $product_array = $db_handle->runQuery("SELECT * From menu where recommend = 1 order by foodID asc");
+                  if(!empty($product_array)){
+                      foreach($product_array as $key => $value) {
+              ?> 
+              <div class="col1">
+                  <div class="col1-sub" ><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt="" ></a></div>
+                  <div class="col1-sub-content">
+                      <div class="col1-sub-content-1"><?php echo $product_array[$key]["foodName"]; ?></div>
+                      <div class="cart-action">
+                          <input style="margin-top:20%" type="text" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                      </div>
+                      <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
+                          <?php echo "THB ". $product_array[$key]["price"]; ?></button>
+                      </div>
+                  </div>
               </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">ต้มยำปลาช่อน</div>
-                <div class="col1-sub-content-2">THB 229.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub">
-                <a href=""><img src="Image_inventory/Menu/TalayHot.jpg" alt="" id="rec-1" /></a>
-              </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">เจ้าทะเลเผาหม้อไฟ</div>
-                <div class="col1-sub-content-2">THB 429.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub">
-                <img src="Image_inventory/Menu/TalayHot1.webp" alt="" />
-              </div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1">ทะเลเดือด</div>
-                <div class="col1-sub-content-2">THB 329.00</div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
-
-            <div class="col1">
-              <div class="col1-sub"></div>
-              <div class="col1-sub-content">
-                <div class="col1-sub-content-1"></div>
-                <div class="col1-sub-content-2"></div>
-              </div>
-            </div>
+              <?php
+                      }
+                  }
+              ?>
+          
           </div>
-        </div>
+      </div>
+            
 
         <div class="col-menu fried-menu" id="fried-menu">
           <div class="row1" id="row-fried-menu" style="display: none;">
@@ -774,6 +720,7 @@ if (!empty($_GET["action"])) {
               </div>
             </div>
           </div>
+<<<<<<< Updated upstream
           <?php
         }
       }
@@ -781,73 +728,77 @@ if (!empty($_GET["action"])) {
 
     </div>
   </div>
-
-  <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
-    <i class="fa-solid fa-cart-shopping my-float"></i>
-  </a>
-
-  <!-- Shopping Cart Modals -->
-  <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
-            tabindex="0">
-            <div class="container">
-              <div class="row">
-                <div class="col-sm-6"> <!-- Item of menu to order -->
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-sm-5">
-                        <img src="Image_inventory/Menu/friedFood.png" class="w-100">
-                        <!-- รูปภาพจาก MENU -->
-                      </div>
-                      <div class="col-sm-6">
-                        <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
-                        <hr>
-                        <div class="d-flex">
-                          <p class="w-25">x 2</p> <!-- จำนวน -->
-                          <p class="w-25 ms-auto text-danger">259</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-sm-6"> <!-- Item of menu to order -->
-                  <div class="container">
-                    <div class="row">
-                      <div class="col-sm-5">
-                        <img src="Image_inventory/Menu/dessert.png" class="w-100">
-                        <!-- รูปภาพจาก MENU -->
-                      </div>
-                      <div class="col-sm-6">
-                        <p>Pancake</p> <!-- ชื่อของเมนู -->
-                        <hr>
-                        <div class="d-flex">
-                          <p class="w-25">x 1</p>
-                          <p class="w-25 ms-auto text-danger">72</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer d-flex justify-content-center">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-          <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
-        </div>
+=======
       </div>
+    <div>
+        <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+        <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+    
+>>>>>>> Stashed changes
+
+    <!-- Shopping Cart Modals -->
+    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
+                tabindex="0">
+                <div class="container">
+                <div class="row">
+                    <div class="col-sm-6"> <!-- Item of menu to order -->
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-sm-5">
+                            <img src="Image_inventory/Menu/friedFood.png" class="w-100">
+                            <!-- รูปภาพจาก MENU -->
+                        </div>
+                        <div class="col-sm-6">
+                            <p>Fied Chicken</p> <!-- ชื่อของเมนู -->
+                            <hr>
+                            <div class="d-flex">
+                            <p class="w-25">x 2</p> <!-- จำนวน -->
+                            <p class="w-25 ms-auto text-danger">259</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="col-sm-6"> <!-- Item of menu to order -->
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-sm-5">
+                            <img src="Image_inventory/Menu/dessert.png" class="w-100">
+                            <!-- รูปภาพจาก MENU -->
+                        </div>
+                        <div class="col-sm-6">
+                            <p>Pancake</p> <!-- ชื่อของเมนู -->
+                            <hr>
+                            <div class="d-flex">
+                            <p class="w-25">x 1</p>
+                            <p class="w-25 ms-auto text-danger">72</p>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+            <button type="button" class="btn btn-warning">ทำการสั่งซื้อ</button>
+            </div>
+        </div>
     </div>
-  </div>
+    </div>
 
 
   <div class="footer">
@@ -890,8 +841,13 @@ if (!empty($_GET["action"])) {
       </div>
     </footer>
   </div>
+<<<<<<< Updated upstream
 
 
+=======
+  </div>
+  
+>>>>>>> Stashed changes
 </body>
 
 </html>

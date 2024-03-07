@@ -3,7 +3,7 @@
         private $host = "localhost";
         private $user = "root";
         private $password = "";
-        private $database = "game_kitchen";
+        private $database = "kruagame";
         private $conn;
 
         function __construct(){
