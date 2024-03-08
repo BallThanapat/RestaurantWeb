@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,9 +23,7 @@
     <!-- Font Common-text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -31,8 +33,19 @@
 </head>
 
 <body>
-    <script>
+    <?php
+    require_once("../backend/api/config.php");
+    $query = "select * from users where uid = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->execute([$_SESSION['uID']]);
+    $userInfo = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    $email = $userInfo['email'];
+    $firstName = $userInfo['firstName'];
+    $lastName = $userInfo['lastName'];
+    $phone = $userInfo['telephone'];
+    ?>
+    <script>
         function profile(selectItem) {
 
             account = document.getElementById("space-account");
@@ -47,29 +60,25 @@
                 bought.style.display = "none";
                 status01.style.display = "none";
                 card.style.display = "none";
-            }
-            else if (selectItem == "address") {
+            } else if (selectItem == "address") {
                 account.style.display = "none";
                 address.style.display = "inline";
                 bought.style.display = "none";
                 status01.style.display = "none";
                 card.style.display = "none";
-            }
-            else if (selectItem == "bought") {
+            } else if (selectItem == "bought") {
                 account.style.display = "none";
                 address.style.display = "none";
                 bought.style.display = "inline";
                 status01.style.display = "none";
                 card.style.display = "none";
-            }
-            else if (selectItem == "statuss") {
+            } else if (selectItem == "statuss") {
                 account.style.display = "none";
                 address.style.display = "none";
                 bought.style.display = "none";
                 status01.style.display = "block";
                 card.style.display = "none";
-            }
-            else if (selectItem == "card") {
+            } else if (selectItem == "card") {
                 account.style.display = "none";
                 address.style.display = "none";
                 bought.style.display = "none";
@@ -77,21 +86,17 @@
                 card.style.display = "inline";
             }
         }
-
     </script>
 
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a href="../index.php" class="header-link">KITCHENHOME</a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
-                    <a href="../index.php" class="nav-link links ms-auto" id="backHome"><i
-                            class="fa-solid fa-house-chimney"></i></a>
+                    <a href="../index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a href="../promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
@@ -179,8 +184,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <div class="btn1">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal"
-                            id="btn-add-address">เพิ่มที่อยู่</button>
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="btn-add-address">เพิ่มที่อยู่</button>
                     </div>
                 </div>
 
@@ -241,30 +245,29 @@
                     <form action="">
                         <div class="row" id="row-username">
                             <!-- <label for="staticEmail" class="col-form-label">Username</label> -->
-                            Username<input type="text" readonly id="staticEmail" value="email@example.com"
-                                class="form-control custom-input">
+                            Username<input type="text" readonly id="staticEmail" value="<?php echo $_SESSION['username']; ?>" class="form-control custom-input">
                             <div class="col" id="col">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="firstname">ชื่อ</label>
-                                <input type="text" class="form-control" id="fname">
+                                <input type="text" class="form-control" id="fname" value="<?php echo $firstName; ?>">
                             </div>
                             <div class="col">
                                 <label for="lastname">นามสกุล</label>
-                                <input type="text" class="form-control" id="lname">
+                                <input type="text" class="form-control" id="lname" value="<?php echo $lastName; ?>">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col">
                                 <label for="phone">เบอร์โทรศัพท์</label>
-                                <input type="text" class="form-control" id="phone">
+                                <input type="text" class="form-control" id="phone" value="<?php echo $phone; ?>">
                             </div>
                             <div class="col">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" disabled>
+                                <input type="email" class="form-control" id="email" value="<?php echo $email; ?>" disabled>
                             </div>
                             <!-- <div class="col">
                             <label for="dob">วันเกิด:</label>
@@ -273,7 +276,7 @@
 
 
                         </div>
-                        <button type="button" class="btn btn-danger">บันทึกข้อมูล</button>
+                        <button type="button" class="btn btn-danger" onclick="updateUsers()">บันทึกข้อมูล</button>
                     </form>
                 </div>
             </div>
@@ -568,6 +571,75 @@
         </footer>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function updateUsers() {
+            var pass = true;
+            if ($("#fname").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "First name can't be empty!!",
+                    timer: 2000,
+                });
+            } else if ($("#lname").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Last name can't be empty!!",
+                    timer: 2000,
+                });
+            } else if ($("#phone").val().length < 8) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "phone must be at least 8 characters!!",
+                    timer: 2000,
+                });
+            }
+
+            if (pass) {
+                $.ajax({
+                    method: "post",
+                    url: "../backend/api/updateUser.php",
+                    data: {
+                        firstname: $("#fname").val(),
+                        lastname: $("#lname").val(),
+                        phone: $("#phone").val()
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        try {
+                            var responseObject = JSON.parse(response);
+                            if (responseObject.RespCode == 200) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Update success!!",
+                                    timer: 2000,
+                                });
+                            } else if (responseObject.RespCode == 400) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Update failed!!",
+                                    timer: 2000,
+                                });
+                            }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Something went wrong!",
+                                timer: 2000,
+                            });
+                        }
+                    },
+                    error: function(err) {
+                        console.log("bad", err);
+                    }
+                })
+            }
+        }
+    </script>
 </body>
 
 </html>
