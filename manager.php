@@ -26,6 +26,9 @@
 
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
+    
+    <script><?php include "managerPage.css" ?></script>
+    
     <title>Document</title>
 </head>
 <body>

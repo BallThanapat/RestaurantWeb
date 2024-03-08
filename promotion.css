@@ -297,23 +297,18 @@ footer {
     margin-left: 5%;
 }
 
-.footer .icon {
-    text-align: left;
-}
-
-.footer i {
-    margin-top: 20px;
-    margin-right: 30px;
-    font-size: 30px;
-    color: white;
-}
-
-/* @media (max-width: 600px) {
-    .ic {
-        width: 25%;
-    }
-} */
 .footer h2 {
-    color: #ffc400;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon a {
+    text-align: center;
+    justify-content: center;
 }

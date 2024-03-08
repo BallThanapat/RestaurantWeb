@@ -360,6 +360,17 @@ footer {
 }
 
 .footer h2 {
-    color: #ffc400;
-    font-weight: bold;
+    color: #ffffff;
+    font-size: 30px;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon a {
+    text-align: center;
+    justify-content: center;
 }
