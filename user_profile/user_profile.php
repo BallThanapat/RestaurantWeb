@@ -8,8 +8,6 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../menu.css">
-    <link rel="stylesheet" href="user_profile.css">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -33,6 +31,11 @@ session_start();
 </head>
 
 <body>
+    <style>
+        <?php include "../menu.css"?>;
+        <?php include "user_profile.css"?>;
+    </style>
+
     <?php
     require_once("../backend/api/config.php");
     $query = "select * from users where uid = ?";
@@ -398,7 +401,7 @@ session_start();
                                     <tr>
                                         <td><a href="">0003</a></td>
                                         <td>฿2999.99</td>
-                                        <td><i class="fa-solid fa-clock-rotate-left"></i></td>
+                                        <td><i class="fa-regular fa-clock"></i></td>
                                         <td><i class="fa-regular fa-circle-xmark"></i></td>
                                         <td><i class="fa-regular fa-circle-xmark"></i></td>
                                     </tr>
