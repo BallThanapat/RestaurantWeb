@@ -89,6 +89,7 @@
                 if (selectedValue == "1" || selectedValue == "2") {
                     // Hide all item containers
                     $(".item-container").hide();
+                    alert(selectedValue)
 
                     // Show the item container for the selected option
                     $("#div" + selectedValue).show();
@@ -233,11 +234,25 @@
                     <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
                         <div class="container">
                             <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
+                                
+                                <?php 
+                                    $addr_result = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
+                                    address.address, address.province, address.district, address.sub_district, address.postcode
+                                    FROM users
+                                    INNER JOIN address ON users.uid=address.uid where users.uid=1 limit 1;"); //แก้ uid ต้องรับค่ามากจากการ login
+                                    if(!empty($addr_result)){
+                                        foreach($addr_result as $key => $value) {
+                                ?>
                                 <div class="col-sm-10">
-                                    <p>นายกุนเชียง เซ้งเม้ง |
-                                        Tel. 000-000-0000<br>
-                                        xxxxxxxxxxxxxxxxxxxxx</p>
+                                    <p><?php echo $addr_result[$key]["firstName"].' '.$addr_result[$key]["lastName"]; ?><br>
+                                        <?php echo 'Tel. '. $addr_result[$key]["telephone"]; ?><br>
+                                        <?php echo $addr_result[$key]["address"].' '.$addr_result[$key]["province"].' '.$addr_result[$key]["district"]
+                                        .' '.$addr_result[$key]["sub_district"].' '.$addr_result[$key]["postcode"]; ?></p>
                                 </div>
+                                <?php 
+                                        }
+                                    }
+                                ?>
                                 <div class="col-sm-2 ms-auto" id="change-address">
                                     <h6 class="change">เปลี่ยน</h6>
                                 </div>
@@ -312,6 +327,8 @@
                 </div>
 
                 <!-- Test -->
+                
+
                 <!-- Address Modals -->
                 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
                     aria-hidden="true">
@@ -323,38 +340,38 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
+
                                 <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
                                     class="scrollspy-example" tabindex="0">
                                     <div class="container">
                                         <div class="row">
                                             <div class="custom-select" id="custom-select1">
+                                                <?php 
+                                                    $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
+                                                    address.address, address.province, address.district, address.sub_district, address.postcode
+                                                    FROM users
+                                                    INNER JOIN address ON users.uid=address.uid where users.uid=1;"); //แก้ uid ต้องรับค่ามากจากการ login
+                                                    if(!empty($addr_array)){
+                                                        foreach($addr_array as $key => $value) {
+                                                ?>
                                                 <div class="select-option selected" data-value="optionA"
                                                     id="option-address">
-                                                    <p>นายกุนเชียง เซ้งเม้ง<br>
-                                                        Tel. 000-000-0000<br>
-                                                        xxxxxxxxxxxxxxxxxxxxx</p>
+                                                    <p><?php echo $addr_array[$key]["firstName"].' '.$addr_array[$key]["lastName"]; ?><br>
+                                                        <?php echo 'Tel. '. $addr_array[$key]["telephone"]; ?><br>
+                                                        <?php echo $addr_array[$key]["address"].' '.$addr_array[$key]["province"].' '.$addr_array[$key]["district"]
+                                                        .' '.$addr_array[$key]["sub_district"].' '.$addr_array[$key]["postcode"]; ?></p>
                                                 </div>
-                                                <div class="select-option" data-value="optionB" id="option-address">
-                                                    <p>นายกุนเชียง เซ้งเม้ง<br>
-                                                        Tel. 000-000-0000<br>
-                                                        xxxxxxxxxxxxxxxxxxxxx</p>
-                                                </div>
-                                                <div class="select-option" data-value="optionC" id="option-address">
-                                                    <p>นายกุนเชียง เซ้งเม้ง<br>
-                                                        Tel. 000-000-0000<br>
-                                                        xxxxxxxxxxxxxxxxxxxxx</p>
-                                                </div>
-                                                <div class="select-option" data-value="optionC" id="option-address">
-                                                    <p>นายกุนเชียง เซ้งเม้ง<br>
-                                                        Tel. 000-000-0000<br>
-                                                        xxxxxxxxxxxxxxxxxxxxx</p>
-                                                </div>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
                                             </div>
+
                                             <input type="hidden" class="selected-option" name="selected-option1">
                                             <!-- <button id="get-selected-btn">Get Selected Value</button> -->
                                         </div>
+                                        </div>
                                     </div>
-                                </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
