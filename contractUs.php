@@ -285,38 +285,45 @@ session_start();
 
 
     <footer>
-        <div class="footer d-flex justify-content-center w-100">
-            <div class="box-footer container w-100">
-                <div class="row ">
-                    <div class="col-lg-5 col-md-12">
-                        <h2>KhunGame Restaurant</h2><br>
-                        <p class="icontext">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Ad vero vel quia facilis a hic aut laudantium, repudiandae doloribus alias!
-                            Accusamus, asperiores similique voluptatum consequatur dolorem praesentium modi
-                        </p>
-                        <div class="icon container">
-                            <p class="row">
-                                <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube"></i></a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-12">
-                        <h2>FIND OUR RESTAURANT</h2>
-                        <p class="icontext"><i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
-                            1 ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-                    </div>
-                    <div class="col-lg-3 col-md-12" id="col3">
-                        <h2>WORKING HOURS</h2><br>
-                        <p class="icontext">MONDAY UNTIL FRIDAY <br>09.00 - 23.00 </p><br><br>
-                        <p>SATURDAY - SUNDAY <br>09.00 - 24.00</p>
-                    </div>
-                </div>
+      <div class="footer d-flex justify-content-center w-100">
+        <div class="box-footer container w-100">
+          <div class="row">
+            <div class="col-lg-5 col-md-12">
+              <h2>KhunGame Restaurant</h2>
+              <br />
+              <p class="icontext">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
+                vel quia facilis a hic aut laudantium, repudiandae doloribus
+                alias! Accusamus, asperiores similique voluptatum consequatur
+                dolorem praesentium modi
+              </p>
+              <div class="icon container">
+                <p class="row">
+                  <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone" style="color: greenyellow"></i></a>
+                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook" style="color: #0097FF;"></i></a>
+                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
+                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube" style="color: red"></i></a>
+                </p>
+              </div>
             </div>
+            <div class="col-lg-4 col-md-12">
+              <h2>FIND OUR RESTAURANT</h2>
+              <p class="icontext">
+                <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
+                สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
+                แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
+              </p>
+            </div>
+            <div class="col-lg-3 col-md-12" id="col3">
+              <h2>WORKING HOURS</h2>
+              <br />
+              <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
+              <br /><br />
+              <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
+            </div>
+          </div>
         </div>
+      </div>
     </footer>
 </body>
 
