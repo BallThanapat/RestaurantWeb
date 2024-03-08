@@ -51,11 +51,44 @@ function gotosignup(page) {
             title: "Phone must be at least 8 characters!!",
             timer: 5000,
         });
-    } else if ($("#address").val().length <= 20) {
+    } 
+    else if ($("#home").val().length <= 0) {
         pass = false;
         Swal.fire({
             icon: "error",
-            title: "Address must be at least 20 characters!!",
+            title: "Address can't be empty!!",
+            timer: 5000,
+        });
+    }
+    else if ($("#province").val().length <= 0) {
+        pass = false;
+        Swal.fire({
+            icon: "error",
+            title: "Address can't be empty!!",
+            timer: 5000,
+        });
+    }
+    else if ($("#district_1").val().length <= 0) {
+        pass = false;
+        Swal.fire({
+            icon: "error",
+            title: "Address can't be empty!!",
+            timer: 5000,
+        });
+    }
+    else if ($("#district_2").val().length <= 0) {
+        pass = false;
+        Swal.fire({
+            icon: "error",
+            title: "Address can't be empty!!",
+            timer: 5000,
+        });
+    }
+    else if ($("#postcode").val().length != 5) {
+        pass = false;
+        Swal.fire({
+            icon: "error",
+            title: "Postcode must be 5 characters!!",
             timer: 5000,
         });
     }
@@ -71,7 +104,11 @@ function gotosignup(page) {
                 firstname: $("#fName").val(),
                 lastname: $("#lName").val(),
                 phone: $("#phone").val(),
-                address: $("#address").val(),
+                home: $("#home").val(),
+                province: $("#province").val(),
+                district_1: $("#district_1").val(),
+                district_2: $("#district_2").val(),
+                postcode: $("#postcode").val(),
             },
             success: function (response) {
                 console.log("good", response);

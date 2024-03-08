@@ -44,6 +44,7 @@ session_start();
     $firstName = $userInfo['firstName'];
     $lastName = $userInfo['lastName'];
     $phone = $userInfo['telephone'];
+    $point = $userInfo['point'];
     ?>
     <script>
         function profile(selectItem) {
@@ -137,7 +138,7 @@ session_start();
                 <!-- Modal body -->
                 <div class="modal-body">
                     <form action="" id="form-modal">
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col">
                                 <label for="recieved-name">ชื่อผู้รับ</label>
                                 <input type="text" class="form-control">
@@ -146,24 +147,24 @@ session_start();
                                 <label for="recieved-phone">เบอร์โทรศัพท์</label>
                                 <input type="text" class="form-control">
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="row">
                             <div class="col">
                                 <label for="address-home">บ้านเลขที่</label>
-                                <input type="address-home" class="form-control">
+                                <input type="address-home" class="form-control" id="home">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col">
                                 <label for="address-province">จังหวัด</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="province">
                             </div>
 
                             <div class="col">
                                 <label for="address-province">อำเภอ</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="district_1">
                             </div>
 
                         </div>
@@ -171,12 +172,12 @@ session_start();
                         <div class="row">
                             <div class="col">
                                 <label for="address-province">ตำบล</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="district_2">
                             </div>
 
                             <div class="col">
                                 <label for="address-province">รหัสไปรษณีย์</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="postcode">
                             </div>
                         </div>
                     </form>
@@ -184,7 +185,7 @@ session_start();
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <div class="btn1">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="btn-add-address">เพิ่มที่อยู่</button>
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="btn-add-address" onclick="addAddress()">เพิ่มที่อยู่</button>
                     </div>
                 </div>
 
@@ -287,30 +288,29 @@ session_start();
                         เพิ่มที่อยู่</button>
                 </div>
                 <div class="detail-topic">
-                    <div class="user-address">
-                        <div class="address-list">
-                            <h5>Mr. Oliver Mornald | <span id="phone-address">0952654425</span></h5>
-                            <p>ซอย 1 หมู่ 1 บ้านคุณบอลs เลขที่บ้าน 555/555 <br>แขวงลาดกระบัง เขตลาดกระบัง
-                                จังหวัดกรุงเทพมหานคร, 10520</p>
-                        </div>
+                    <?php
+                    $query_3 = "select * from address where uid = ? order by addr_id asc";
+                    $stmt_3 = $conn->prepare($query_3);
+                    $stmt_3->execute([$_SESSION['uID']]);
+                    $addr = $stmt_3->fetchAll(PDO::FETCH_ASSOC);
 
-                        <div class="address-list2">
-                            <h6>แก้ไข</h6>
-                        </div>
-                    </div>
+                    if (!empty($addr)) {
+                        foreach ($addr as $keyAd => $value) {
+                    ?>
+                            <div class="user-address">
+                                <div class="address-list">
+                                    <h5>คุณ <?php echo $firstName . " " . $lastName ?> | <span id="phone-address"><?php echo $phone ?></span></h5>
+                                    <p><?php echo "เลขที่บ้าน " . $addr[$keyAd]["address"] . " อำเภอ " .  $addr[$keyAd]["district"] . " ตำบล " . $addr[$keyAd]["sub_district"] . " จังหวัด " . $addr[$keyAd]["province"] . ", " . $addr[$keyAd]["postcode"] ?></p>
+                                </div>
 
-                    <div class="user-address">
-                        <div class="address-list">
-                            <h5>Mr. Alice Mornald | <span id="phone-address">0952254425</span></h5>
-                            <p>ซอย 1 หมู่ 1 บ้านคุณบอลs เลขที่บ้าน 555/555 <br>แขวงลาดกระบัง เขตลาดกระบัง
-                                จังหวัดกรุงเทพมหานคร, 10520</p>
-                        </div>
-
-                        <div class="address-list2">
-                            <h6>แก้ไข</h6>
-                        </div>
-                    </div>
-
+                                <div class="address-list2">
+                                    <button value="<?php echo $addr[$keyAd]["addr_id"] ?>" onclick="delAdd(this)">_ลบ_</button>
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
 
@@ -319,151 +319,46 @@ session_start();
                     <h2>ประวัติการสั่งซื้อ</h2>
                 </div>
                 <div class="detail-topic">
-                    <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
-                        <p>วันที่ทำการสั่งซื้อ 03/03/2024</p>
-                        <div class="box-bought">
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="../Image_inventory/Menu/dessert2.png" alt="">
+                    <?php
+                    $query_1 = "select log.*, bill.* from log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE log.uid = ? ORDER BY log.date_log DESC";
+                    $stmt_1 = $conn->prepare($query_1);
+                    $stmt_1->execute([$_SESSION['uID']]);
+                    $userLogs = $stmt_1->fetchAll(PDO::FETCH_ASSOC);
+
+                    if (!empty($userLogs)) {
+                        foreach ($userLogs as $key => $value) {
+                            $query_2 = "select orders.*, menu.* from orders inner join menu on orders.foodID = menu.foodID where orders.bill_id = ? order by menu.foodName ASC";
+                            $stmt_2 = $conn->prepare($query_2);
+                            $stmt_2->execute([$userLogs[$key]["bill_id"]]);
+                            $foodOrders = $stmt_2->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
+                            <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
+                                <p>วันที่ทำการสั่งซื้อ <?php echo $userLogs[$key]["date_log"]; ?></p>
+                                <div class="box-bought">
+                                    <?php foreach ($foodOrders as $row => $val) { ?>
+                                        <div class="bought"> <!-- รายการซื้อ -->
+                                            <div class="img-bought">
+                                                <img src="../<?php echo $foodOrders[$row]["picture"] ?>" alt="">
+                                            </div>
+                                            <div class="detail-menu">
+                                                <p><?php echo $foodOrders[$row]["foodName"] ?></p>
+                                                <p>x <?php echo $foodOrders[$row]["amount"] ?></p> <!-- จำนวนการซื้อ -->
+                                            </div>
+                                            <div class="detail-cost">
+                                                <p>฿<?php echo $foodOrders[$row]["totalPriceUnit"] ?></p>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                 </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿699</p>
+
+                                <div class="total-price">
+                                    <p>ราคารวม: ฿<?php echo $userLogs[$key]["totalPrice"]; ?></p>
                                 </div>
                             </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/Steak2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿200</p>
-                                </div>
-                            </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/friedFood2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿100</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="total-price">
-                            <p>ราคารวม: ฿999.99</p>
-                        </div>
-                    </div>
-
-                    <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
-                        <p>วันที่ทำการสั่งซื้อ 02/03/2024</p>
-                        <div class="box-bought">
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/dessert2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿100</p>
-                                </div>
-                            </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/Steak2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿100</p>
-                                </div>
-                            </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/friedFood2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿100</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="total-price">
-                            <p>ราคารวม: ฿1999.99</p>
-                        </div>
-                    </div>
-
-                    <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
-                        <p>วันที่ทำการสั่งซื้อ 01/03/2024</p>
-                        <div class="box-bought">
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/dessert2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿299</p>
-                                </div>
-                            </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/Steak2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-                                <div class="detail-cost">
-                                    <p>฿100</p>
-                                </div>
-                            </div>
-
-                            <div class="bought"> <!-- รายการซื้อ -->
-                                <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/friedFood2.png" alt="">
-                                </div>
-                                <div class="detail-menu">
-                                    <p>el laborioe harum porro, iure voluptate!</p>
-                                    <p>x1</p> <!-- จำนวนการซื้อ -->
-                                </div>
-
-                                <div class="detail-cost">
-                                    <p>฿200</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="total-price">
-                            <p>ราคารวม: ฿599.99</p>
-                        </div>
-                    </div>
-
+                    <?php
+                        }
+                    }
+                    ?>
                 </div>
             </div>
 
@@ -525,7 +420,7 @@ session_start();
                         <div class="detail-point">
                             <div class="detail-text">
                                 <h5>คะแนนสะสมปัจจุบัน</h5>
-                                <h1>999 Points</h1><br>
+                                <h1><?php echo $point; ?> Points</h1><br>
                                 <p style="text-align: start;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>•
                                     ซื้อสินค้าครบ 10 บาท = 1 Points</p>
                             </div>
@@ -638,6 +533,147 @@ session_start();
                     }
                 })
             }
+        }
+
+        function addAddress() {
+            var pass = true;
+            if ($("#home").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Address can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#province").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Address can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#district_1").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Address can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#district_2").val().length <= 0) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Address can't be empty!!",
+                    timer: 5000,
+                });
+            } else if ($("#postcode").val().length != 5) {
+                pass = false;
+                Swal.fire({
+                    icon: "error",
+                    title: "Postcode must be 5 characters!!",
+                    timer: 5000,
+                });
+            }
+
+            if (pass) {
+                $.ajax({
+                    method: "post",
+                    url: "../backend/api/addAddress.php",
+                    data: {
+                        home: $("#home").val(),
+                        province: $("#province").val(),
+                        district_1: $("#district_1").val(),
+                        district_2: $("#district_2").val(),
+                        postcode: $("#postcode").val(),
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        try {
+                            var responseObject = JSON.parse(response);
+                            if (responseObject.RespCode == 200) {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Add success!!",
+                                    timer: 2000,
+                                });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else if (responseObject.RespCode == 400) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Add failed!!",
+                                    timer: 2000,
+                                });
+                            } else if (responseObject.RespCode == 450) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Can't add more than 3!!",
+                                    timer: 2000,
+                                });
+                            }
+                        } catch (error) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Something went wrong!",
+                                timer: 2000,
+                            });
+                        }
+                    },
+                    error: function(err) {
+                        console.log("badmakmak", err);
+                    }
+                })
+            }
+        }
+
+        function delAdd(button) {
+            var addr_id = button.value;
+            console.log(addr_id);
+            $.ajax({
+                method: "post",
+                url: "../backend/api/delAdd.php",
+                data: {
+                    addId: addr_id,
+                },
+                success: function(response) {
+                    console.log(response);
+                    try {
+                        var responseObject = JSON.parse(response);
+                        if (responseObject.RespCode == 200) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Delete success!!",
+                                timer: 2000,
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else if (responseObject.RespCode == 400) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Delete failed!!",
+                                timer: 2000,
+                            });
+                        } else if (responseObject.RespCode == 450) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "address can't be empty!!",
+                                timer: 2000,
+                            });
+                        }
+                    } catch (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something went wrong!",
+                            timer: 2000,
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.log("badmakmak", err);
+                }
+
+            })
         }
     </script>
 </body>
