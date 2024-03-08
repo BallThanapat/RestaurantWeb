@@ -108,7 +108,7 @@
                     <h2 class="modal-title" id="staticBackdropLabel">หลักฐานการชำระเงิน</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modalBodyContent" style="border: 1px solid purple;">
+                <div class="modal-body" id="modalBodyContent">
                     <!-- ร -->
                 </div>
                 <div class="modal-footer">
@@ -196,10 +196,7 @@
                         <a class="sub-item" onclick=""><span>Add Staff</span></a>
                     </div>
                 </div> -->
-                <div class="item" onclick="clickMenu('order_history')"><a><i class="fa-regular fa-clipboard"></i>ORDER
-                        HISTORY</a></div>
-                <div class="item" onclick=""><a><i class="fa-solid fa-utensils"></i>MENU</a></div>
-                <div class="item" onclick=""><a><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
+                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
 

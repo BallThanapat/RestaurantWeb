@@ -46,6 +46,7 @@ body{
 .sidebar .menu{
     /* margin-top: 3%; */
     font-size: 20px;
+    cursor: pointer;
 }
 .sidebar .menu .item i{
     margin-right: 15px;

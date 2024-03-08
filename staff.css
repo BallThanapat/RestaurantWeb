@@ -49,6 +49,7 @@
     margin-bottom: 1%;
     padding: 8px 8px;
     border: 1px dotted white;
+    color: white;
     border-radius: 8px;
 }
 
@@ -56,6 +57,12 @@
     width: 10%;
     height: 100%;
     /* border: 1px solid rgb(0, 255, 0); */
+}
+
+.content h1 {
+    font-size: 36px;
+    padding: 10px 20px;
+    color: white;
 }
 
 .order .content-order{
