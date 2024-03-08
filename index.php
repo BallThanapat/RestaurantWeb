@@ -195,19 +195,19 @@ session_start();
             <div class="row">
               <div class="col">
                 <label for="address-home">บ้านเลขที่</label>
-                <input type="address-home" class="form-control">
+                <input type="text" class="form-control" id="home">
               </div>
             </div>
 
             <div class="row">
               <div class="col">
                 <label for="address-province">จังหวัด</label>
-                <input type="address-province" class="form-control">
+                <input type="text" class="form-control" id="province">
               </div>
 
               <div class="col">
                 <label for="address-province">อำเภอ</label>
-                <input type="address-province" class="form-control">
+                <input type="text" class="form-control" id="district_1">
               </div>
 
             </div>
@@ -215,12 +215,12 @@ session_start();
             <div class="row">
               <div class="col">
                 <label for="address-province">ตำบล</label>
-                <input type="address-province" class="form-control">
+                <input type="text" class="form-control" id="district_2">
               </div>
 
               <div class="col">
                 <label for="address-province">รหัสไปรษณีย์</label>
-                <input type="address-province" class="form-control">
+                <input type="text" class="form-control" id="postcode">
               </div>
             </div>
             <div class="modal-footer d-flex justify-content-center mt-3">
