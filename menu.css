@@ -10,7 +10,7 @@
     font-weight: bold;
 }
 
-.navbar01 .links{
+.navbar01 .links {
     color: #000;
     text-decoration: none;
     font-size: 18px;
@@ -23,7 +23,7 @@
     margin: 0 auto;
 }
 
-.navbar01 .links i:hover{
+.navbar01 .links i:hover {
     color: #ffbb00;
     transition: .7s;
     /* width: 100%; */
@@ -231,14 +231,40 @@
     font-size: 18px;
 }
 
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* @media (max-width: 760px) {
+    .swiper-button-next {
+        right: 20px;
+        transform: rotate(90deg);
+    }
+
+    .swiper-button-prev {
+        left: 20px;
+        transform: rotate(90deg);
+    }
+} */
+
 .menu-bar {
     /* position: absolute; */
     width: 100%;
-    height: 10vh;
+    height: 20vh;
     background-color: #fff;
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: center; */
 }
 
 .menu-box-bar {
@@ -246,7 +272,7 @@
     /* display: flex; */
     /* align-items: center; */
     justify-content: center;
-    width: 10%;
+    width: 100%;
     height: 100%;
     font-size: 18px;
     background-color: #fff;
@@ -401,12 +427,12 @@
     /* padding-right: 10px; */
 }
 
-.col1-sub-content-2 button{
+.col1-sub-content-2 button {
     color: #000;
     font-weight: 600;
 }
 
-.col1-sub-content-2:hover button{
+.col1-sub-content-2:hover button {
     color: #fff;
     font-weight: 600;
 }
@@ -419,7 +445,6 @@
     background-color: #ff4848;
     transition: .8s;
 }
-
 
 /* Footer */
 footer {
@@ -502,29 +527,29 @@ footer {
 
 /* ---------------------------   */
 
-.float{
-	position: fixed;
-	width:60px;
-	height:60px;
-	bottom:50px;
-	right: 50px;
-	background-color: rgb(0, 62, 87);
-	color:white;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 50px;
+    right: 50px;
+    background-color: rgb(0, 62, 87);
+    color: white;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
     display: flex;
     justify-content: center;
     align-items: center;
     text-decoration: none;
 }
 
-.my-float{
+.my-float {
     margin: 0 auto;
-	font-size: 18px;
+    font-size: 18px;
 }
 
-.float .my-float:hover{
+.float .my-float:hover {
     color: rgb(255, 252, 60);
     transition: .5s;
 }
@@ -537,6 +562,7 @@ footer {
     height: 65rem;
     display: block;
 }
+
 .detail {
     display: flex;
     flex-direction: column;
@@ -546,7 +572,8 @@ footer {
     width: 70%;
     height: 100%;
 }
-.detail h1{
+
+.detail h1 {
     margin-top: 5%;
     font-size: 40px;
     font-weight: 700;
@@ -562,14 +589,14 @@ footer {
     margin-top: 3%;
 }
 
-.nav h2{
+.nav h2 {
     font-weight: 700;
     margin-bottom: 5%;
     justify-content: end;
     color: #b10000;
 }
 
-.danger2{
+.danger2 {
     margin-top: 2%;
     background-color: #b10000;
     border-radius: 8px;
@@ -583,12 +610,12 @@ footer {
     cursor: pointer;
 }
 
-.danger2:hover{
+.danger2:hover {
     filter: brightness(90%);
 }
 
 
-#btn-cart{
+#btn-cart {
     font-weight: bold;
     width: 100%;
     height: 6vh;
@@ -603,15 +630,18 @@ footer {
     height: 50%;
     object-fit: contain;
 }
-.menu-image1 img{
+
+.menu-image1 img {
     width: 100%;
     height: 100%;
 }
+
 #count {
     text-align: center;
     width: 30%;
 }
-.detail-of-menu{
+
+.detail-of-menu {
     margin-top: 5%;
     width: 100%;
     font-size: 18px;
@@ -621,12 +651,14 @@ footer {
     text-align: center;
     height: 35%;
 }
+
 .cart-action {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 2%;
 }
+
 .cart-action button {
     width: 20px;
     height: 35%;
@@ -645,6 +677,7 @@ footer {
     margin-right: 2%;
     border-radius: 10px;
 }
+
 .cart-action2 button {
     width: 30%;
     height: 100%;
@@ -730,6 +763,15 @@ footer {
 
     #backHome {
         padding-left: 10px;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .col1-sub-content-1 {
+        font-size: 17px;
+    }
+    .col1-sub-content-2 {
+        font-size: 17px;
     }
 }
 
