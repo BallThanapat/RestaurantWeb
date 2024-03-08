@@ -33,7 +33,7 @@ session_start();
 <body>
     <style>
         <?php include "../menu.css" ?>;
-        <?php include "user_profile.css" ?>;
+        <?php include "./user_profile.css" ?>;
     </style>
 
     <?php
@@ -384,27 +384,50 @@ session_start();
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><a href="">0001</a></td>
-                                        <td>฿999.99</td>
-                                        <td><i class="fa-regular fa-circle-check"></i></td>
-                                        <td><i class="fa-regular fa-circle-check"></i></td>
-                                        <td><i class="fa-regular fa-circle-check"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">0002</a></td>
-                                        <td>฿1999.99</td>
-                                        <td><i class="fa-regular fa-circle-check"></i></td>
-                                        <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                        <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                    </tr>
-                                    <tr>
-                                        <td><a href="">0003</a></td>
-                                        <td>฿2999.99</td>
-                                        <td><i class="fa-regular fa-clock"></i></td>
-                                        <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                        <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                    </tr>
+                                    <?php
+                                    $query_4 = "select * from bill where uid = ?";
+                                    $stmt_4 = $conn->prepare($query_4);
+                                    $stmt_4->execute([$_SESSION['uID']]);
+                                    $rowBill = $stmt_4->fetchAll(PDO::FETCH_ASSOC);
+                                    foreach ($rowBill as $keyBill => $value) {
+                                    ?>
+                                        <tr>
+                                            <?php
+                                            $formatted_num = sprintf("%03d", $rowBill[$keyBill]["bill_id"]);
+                                            ?>
+                                            <td><a><?php echo $formatted_num ?></a></td>
+                                            <td>฿<?php echo $rowBill[$keyBill]["totalPrice"] ?></td>
+                                            <?php
+                                            if ($rowBill[$keyBill]["status"] == 1) {
+                                            ?>
+                                                <td><i class="fa-regular fa-clock"></i></td>
+                                                <td><i class="fa-regular fa-clock"></i></td>
+                                                <td><i class="fa-regular fa-clock"></i></td>
+                                            <?php
+                                            } else if ($rowBill[$keyBill]["status"] == 2) {
+                                            ?>
+                                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                                <td><i class="fa-regular fa-clock"></i></td>
+                                            <?php
+                                            } else if ($rowBill[$keyBill]["status"] == 3) {
+                                            ?>
+                                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                                <td><i class="fa-regular fa-circle-check"></i></td>
+                                            <?php
+                                            } else if ($rowBill[$keyBill]["status"] == 0) {
+                                            ?>
+                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                            <?php
+                                            }
+                                            ?>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

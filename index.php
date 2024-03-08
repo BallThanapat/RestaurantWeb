@@ -251,12 +251,8 @@ session_start();
         และมีรางวัลด้านอาหารระดับโลกอย่าง มิเชอลิน 8 ดาว ได้เปิดร้านอาหารที่คุณภาพสูงและราคาถูกแก่ลูกค้า ทางเราหวั
         ว่าลูกค้าทุกท่านจะดื่มดำกับรสมือของคุณเกมอละได้รับประสบการณ์ที่ดีจากร้านอาหารของเรา Enjoy ครับผม
       </p>
-      <button type="button" class="btn btn-warning" id="btn1">
-        ติดต่อเรา
-      </button>
-      <button type="button" class="btn btn-outline-warning" id="btn2">
-        เกี่ยวกับเรา
-      </button>
+      <!-- link to contact page -->
+      <a href="contractUs.php" class="btn btn-warning">ติดต่อเรา</a>
     </div>
   </div>
 
@@ -295,12 +291,11 @@ session_start();
       <div class="box-text">
         <h1>PROMOTION</h1>
         <p>
-          ลูกค้าสามารถดูโปรโมชั่นของทานร้านเราผ่านหน้าโปรโมชั่น คลิ๊กเล๊ย!
+          ลูกค้าสามารถดูโปรโมชั่นของทางร้านเราผ่านหน้าโปรโมชั่น คลิ๊กเล๊ย!
         </p>
-        <button type="button" class="btn btn-warning" id="btn1">
-          โปรโมชั่น
-        </button>
-        <button type="button" class="btn btn-outline-warning" id="btn2">
+        <a href="promotion.php" class="btn btn-warning">โปรโมชั่น</a>
+        <button type="button" class="btn btn-outline-warning" id="btn2" style="width: 20%" data-bs-toggle="modal"
+          data-bs-target="#loginRegisModal">
           สมัครสมาชิก
         </button>
       </div>
@@ -317,9 +312,7 @@ session_start();
         ผ่านการปรุงรสอย่างพิถีพิถันจากเชฟเกม เพื่อให้ลูกค้าทุกท่านได้ลิ้มรสถึงความจริงใจจากเชฟเกม
         ลูกค้าสามารถเลือกดูเมนูอาหารได้
       </p>
-      <button type="button" class="btn btn-warning" id="btn1">
-        ดูเมนูทั้งหมด
-      </button>
+      <a href="menu.php" class="btn btn-warning">เมนูอาหาร</a>
     </div>
   </div>
 
@@ -331,12 +324,6 @@ session_start();
         ด้วยความหวังดีจากเชฟเกม เพื่อให้ลูกค้าทุกท่านสามารถทานอาหารจากทางร้านเราจากที่ไหนก็ได้
         คุณเกมจึงได้นำระบบเดลิเวอรี่มาใช้เพื่อให้พวกเราสามารถมอบความอร่อยและความสุขส่งตรงถึงหน้าบ้านของคุณหรือหากลูกค้าต้องการที่จะมารับที่หน้าร้านก็สามารถทำได้เช่นกัน
       </p>
-      <button type="button" class="btn btn-warning" id="btn1">
-        สั่งเดลิเวอรี่
-      </button>
-      <button type="button" class="btn btn-outline-warning" id="btn1">
-        รับที่ร้าน
-      </button>
     </div>
   </div>
 
@@ -360,10 +347,7 @@ session_start();
             <h2>KhunGame Restaurant</h2>
             <br />
             <p class="icontext">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-              vel quia facilis a hic aut laudantium, repudiandae doloribus
-              alias! Accusamus, asperiores similique voluptatum consequatur
-              dolorem praesentium modi
+              ลูกค้าสามารถติดต่อทางร้านผ่านทางช่องทางต่างๆได้ดังนี้
             </p>
             <div class="icon container">
               <p class="row">

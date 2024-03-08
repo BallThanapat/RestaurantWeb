@@ -9,11 +9,11 @@ const validateEmail = (email) => {
 function gotosignup(page) {
     //ฝากไปทำ validate หน่อยนะ frontend
     var pass = true;
-    if ($("#uName").val().length <= 8) {
+    if ($("#uName").val().length < 5) {
         pass = false;
         Swal.fire({
             icon: "error",
-            title: "Username must be at least 8 characters!!",
+            title: "Username must be at least 5 characters!!",
             timer: 5000,
         });
     } else if (!validateEmail($("#email").val())) {
@@ -23,7 +23,7 @@ function gotosignup(page) {
             title: "email is invalid!!",
             timer: 5000,
         });
-    } else if ($("#rPassword").val().length <= 8) {
+    } else if ($("#rPassword").val().length < 8) {
         pass = false;
         Swal.fire({
             icon: "error",
