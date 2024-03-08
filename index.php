@@ -25,9 +25,7 @@ session_start();
   <!-- Font Common-text -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet" />
 
   <!-- Icon -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -35,13 +33,12 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- User Authentication -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-    crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="userAuthen.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
       var radio1 = document.getElementById("btnradio1");
       var radio2 = document.getElementById("btnradio2");
       var form1 = document.getElementById("form1");
@@ -51,7 +48,7 @@ session_start();
       // var btnLogin = document.getElementById("btnlogin");
       // var btnRegis = document.getElementById("btnsignup");
 
-      radio1.addEventListener("change", function () {
+      radio1.addEventListener("change", function() {
         if (radio1.checked) {
           form1.style.display = "block";
           form2.style.display = "none";
@@ -64,7 +61,7 @@ session_start();
         }
       });
 
-      radio2.addEventListener("change", function () {
+      radio2.addEventListener("change", function() {
         if (radio2.checked) {
           form1.style.display = "none";
           form2.style.display = "block";
@@ -87,9 +84,7 @@ session_start();
     <nav class="navbar navbar-expand-xxl navbar-dark">
       <div class="container-fluid">
         <a href="index.php" class="header-link">KITCHENHOME</a>
-        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-          aria-label="Toggle navigation">
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon text-white"></span>
         </button>
         <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
@@ -197,11 +192,38 @@ session_start();
               <input type="text" class="form-control" id="phone" />
             </div>
             <!-- <div class="mx -->
-            <div class="mb-3">
-              <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
-              <input type="text" class="form-control" id="address" />
+            <div class="row">
+              <div class="col">
+                <label for="address-home">บ้านเลขที่</label>
+                <input type="address-home" class="form-control">
+              </div>
             </div>
-            <div class="modal-footer d-flex justify-content-center">
+
+            <div class="row">
+              <div class="col">
+                <label for="address-province">จังหวัด</label>
+                <input type="address-province" class="form-control">
+              </div>
+
+              <div class="col">
+                <label for="address-province">อำเภอ</label>
+                <input type="address-province" class="form-control">
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <label for="address-province">ตำบล</label>
+                <input type="address-province" class="form-control">
+              </div>
+
+              <div class="col">
+                <label for="address-province">รหัสไปรษณีย์</label>
+                <input type="address-province" class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center mt-3">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Close
               </button>
@@ -246,12 +268,9 @@ session_start();
   <div class="bgImg page2">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-          aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-          aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-          aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -264,13 +283,11 @@ session_start();
           <img class="d-block w-100" src="Image_inventory/Home/BGRestau4.jpg" alt="Third slide" />
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>

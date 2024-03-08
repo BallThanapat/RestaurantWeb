@@ -203,11 +203,38 @@ session_start();
                             <input type="text" class="form-control" id="phone" />
                         </div>
                         <!-- <div class="mx -->
-                        <div class="mb-3">
-                            <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
-                            <input type="text" class="form-control" id="address" />
+                        <div class="row">
+                            <div class="col">
+                                <label for="address-home">บ้านเลขที่</label>
+                                <input type="address-home" class="form-control">
+                            </div>
                         </div>
-                        <div class="modal-footer d-flex justify-content-center">
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="address-province">จังหวัด</label>
+                                <input type="address-province" class="form-control">
+                            </div>
+
+                            <div class="col">
+                                <label for="address-province">อำเภอ</label>
+                                <input type="address-province" class="form-control">
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="address-province">ตำบล</label>
+                                <input type="address-province" class="form-control">
+                            </div>
+
+                            <div class="col">
+                                <label for="address-province">รหัสไปรษณีย์</label>
+                                <input type="address-province" class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-center mt-3">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
