@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-     <!-- Bootstrap -->
-     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Font Header-->
@@ -18,12 +18,14 @@
     <!-- Font Common-text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="managerPage.css">
 
     <!-- JQuery -->
@@ -31,11 +33,11 @@
 
     <style>
         <?php
-            include "managerPage.css";
-            include "staff.css";
+        include "managerPage.css";
+        include "staff.css";
         ?>
     </style>
-    
+
 </head>
 
 <body>
@@ -77,7 +79,7 @@
             datetimeElement.textContent = getCurrentDateTime();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateDateTime();
             setInterval(updateDateTime, 1000);
         });
@@ -98,7 +100,8 @@
     </script>
 
     <!-- Modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -117,7 +120,8 @@
     </div>
 
     <!-- The Modal Info -->
-    <div class="modal fade" id="infoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="infoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -138,7 +142,8 @@
                     </div><br>
                     <div class="row">
                         <div class="col">
-                            <p>ที่อยู่ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci provident eum Lorem ipsum dolor sit amet.</p>
+                            <p>ที่อยู่ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci provident eum
+                                Lorem ipsum dolor sit amet.</p>
                         </div>
                     </div>
 
@@ -164,12 +169,12 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>    
                 </div>
             </div>
         </div>
+    </div>
 
-                
+
     <!-- --------- -->
 
     <div class="adminmain">
@@ -180,8 +185,10 @@
                 <span id="clock-icon"></span>
             </div>
             <div class="menu">
-                <div class="item" onclick="clickMenu('order')"><a><i class="fa-solid fa-user-pen"></i></i>ORDER</a></div>
-                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-cash-register"></i>CONFIRM-ORDER</a></div>
+                <div class="item" onclick="clickMenu('order')"><a><i class="fa-solid fa-user-pen"></i></i>ORDER</a>
+                </div>
+                <div class="item" onclick="clickMenu('payment')"><a><i
+                            class="fa-solid fa-cash-register"></i>CONFIRM-ORDER</a></div>
                 <!-- <div class="item">
                     <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
                     <div class="sub-menu" id="sub-menu">
@@ -189,7 +196,8 @@
                         <a class="sub-item" onclick=""><span>Add Staff</span></a>
                     </div>
                 </div> -->
-                <div class="item" onclick="clickMenu('order_history')"><a><i class="fa-regular fa-clipboard"></i>ORDER HISTORY</a></div>
+                <div class="item" onclick="clickMenu('order_history')"><a><i class="fa-regular fa-clipboard"></i>ORDER
+                        HISTORY</a></div>
                 <div class="item" onclick=""><a><i class="fa-solid fa-utensils"></i>MENU</a></div>
                 <div class="item" onclick=""><a><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
             </div>
@@ -212,7 +220,8 @@
                             <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
                         </div>
 
-                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                        <div class="content-order order-img-payment" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
                             <img src="Image_inventory/billtest.png" alt="" id="img-payment">
                         </div>
 
@@ -239,11 +248,13 @@
 
                         </div>
 
-                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                        <div class="content-order order-img-payment" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
                             <img src="Image_inventory/billtest.png" alt="" id="img-payment">
                         </div>
 
-                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal" style="cursor: pointer;">
+                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
+                            style="cursor: pointer;">
                             <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
                         </div>
 
@@ -263,61 +274,64 @@
             <div class="content" id="payment">
                 <h1>ยืนยันรายการสั่งซื้อ</h1>
                 <div class="status-payment">
-                <div class="box-list-order">
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0001</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
-                            <h6>รายการอาหาร</h6>
-                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                    <div class="box-list-order">
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6>
+                                <h1>0001</h1>
+                            </div>
+                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                                <h6>รายการอาหาร</h6>
+                                <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                            </div>
+
+                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
+                                <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>120.00฿</h5>
+                            </div>
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                            </div>
                         </div>
 
-                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6>
+                                <h1>0002</h1>
+                            </div>
+                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
+
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                            </div>
+
+                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
+                                style="cursor: pointer;">
+                                <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>299.00฿</h5>
+                            </div>
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                            </div>
                         </div>
 
-                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
-                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
-
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>120.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <button class="btn btn-success">Confirm</button>
-                        </div>
                     </div>
-
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0002</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
-
-                        </div>
-
-                        <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
-                        </div>
-
-                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal" style="cursor: pointer;">
-                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
-
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>299.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <button class="btn btn-success">Confirm</button>
-                        </div>
-                    </div>
-
-                </div>
 
                 </div>
             </div>

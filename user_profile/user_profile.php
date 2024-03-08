@@ -32,8 +32,8 @@ session_start();
 
 <body>
     <style>
-        <?php include "../menu.css"?>;
-        <?php include "user_profile.css"?>;
+        <?php include "../menu.css" ?>;
+        <?php include "user_profile.css" ?>;
     </style>
 
     <?php
@@ -308,7 +308,7 @@ session_start();
                                 </div>
 
                                 <div class="address-list2">
-                                    <button value="<?php echo $addr[$keyAd]["addr_id"] ?>" onclick="delAdd(this)">_ลบ_</button>
+                                    <button class="btn btn-link" value="<?php echo $addr[$keyAd]["addr_id"] ?>" onclick="delAdd(this)">ลบ</button>
                                 </div>
                             </div>
                     <?php
@@ -597,8 +597,12 @@ session_start();
                                 Swal.fire({
                                     icon: "success",
                                     title: "Add success!!",
-                                    timer: 2000,
+                                    timer: 1000,
+                                    showConfirmButton: false
                                 });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
                                 setTimeout(function() {
                                     location.reload();
                                 }, 2000);
@@ -631,54 +635,67 @@ session_start();
         }
 
         function delAdd(button) {
-            var addr_id = button.value;
-            console.log(addr_id);
-            $.ajax({
-                method: "post",
-                url: "../backend/api/delAdd.php",
-                data: {
-                    addId: addr_id,
-                },
-                success: function(response) {
-                    console.log(response);
-                    try {
-                        var responseObject = JSON.parse(response);
-                        if (responseObject.RespCode == 200) {
-                            Swal.fire({
-                                icon: "success",
-                                title: "Delete success!!",
-                                timer: 2000,
-                            });
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        } else if (responseObject.RespCode == 400) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Delete failed!!",
-                                timer: 2000,
-                            });
-                        } else if (responseObject.RespCode == 450) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "address can't be empty!!",
-                                timer: 2000,
-                            });
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var addr_id = button.value;
+                    console.log(addr_id);
+                    $.ajax({
+                        method: "post",
+                        url: "../backend/api/delAdd.php",
+                        data: {
+                            addId: addr_id,
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            try {
+                                var responseObject = JSON.parse(response);
+                                if (responseObject.RespCode == 200) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Delete success!!",
+                                        timer: 1000,
+                                        showConfirmButton: false
+                                    });
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 1000);
+                                } else if (responseObject.RespCode == 400) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Delete failed!!",
+                                        timer: 2000,
+                                    });
+                                } else if (responseObject.RespCode == 450) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "address can't be empty!!",
+                                        timer: 2000,
+                                    });
+                                }
+                            } catch (error) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 2000,
+                                });
+                            }
+                        },
+                        error: function(err) {
+                            console.log("badmakmak", err);
                         }
-                    } catch (error) {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Something went wrong!",
-                            timer: 2000,
-                        });
-                    }
-                },
-                error: function(err) {
-                    console.log("badmakmak", err);
-                }
 
-            })
-        }
+                    })
+                }
+            });
+        };
     </script>
 </body>
 
