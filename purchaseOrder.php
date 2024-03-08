@@ -205,6 +205,7 @@
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
+
             <!-- Second Page -->
             <div class="mt-3" id="page2" style="display: none;">
                 <h4>รายละเอียดการจัดส่ง</h4>

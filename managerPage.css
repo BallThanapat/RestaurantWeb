@@ -110,7 +110,119 @@ body{
     padding-right: 30px;
     box-sizing: border-box;
 }
-.content{
-    color: white;
-    padding: 20px;
+.content {
+    width: 100%;
+    height: 90%;
 }
+
+.dashboard {
+    display: none;
+}
+
+.space-content {
+    width: 100%;
+    height: 100%;
+}
+
+.space-content h1 {
+    font-size: 3rem;
+}
+
+.space-content .dashboard-output {
+    width: 100%;
+    height: 80%;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 10px;
+    margin-bottom: 1%;
+}
+.space-content .sum{
+    width: 100%;
+    height: 12%;
+    display: flex;
+    color: black;
+}
+.space-content .sum .sum-day, .space-content .sum .sum-month {
+    width: 50%;
+    height: 70%;
+    padding: 10px 10px;
+    background-color: white;
+    margin-right: 1%;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 4px #313131;
+}
+
+.manage {
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.manage h1 {
+    font-size: 2rem;
+}
+
+.table {
+    width: 100%;
+    max-height: 70%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    overflow: auto;
+    text-align: center;
+    margin-bottom: 10%;
+}
+
+.table th, .table td {
+    padding: 10px;
+    border: 1px solid #fff;
+}
+
+.table th {
+    background-color: #585858;
+    color: white;
+}
+
+.table td {
+    background-color: #585858;
+    color: white;
+}
+.summarize-day {
+    display: flex;
+    justify-content: space-between;
+    width: 85%;
+    height: 10%;
+    border-radius: 8px;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    padding: 10px 10px;
+}
+.count {
+    width: 33%;
+    height: 100%;
+}
+.income {
+    width: 33%;
+    height: 100%;
+}
+.mean-income {
+    width: 33%;
+    height: 100%;
+}
+
+.list-staff {
+    height: 90%;
+}
+
+.head-add-staff{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .space-content .sum .sum-month{
+    width: 50%;
+    height: 70%;
+    border: 5px solid hotpink;
+    padding: 10px 10px;
+} */

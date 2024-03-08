@@ -324,7 +324,7 @@ session_start();
                         <div class="box-bought">
                             <div class="bought"> <!-- รายการซื้อ -->
                                 <div class="img-bought">
-                                    <img src="/Image_inventory/Menu/dessert2.png" alt="">
+                                    <img src="../Image_inventory/Menu/dessert2.png" alt="">
                                 </div>
                                 <div class="detail-menu">
                                     <p>el laborioe harum porro, iure voluptate!</p>
