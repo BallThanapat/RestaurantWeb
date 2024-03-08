@@ -25,7 +25,9 @@ session_start();
   <!-- Font Common-text -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+    rel="stylesheet" />
 
   <!-- Icon -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -33,12 +35,13 @@ session_start();
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
   <!-- User Authentication -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="userAuthen.js"></script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       var radio1 = document.getElementById("btnradio1");
       var radio2 = document.getElementById("btnradio2");
       var form1 = document.getElementById("form1");
@@ -48,7 +51,7 @@ session_start();
       // var btnLogin = document.getElementById("btnlogin");
       // var btnRegis = document.getElementById("btnsignup");
 
-      radio1.addEventListener("change", function() {
+      radio1.addEventListener("change", function () {
         if (radio1.checked) {
           form1.style.display = "block";
           form2.style.display = "none";
@@ -61,7 +64,7 @@ session_start();
         }
       });
 
-      radio2.addEventListener("change", function() {
+      radio2.addEventListener("change", function () {
         if (radio2.checked) {
           form1.style.display = "none";
           form2.style.display = "block";
@@ -84,7 +87,9 @@ session_start();
     <nav class="navbar navbar-expand-xxl navbar-dark">
       <div class="container-fluid">
         <a href="index.php" class="header-link">KITCHENHOME</a>
-        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon text-white"></span>
         </button>
         <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
@@ -242,18 +247,9 @@ session_start();
     <div class="box-text">
       <h1>Let Me Cook!</h1>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-        asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-        ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-        similique? Similique alias cum eos! Fuga optio facilis itaque velit
-        omnis soluta distinctio, delectus veritatis suscipit debitis nam
-        accusantium eum! Veritatis velit provident eaque quis laudantium!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-        debitis quasi dolorem officiis nesciunt reprehenderit est molestiae
-        culpa itaque minima aperiam labore expedita assumenda, inventore
-        quidem eum, magni reiciendis quis nisi veritatis perspiciatis ipsa
-        eius facilis eaque. Quam minus eligendi laborum facilis, consectetur
-        minima in non. Facere enim obcaecati mollitia!
+        สวัสดีลูกค้าทุกท่านเข้าสู่ร้าน ครัวคุณเกม สุดยอดเชฟมืออาชีพเจ้าของร้านอาหารมากกว่า 20 สาขา
+        และมีรางวัลด้านอาหารระดับโลกอย่าง มิเชอลิน 8 ดาว ได้เปิดร้านอาหารที่คุณภาพสูงและราคาถูกแก่ลูกค้า ทางเราหวั
+        ว่าลูกค้าทุกท่านจะดื่มดำกับรสมือของคุณเกมอละได้รับประสบการณ์ที่ดีจากร้านอาหารของเรา Enjoy ครับผม
       </p>
       <button type="button" class="btn btn-warning" id="btn1">
         ติดต่อเรา
@@ -268,9 +264,12 @@ session_start();
   <div class="bgImg page2">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
       <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+          aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+          aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+          aria-label="Slide 3"></button>
       </div>
       <div class="carousel-inner">
         <div class="carousel-item active">
@@ -283,25 +282,20 @@ session_start();
           <img class="d-block w-100" src="Image_inventory/Home/BGRestau4.jpg" alt="Third slide" />
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
       </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+        data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
       </button>
       <div class="box-text">
         <h1>PROMOTION</h1>
         <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-          asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-          ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-          similique? Similique alias cum eos! Fuga optio facilis itaque velit
-          omnis soluta distinctio, delectus veritatis suscipit debitis nam
-          accusantium eum! Veritatis velit provident eaque quis laudantium!
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-          debitis quasi dolorem officiis nesciunt
+          ลูกค้าสามารถดูโปรโมชั่นของทานร้านเราผ่านหน้าโปรโมชั่น คลิ๊กเล๊ย!
         </p>
         <button type="button" class="btn btn-warning" id="btn1">
           โปรโมชั่น
@@ -319,13 +313,9 @@ session_start();
     <div class="box-text">
       <h1>Menu</h1>
       <p>
-        Lorem ipsum dolor sit,asda amet consectetur adipisicing elit. Est,
-        asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-        ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-        similique? Similique alias cum eos! Fuga optio facilis itaque velit
-        omnis soluta distinctio, delectus veritatis suscipit debitis nam
-        accusantium eum! Veritatis velit provident eaque quis laudantium!
-        Lorem,
+        เมนูอาหารจากทางร้านเราล้วนทำมาจากวัตถุดิบคุณภาพสูงที่นำเข้ามาจากบริเวณส่วนกลางของสามเหลี่ยมเบอร์มิวด้า
+        ผ่านการปรุงรสอย่างพิถีพิถันจากเชฟเกม เพื่อให้ลูกค้าทุกท่านได้ลิ้มรสถึงความจริงใจจากเชฟเกม
+        ลูกค้าสามารถเลือกดูเมนูอาหารได้
       </p>
       <button type="button" class="btn btn-warning" id="btn1">
         ดูเมนูทั้งหมด
@@ -338,18 +328,8 @@ session_start();
     <div class="box-text">
       <h1>Delivery / Pickup</h1>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-        asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-        ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-        similique? Similique alias cum eos! Fuga optio facilis itaque velit
-        omnis soluta distinctio, delectus veritatis suscipit debitis nam
-        accusantium eum! Veritatis velit provident eaque quis laudantium!
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-        debitis quasi dolorem officiis nesciunt reprehenderit est molestiae
-        culpa itaque minima aperiam labore expedita assumenda, inventore
-        quidem eum, magni reiciendis quis nisi veritatis perspiciatis ipsa
-        eius facilis eaque. Quam minus eligendi laborum facilis, consectetur
-        minima in non. Facere enim obcaecati mollitia!
+        ด้วยความหวังดีจากเชฟเกม เพื่อให้ลูกค้าทุกท่านสามารถทานอาหารจากทางร้านเราจากที่ไหนก็ได้
+        คุณเกมจึงได้นำระบบเดลิเวอรี่มาใช้เพื่อให้พวกเราสามารถมอบความอร่อยและความสุขส่งตรงถึงหน้าบ้านของคุณหรือหากลูกค้าต้องการที่จะมารับที่หน้าร้านก็สามารถทำได้เช่นกัน
       </p>
       <button type="button" class="btn btn-warning" id="btn1">
         สั่งเดลิเวอรี่
@@ -373,47 +353,47 @@ session_start();
   </div>
 
   <footer>
-      <div class="footer d-flex justify-content-center w-100">
-        <div class="box-footer container w-100">
-          <div class="row">
-            <div class="col-lg-5 col-md-12">
-              <h2>KhunGame Restaurant</h2>
-              <br />
-              <p class="icontext">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-                vel quia facilis a hic aut laudantium, repudiandae doloribus
-                alias! Accusamus, asperiores similique voluptatum consequatur
-                dolorem praesentium modi
-              </p>
-              <div class="icon container">
-                <p class="row">
-                  <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone" style="color: greenyellow"></i></a>
-                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook" style="color: #0097FF;"></i></a>
-                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
-                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube" style="color: red"></i></a>
-                </p>
-              </div>
-            </div>
-            <div class="col-lg-4 col-md-12">
-              <h2>FIND OUR RESTAURANT</h2>
-              <p class="icontext">
-                <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-                สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
-                แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
+    <div class="footer d-flex justify-content-center w-100">
+      <div class="box-footer container w-100">
+        <div class="row">
+          <div class="col-lg-5 col-md-12">
+            <h2>KhunGame Restaurant</h2>
+            <br />
+            <p class="icontext">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
+              vel quia facilis a hic aut laudantium, repudiandae doloribus
+              alias! Accusamus, asperiores similique voluptatum consequatur
+              dolorem praesentium modi
+            </p>
+            <div class="icon container">
+              <p class="row">
+                <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone" style="color: greenyellow"></i></a>
+                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook" style="color: #0097FF;"></i></a>
+                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube" style="color: red"></i></a>
               </p>
             </div>
-            <div class="col-lg-3 col-md-12" id="col3">
-              <h2>WORKING HOURS</h2>
-              <br />
-              <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
-              <br /><br />
-              <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
-            </div>
+          </div>
+          <div class="col-lg-4 col-md-12">
+            <h2>FIND OUR RESTAURANT</h2>
+            <p class="icontext">
+              <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
+              สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
+              แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
+            </p>
+          </div>
+          <div class="col-lg-3 col-md-12" id="col3">
+            <h2>WORKING HOURS</h2>
+            <br />
+            <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
+            <br /><br />
+            <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
           </div>
         </div>
       </div>
-    </footer>
-    
+    </div>
+  </footer>
+
 </body>
 
 </html>
