@@ -216,8 +216,11 @@ body{
 }
 
 .head-add-staff{
+    padding: 10px 10px;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
+    color: white;
 }
 
 /* .space-content .sum .sum-month{

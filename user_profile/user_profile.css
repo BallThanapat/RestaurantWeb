@@ -255,6 +255,10 @@ body{
     color: red;
     margin: 0 auto;
 }
+.fa-clock-rotate-left {
+    color: black;
+    margin: 0 auto;
+}
 
 /* Card-Point */
 .box-point{

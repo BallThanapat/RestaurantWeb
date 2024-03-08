@@ -296,7 +296,6 @@
                     <h2>เพิ่ม-ลบรายชื่อพนักงาน</h2>
                     <button class="btn btn-success">เพิ่มรายชื่อ</button>
                 </div>
-                
                 <table class="table">
                     <thead>
                         <th>ลำดับ</th>

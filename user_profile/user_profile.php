@@ -280,6 +280,7 @@ session_start();
                     </form>
                 </div>
             </div>
+
             <div class="space" id="space-address">
                 <div class="account-topic">
                     <h2>ที่อยู่ของฉัน</h2>
@@ -502,7 +503,7 @@ session_start();
                                     <tr>
                                         <td><a href="">0003</a></td>
                                         <td>฿2999.99</td>
-                                        <td><i class="fa-solid fa-clock-rotate-left" style="color: black;"></i></td>
+                                        <td><i class="fa-solid fa-clock-rotate-left"></i></td>
                                         <td><i class="fa-regular fa-circle-xmark"></i></td>
                                         <td><i class="fa-regular fa-circle-xmark"></i></td>
                                     </tr>
