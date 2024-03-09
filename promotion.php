@@ -26,9 +26,7 @@ session_start();
     <!-- Font Common-text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -36,14 +34,13 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
     <!-- User Authentication -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             var radio1 = document.getElementById('btnradio1');
             var radio2 = document.getElementById('btnradio2');
             var form1 = document.getElementById('form1');
@@ -51,7 +48,7 @@ session_start();
             var buttonBar1 = document.getElementById('buttonBar1');
             var buttonBar2 = document.getElementById('buttonBar2');
 
-            radio1.addEventListener('change', function () {
+            radio1.addEventListener('change', function() {
                 if (radio1.checked) {
                     form1.style.display = 'block';
                     form2.style.display = 'none';
@@ -62,7 +59,7 @@ session_start();
                 }
             });
 
-            radio2.addEventListener('change', function () {
+            radio2.addEventListener('change', function() {
                 if (radio2.checked) {
                     form1.style.display = 'none';
                     form2.style.display = 'block';
@@ -83,14 +80,11 @@ session_start();
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a href="index.php" class="header-link">KITCHENHOME</a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
-                    <a href="index.php" class="nav-link links ms-auto" id="backHome"><i
-                            class="fa-solid fa-house-chimney"></i></a>
+                    <a href="index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a href="menu.php" class="nav-link links" id="">เมนูทั้งหมด</a>
@@ -122,7 +116,7 @@ session_start();
     </header>
 
     <script>
-        document.getElementById("navbarToggle").addEventListener("click", function () {
+        document.getElementById("navbarToggle").addEventListener("click", function() {
             var nT = document.getElementById("navbarToggle");
             console.log(nT.getAttribute("aria-expanded"));
             if (nT.getAttribute("aria-expanded") == "false") {
@@ -136,8 +130,7 @@ session_start();
     </script>
 
     <!-- Login/Register Modals -->
-    <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -148,8 +141,7 @@ session_start();
                 </div>
                 <div class="modal-body">
                     <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
-                            checked />
+                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off" checked />
                         <label class="btn btn-outline-warning" id="buttonBar1" for="btnradio1">Login</label>
 
                         <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off" />
@@ -170,8 +162,7 @@ session_start();
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button type="button" class="btn btn-success" id="btnlogin"
-                                onclick="gotologin('promotion')">
+                            <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin('promotion')">
                                 Submit
                             </button>
                         </div>
@@ -240,8 +231,7 @@ session_start();
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
-                            <button onclick="gotosignup('promotion')" type="button" class="btn btn-warning"
-                                id="btnsignup">
+                            <button onclick="gotosignup('promotion')" type="button" class="btn btn-warning" id="btnsignup">
                                 Submit
                             </button>
                         </div>
@@ -255,14 +245,11 @@ session_start();
         <div class="bgImg">
             <div id="carouselPromotion" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                
+
                 <div class="carousel-inner">
                     <div class="carousel-item active">
                         <img class="img-slide" src="Image_inventory/Promotion/promotionSlideFood4.png" alt="First slide">
@@ -275,13 +262,11 @@ session_start();
                     </div>
                 </div>
 
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPromotion"
-                    data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselPromotion" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselPromotion"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselPromotion" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
@@ -290,55 +275,54 @@ session_start();
     </div>
 
     <section class="boxes">
-    <div class="container-fluid">
-        <div class="row h-100 w-120">
-            <div class="col-lg-4 col-md-12">
-                <a href="index.php" class="box">
-                    <div class="w-100">
-                        <div class="b-item d-flex justify-content-center">
-                           <div class="img">
-                                <h4>เกี่ยวกับเรา</h4>
-                                <img src="Image_inventory/Kitchen-Restaurant-2.png" alt="">
-                           </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-lg-4 col-md-12">
-                <a href="menu.php" class="box">
-                    <div class="w-100">
-                        <div class="b-item d-flex justify-content-center">
-                            <div class="img">
-                                <h4>เลือกเมนู</h4>
-                                <img src="Image_inventory/Food2.jpg" alt="">
+        <div class="container-fluid">
+            <div class="row h-100 w-120">
+                <div class="col-lg-4 col-md-12">
+                    <a href="index.php" class="box">
+                        <div class="w-100">
+                            <div class="b-item d-flex justify-content-center">
+                                <div class="img">
+                                    <h4>เกี่ยวกับเรา</h4>
+                                    <img src="Image_inventory/Kitchen-Restaurant-2.png" alt="">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
 
-            <div class="col-lg-4 col-md-12">
-                <a href="" class="box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
-                    <div class="w-100">
-                        <div class="b-item d-flex justify-content-center">
-                           <div class="img">
-                                <h4>สั่งอาหาร</h4>
-                                <img src="Image_inventory/Delivery.png" alt="">
-                           </div>
+                <div class="col-lg-4 col-md-12">
+                    <a href="menu.php" class="box">
+                        <div class="w-100">
+                            <div class="b-item d-flex justify-content-center">
+                                <div class="img">
+                                    <h4>เลือกเมนู</h4>
+                                    <img src="Image_inventory/Food2.jpg" alt="">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+
+                <div class="col-lg-4 col-md-12">
+                    <a href="" class="box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
+                        <div class="w-100">
+                            <div class="b-item d-flex justify-content-center">
+                                <div class="img">
+                                    <h4>สั่งอาหาร</h4>
+                                    <img src="Image_inventory/Delivery.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <section class="allPromotionSection">
         <div class="container-fluid">
             <div class="row" id="allPromotion">
-                <a class="box-promotion" data-bs-toggle="modal"
-                    data-bs-target="#promotionModal">
+                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
                     <div class="img-promotion">
                         <img src="Image_inventory/Delivery.png" alt="">
                     </div>
@@ -347,36 +331,33 @@ session_start();
                     </div>
                 </a>
 
-                <a class="box-promotion" data-bs-toggle="modal"
-                    data-bs-target="#promotionModal">
+                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
                     <div class="img-promotion">
-                        
+
                     </div>
                     <div class="item-promotion">
                         <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
 
-                <a class="box-promotion" data-bs-toggle="modal"
-                    data-bs-target="#promotionModal">
+                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
                     <div class="img-promotion">
-                        
+
                     </div>
                     <div class="item-promotion">
                         <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
 
-                <a class="box-promotion" data-bs-toggle="modal"
-                    data-bs-target="#promotionModal">
+                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
                     <div class="img-promotion">
-                        
+
                     </div>
                     <div class="item-promotion">
                         <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
-                
+
 
             </div>
         </div>
@@ -391,8 +372,7 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
-                        class="scrollspy-example" tabindex="0">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                         <div class="container">
                             <div class="row d-flex justify-content-center">
                                 <div class="col-sm-8">
@@ -443,8 +423,7 @@ session_start();
         <i class="fa-solid fa-cart-shopping my-float"></i>
     </a>
 
-    <div class="modal fade" id="shoppingCartModal" style="display: none;" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="shoppingCartModal" style="display: none;" tabindex="-1" aria-labelledby="shoppingCartModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -452,8 +431,7 @@ session_start();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
-                        class="scrollspy-example" tabindex="0">
+                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
                         <div class="container">
                             <div class="row">
                                 <div class="col-sm-6"> <!-- Item of menu to order -->
@@ -516,20 +494,14 @@ session_start();
                         <h2>KhunGame Restaurant</h2>
                         <br />
                         <p class="icontext">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-                            vel quia facilis a hic aut laudantium, repudiandae doloribus
-                            alias! Accusamus, asperiores similique voluptatum consequatur
-                            dolorem praesentium modi
+                            ลูกค้าสามารถติดต่อทางร้านผ่านทางช่องทางต่างๆได้ดังนี้
                         </p>
                         <div class="icon container">
                             <p class="row">
-                                <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone"
-                                        style="color: greenyellow"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook"
-                                        style="color: #0097FF;"></i></a>
+                                <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone" style="color: greenyellow"></i></a>
+                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook" style="color: #0097FF;"></i></a>
                                 <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube"
-                                        style="color: red"></i></a>
+                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube" style="color: red"></i></a>
                             </p>
                         </div>
                     </div>
