@@ -447,7 +447,7 @@ if (!empty($_GET["action"])) {
 
 
 
-  <div class="swiper">
+  <!-- <div class="swiper">
     <div class="swiper-wrapper menu-bar">
       <div class="swiper-slide">
         <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
@@ -508,9 +508,9 @@ if (!empty($_GET["action"])) {
     </div>
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-  </div>
+  </div> -->
 
-  <!-- <div class="menu-bar">
+  <div class="menu-bar">
     <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
       <div class="menu-box-bar-image">
         <img src="Image_inventory/Menu/recommend.png" alt="" />
@@ -555,7 +555,9 @@ if (!empty($_GET["action"])) {
       </div>
       <div class="menu-box-bar-content">เครื่องดื่ม</div>
     </div>
-  </div> -->
+  </div>
+
+  
   <div class="menu-bar-recommend" id="menu-bar-topic">
     <h2>เมนูแนะนำ</h2>
   </div>
