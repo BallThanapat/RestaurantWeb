@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,6 +31,12 @@
 
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
+
+    <!-- User Authentication -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="userAuthen.js"></script>
 
     <style>
         <?php include "managerPage.css" ?>
@@ -216,13 +226,18 @@
                 </div>
                 <div class="item"><a onclick="menuList1('addMenu')"><i class="fa-solid fa-utensils"></i>MENU</a></div>
                 <div class="item"><a onclick="menuList1('addPromotion')"><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
-                <div class="item"><a onclick=""><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+                <div class="item"><a onclick="gotologout('manager')"><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
 
         <div class="outputspace">
             <div class="mainbar">
-                <div class="account2">ADMIN1</div>
+                <div class="account2">
+                    <?php
+                    $username = $_SESSION['username'];
+                    echo $username;
+                    ?>
+                </div>
             </div>
 
             <div class="content dashboard" id="dashboard">

@@ -15,6 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             //gid 2 = staff, gid 3 = manager
             if ($row['groupID'] === 2 || $row['groupID'] === 3) {
                 if ($txt_password === $row['password']) {
+
+                    session_start();
+                    $_SESSION['username'] = $row['id'];
+                    $_SESSION['uID'] = $row['uid'];
+                    $_SESSION['Gid'] = $row['uid'];
+
                     $object = new stdClass();
                     $object->RespCode = 200;
                     $object->RespMessage = 'loginsuccess';

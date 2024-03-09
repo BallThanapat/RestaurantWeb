@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,6 +34,12 @@
 
     <!-- JQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
+
+    <!-- User Authentication -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="userAuthen.js"></script>
 
     <style>
         <?php
@@ -196,13 +206,18 @@
                         <a class="sub-item" onclick=""><span>Add Staff</span></a>
                     </div>
                 </div> -->
-                <div class="item"><a><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+                <div class="item" onclick="gotologout('staff')"><a><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
-
+        
         <div class="outputspace">
             <div class="mainbar">
-                <div class="account-staff">Staff1</div>
+                <div class="account-staff">
+                    <?php
+                    $username = $_SESSION['username'];
+                    echo $username;
+                    ?>
+                </div>
             </div>
             <div class="content" id="order"> <!--  -->
                 <h1>รายการคำสั่งซื้อ</h1>

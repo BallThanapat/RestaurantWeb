@@ -251,6 +251,25 @@ function gotologout(page) {
             }
         });
     }
+    else if (page == 'staff' || page == 'manager') {
+        $.ajax({
+            url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
+            type: "POST",
+            success: function (response) {
+                // Redirect to the login page or perform any other actions after logout
+                Swal.fire({
+                    icon: "success",
+                    title: "Logout success!!",
+                    timer: 5000,
+                });
+                window.location.href = "./loginAdmin.html";
+            },
+            error: function (xhr, status, error) {
+                // Handle error if AJAX request fails
+                console.log("AJAX Error: " + error);
+            }
+        });
+    }
     else {
         $.ajax({
             url: "./backend/api/logout.php", // URL of the server-side script to handle the logout

@@ -183,12 +183,12 @@
                 alert("Login success!!");
                 localStorage.setItem("username", responseObject.User.Username);
                 localStorage.setItem("uid", responseObject.User.Uid);
-                window.location.href = "./menu.html";
+                // window.location.href = "./menu.html";
                 if (responseObject.User.Gid == 2) {
-                    window.location.href = "./menu.html";
+                    window.location.href = "./staff.php";
                 }else if ((responseObject.User.Gid == 3)){
-                    window.location.href = "./admin.html";
-                }
+                    window.location.href = "./manager.php";
+                } 
               } else {
                 alert("Login success!!");
               }
