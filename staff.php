@@ -196,7 +196,7 @@
                         <a class="sub-item" onclick=""><span>Add Staff</span></a>
                     </div>
                 </div> -->
-                <div class="item" onclick="clickMenu('payment')"><a><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+                <div class="item"><a><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
 
