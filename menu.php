@@ -284,7 +284,7 @@ if (!empty($_GET["action"])) {
                             <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
                                 <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
                                 <li><hr class=\"dropdown-divider\"></li>
-                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout('menu')\">logout</a></li>
                             </ul>
                         </li>";
             } else {

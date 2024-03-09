@@ -21,19 +21,30 @@ session_start();
     <!-- Font Common-text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- User Authentication -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../userAuthen.js"></script>
+
     <title>Document</title>
 </head>
 
 <body>
     <style>
-        <?php include "../menu.css" ?>;
-        <?php include "./user_profile.css" ?>;
+        <?php include "../menu.css" ?>
+        ;
+        <?php include "./user_profile.css" ?>
+        ;
     </style>
 
     <?php
@@ -96,11 +107,14 @@ session_start();
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="container-fluid">
                 <a href="../index.php" class="header-link">KITCHENHOME</a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
+                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
-                    <a href="../index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
+                    <a href="../index.php" class="nav-link links ms-auto" id="backHome"><i
+                            class="fa-solid fa-house-chimney"></i></a>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a href="../promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
@@ -188,7 +202,8 @@ session_start();
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <div class="btn1">
-                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="btn-add-address" onclick="addAddress()">เพิ่มที่อยู่</button>
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal" id="btn-add-address"
+                            onclick="addAddress()">เพิ่มที่อยู่</button>
                     </div>
                 </div>
 
@@ -207,8 +222,13 @@ session_start();
         <div class="list-menu">
             <div class="account-item head1">
                 <i class="fa-solid fa-user"></i>
-                <h2>Account Name</h2>
+                <?php
+                $username = $_SESSION["username"];
+                echo "<h2>$username</h2>";
+                ?>
+                <!-- <h2>Account Name</h2> -->
             </div>
+
 
             <div class="account-item" onclick="profile('info')">
                 <i class="fa-regular fa-address-card"></i>
@@ -235,7 +255,7 @@ session_start();
                 <h2>บัตรสมาชิกของฉัน</h2>
             </div>
 
-            <div class="account-item">
+            <div class="account-item" onclick="gotologout('userProfile')">
                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                 <h2>ออกจากระบบ</h2>
             </div>
@@ -249,7 +269,8 @@ session_start();
                     <form action="">
                         <div class="row" id="row-username">
                             <!-- <label for="staticEmail" class="col-form-label">Username</label> -->
-                            Username<input type="text" readonly id="staticEmail" value="<?php echo $_SESSION['username']; ?>" class="form-control custom-input">
+                            Username<input type="text" readonly id="staticEmail"
+                                value="<?php echo $_SESSION['username']; ?>" class="form-control custom-input">
                             <div class="col" id="col">
                             </div>
                         </div>
@@ -271,7 +292,8 @@ session_start();
                             </div>
                             <div class="col">
                                 <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" value="<?php echo $email; ?>" disabled>
+                                <input type="email" class="form-control" id="email" value="<?php echo $email; ?>"
+                                    disabled>
                             </div>
                             <!-- <div class="col">
                             <label for="dob">วันเกิด:</label>
@@ -300,18 +322,25 @@ session_start();
 
                     if (!empty($addr)) {
                         foreach ($addr as $keyAd => $value) {
-                    ?>
+                            ?>
                             <div class="user-address">
                                 <div class="address-list">
-                                    <h5>คุณ <?php echo $firstName . " " . $lastName ?> | <span id="phone-address"><?php echo $phone ?></span></h5>
-                                    <p><?php echo "เลขที่บ้าน " . $addr[$keyAd]["address"] . " อำเภอ " .  $addr[$keyAd]["district"] . " ตำบล " . $addr[$keyAd]["sub_district"] . " จังหวัด " . $addr[$keyAd]["province"] . ", " . $addr[$keyAd]["postcode"] ?></p>
+                                    <h5>คุณ
+                                        <?php echo $firstName . " " . $lastName ?> | <span id="phone-address">
+                                            <?php echo $phone ?>
+                                        </span>
+                                    </h5>
+                                    <p>
+                                        <?php echo "เลขที่บ้าน " . $addr[$keyAd]["address"] . " อำเภอ " . $addr[$keyAd]["district"] . " ตำบล " . $addr[$keyAd]["sub_district"] . " จังหวัด " . $addr[$keyAd]["province"] . ", " . $addr[$keyAd]["postcode"] ?>
+                                    </p>
                                 </div>
 
                                 <div class="address-list2">
-                                    <button class="btn btn-link" value="<?php echo $addr[$keyAd]["addr_id"] ?>" onclick="delAdd(this)">ลบ</button>
+                                    <button class="btn btn-link" value="<?php echo $addr[$keyAd]["addr_id"] ?>"
+                                        onclick="delAdd(this)">ลบ</button>
                                 </div>
                             </div>
-                    <?php
+                            <?php
                         }
                     }
                     ?>
@@ -335,9 +364,11 @@ session_start();
                             $stmt_2 = $conn->prepare($query_2);
                             $stmt_2->execute([$userLogs[$key]["bill_id"]]);
                             $foodOrders = $stmt_2->fetchAll(PDO::FETCH_ASSOC);
-                    ?>
+                            ?>
                             <div class="history-bought"> <!-- คำสั่งซื้อ 1 ครั้ง -->
-                                <p>วันที่ทำการสั่งซื้อ <?php echo $userLogs[$key]["date_log"]; ?></p>
+                                <p>วันที่ทำการสั่งซื้อ
+                                    <?php echo $userLogs[$key]["date_log"]; ?>
+                                </p>
                                 <div class="box-bought">
                                     <?php foreach ($foodOrders as $row => $val) { ?>
                                         <div class="bought"> <!-- รายการซื้อ -->
@@ -345,21 +376,29 @@ session_start();
                                                 <img src="../<?php echo $foodOrders[$row]["picture"] ?>" alt="">
                                             </div>
                                             <div class="detail-menu">
-                                                <p><?php echo $foodOrders[$row]["foodName"] ?></p>
-                                                <p>x <?php echo $foodOrders[$row]["amount"] ?></p> <!-- จำนวนการซื้อ -->
+                                                <p>
+                                                    <?php echo $foodOrders[$row]["foodName"] ?>
+                                                </p>
+                                                <p>x
+                                                    <?php echo $foodOrders[$row]["amount"] ?>
+                                                </p> <!-- จำนวนการซื้อ -->
                                             </div>
                                             <div class="detail-cost">
-                                                <p>฿<?php echo $foodOrders[$row]["totalPriceUnit"] ?></p>
+                                                <p>฿
+                                                    <?php echo $foodOrders[$row]["totalPriceUnit"] ?>
+                                                </p>
                                             </div>
                                         </div>
                                     <?php } ?>
                                 </div>
 
                                 <div class="total-price">
-                                    <p>ราคารวม: ฿<?php echo $userLogs[$key]["totalPrice"]; ?></p>
+                                    <p>ราคารวม: ฿
+                                        <?php echo $userLogs[$key]["totalPrice"]; ?>
+                                    </p>
                                 </div>
                             </div>
-                    <?php
+                            <?php
                         }
                     }
                     ?>
@@ -390,42 +429,46 @@ session_start();
                                     $stmt_4->execute([$_SESSION['uID']]);
                                     $rowBill = $stmt_4->fetchAll(PDO::FETCH_ASSOC);
                                     foreach ($rowBill as $keyBill => $value) {
-                                    ?>
+                                        ?>
                                         <tr>
                                             <?php
                                             $formatted_num = sprintf("%03d", $rowBill[$keyBill]["bill_id"]);
                                             ?>
-                                            <td><a><?php echo $formatted_num ?></a></td>
-                                            <td>฿<?php echo $rowBill[$keyBill]["totalPrice"] ?></td>
+                                            <td><a>
+                                                    <?php echo $formatted_num ?>
+                                                </a></td>
+                                            <td>฿
+                                                <?php echo $rowBill[$keyBill]["totalPrice"] ?>
+                                            </td>
                                             <?php
                                             if ($rowBill[$keyBill]["status"] == 1) {
-                                            ?>
+                                                ?>
                                                 <td><i class="fa-regular fa-clock"></i></td>
                                                 <td><i class="fa-regular fa-clock"></i></td>
                                                 <td><i class="fa-regular fa-clock"></i></td>
-                                            <?php
+                                                <?php
                                             } else if ($rowBill[$keyBill]["status"] == 2) {
-                                            ?>
-                                                <td><i class="fa-regular fa-circle-check"></i></td>
-                                                <td><i class="fa-regular fa-circle-check"></i></td>
-                                                <td><i class="fa-regular fa-clock"></i></td>
-                                            <?php
+                                                ?>
+                                                    <td><i class="fa-regular fa-circle-check"></i></td>
+                                                    <td><i class="fa-regular fa-circle-check"></i></td>
+                                                    <td><i class="fa-regular fa-clock"></i></td>
+                                                <?php
                                             } else if ($rowBill[$keyBill]["status"] == 3) {
-                                            ?>
-                                                <td><i class="fa-regular fa-circle-check"></i></td>
-                                                <td><i class="fa-regular fa-circle-check"></i></td>
-                                                <td><i class="fa-regular fa-circle-check"></i></td>
-                                            <?php
+                                                ?>
+                                                        <td><i class="fa-regular fa-circle-check"></i></td>
+                                                        <td><i class="fa-regular fa-circle-check"></i></td>
+                                                        <td><i class="fa-regular fa-circle-check"></i></td>
+                                                <?php
                                             } else if ($rowBill[$keyBill]["status"] == 0) {
-                                            ?>
-                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                                <td><i class="fa-regular fa-circle-xmark"></i></td>
-                                            <?php
+                                                ?>
+                                                            <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                                            <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                                            <td><i class="fa-regular fa-circle-xmark"></i></td>
+                                                <?php
                                             }
                                             ?>
                                         </tr>
-                                    <?php
+                                        <?php
                                     }
                                     ?>
                                 </tbody>
@@ -447,7 +490,9 @@ session_start();
                         <div class="detail-point">
                             <div class="detail-text">
                                 <h5>คะแนนสะสมปัจจุบัน</h5>
-                                <h1><?php echo $point; ?> Points</h1><br>
+                                <h1>
+                                    <?php echo $point; ?> Points
+                                </h1><br>
                                 <p style="text-align: start;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>•
                                     ซื้อสินค้าครบ 10 บาท = 1 Points</p>
                             </div>
@@ -493,8 +538,9 @@ session_start();
         </footer>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
     <script>
         function updateUsers() {
             var pass = true;
@@ -530,7 +576,7 @@ session_start();
                         lastname: $("#lname").val(),
                         phone: $("#phone").val()
                     },
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                         try {
                             var responseObject = JSON.parse(response);
@@ -555,7 +601,7 @@ session_start();
                             });
                         }
                     },
-                    error: function(err) {
+                    error: function (err) {
                         console.log("bad", err);
                     }
                 })
@@ -612,7 +658,7 @@ session_start();
                         district_2: $("#district_2").val(),
                         postcode: $("#postcode").val(),
                     },
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                         try {
                             var responseObject = JSON.parse(response);
@@ -623,10 +669,10 @@ session_start();
                                     timer: 1000,
                                     showConfirmButton: false
                                 });
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     location.reload();
                                 }, 1000);
-                                setTimeout(function() {
+                                setTimeout(function () {
                                     location.reload();
                                 }, 2000);
                             } else if (responseObject.RespCode == 400) {
@@ -650,7 +696,7 @@ session_start();
                             });
                         }
                     },
-                    error: function(err) {
+                    error: function (err) {
                         console.log("badmakmak", err);
                     }
                 })
@@ -676,7 +722,7 @@ session_start();
                         data: {
                             addId: addr_id,
                         },
-                        success: function(response) {
+                        success: function (response) {
                             console.log(response);
                             try {
                                 var responseObject = JSON.parse(response);
@@ -687,7 +733,7 @@ session_start();
                                         timer: 1000,
                                         showConfirmButton: false
                                     });
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         location.reload();
                                     }, 1000);
                                 } else if (responseObject.RespCode == 400) {
@@ -711,7 +757,7 @@ session_start();
                                 });
                             }
                         },
-                        error: function(err) {
+                        error: function (err) {
                             console.log("badmakmak", err);
                         }
 

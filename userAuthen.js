@@ -230,23 +230,44 @@ function gotologin(page) {
     }
 }
 
-function gotologout() {
+function gotologout(page) {
     console.log("go to logout");
-    $.ajax({
-        url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
-        type: "POST",
-        success: function (response) {
-            // Redirect to the login page or perform any other actions after logout
-            Swal.fire({
-                icon: "success",
-                title: "Logout success!!",
-                timer: 5000,
-            });
-            window.location.href = "./index.php";
-        },
-        error: function (xhr, status, error) {
-            // Handle error if AJAX request fails
-            console.log("AJAX Error: " + error);
-        }
-    });
+    if (page == 'userProfile') {
+        $.ajax({
+            url: "./../backend/api/logout.php", // URL of the server-side script to handle the logout
+            type: "POST",
+            success: function (response) {
+                // Redirect to the login page or perform any other actions after logout
+                Swal.fire({
+                    icon: "success",
+                    title: "Logout success!!",
+                    timer: 5000,
+                });
+                window.location.href = "./../index.php";
+            },
+            error: function (xhr, status, error) {
+                // Handle error if AJAX request fails
+                console.log("AJAX Error: " + error);
+            }
+        });
+    }
+    else {
+        $.ajax({
+            url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
+            type: "POST",
+            success: function (response) {
+                // Redirect to the login page or perform any other actions after logout
+                Swal.fire({
+                    icon: "success",
+                    title: "Logout success!!",
+                    timer: 5000,
+                });
+                window.location.href = "./index.php";
+            },
+            error: function (xhr, status, error) {
+                // Handle error if AJAX request fails
+                console.log("AJAX Error: " + error);
+            }
+        });
+    }
 }
