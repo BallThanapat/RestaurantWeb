@@ -226,16 +226,16 @@ if (!empty($_GET["action"])) {
     }
 
     function deleteItem(foodDetail) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "menu.php?action=remove&foodDetail=" + foodDetail, true);
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-              $('.modal-cart').load(location.href + ' .modal-cart');
-              alert("ลบสำเร็จ");
-            }
-        };
-        xhr.send();
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", "menu.php?action=remove&foodDetail=" + foodDetail, true);
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          $('.modal-cart').load(location.href + ' .modal-cart');
+          alert("ลบสำเร็จ");
+        }
+      };
+      xhr.send();
     }
 
     function clear_cart() {
@@ -445,72 +445,7 @@ if (!empty($_GET["action"])) {
   <!-- a href="" class="links" data-bs-toggle="modal"
         data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
-
-
-  <!-- <div class="swiper">
-    <div class="swiper-wrapper menu-bar">
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/recommend.png" alt="" />
-          </div>
-          <div class="menu-box-bar-content">เมนูแนะนำ</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/friedFood.png" alt="" />
-          </div>
-          <div class="menu-box-bar-content">เมนูทอด</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
-          </div>
-          <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
-          </div>
-          <div class="menu-box-bar-content">อาหารทะเล</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
-          </div>
-          <div class="menu-box-bar-content">สเต็ก</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/dessert2.png" alt="" />
-          </div>
-          <div class="menu-box-bar-content">ของหวาน</div>
-        </div>
-      </div>
-      <div class="swiper-slide">
-        <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
-          <div class="menu-box-bar-image">
-            <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
-          </div>
-          <div class="menu-box-bar-content">เครื่องดื่ม</div>
-        </div>
-      </div>
-    </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-  </div> -->
-
-  <div class="menu-bar">
+  <div class="menu-bar test1">
     <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
       <div class="menu-box-bar-image">
         <img src="Image_inventory/Menu/recommend.png" alt="" />
@@ -557,7 +492,56 @@ if (!empty($_GET["action"])) {
     </div>
   </div>
 
-  
+  <div class="swiper test2">
+    <div class="swiper-wrapper menu-bar">
+      <div class="swiper-slide menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/recommend.png" alt="" />
+        </div>
+        <div class="menu-box-bar-content">เมนูแนะนำ</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/friedFood.png" alt="" />
+        </div>
+        <div class="menu-box-bar-content">เมนูทอด</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
+        </div>
+        <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
+        </div>
+        <div class="menu-box-bar-content">อาหารทะเล</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
+        </div>
+        <div class="menu-box-bar-content">สเต็ก</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/dessert2.png" alt="" />
+        </div>
+        <div class="menu-box-bar-content">ของหวาน</div>
+      </div>
+      <div class="swiper-slide menu-box-bar" id="drink" onclick="showMenu('drink')">
+        <div class="menu-box-bar-image">
+          <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
+        </div>
+        <div class="menu-box-bar-content">เครื่องดื่ม</div>
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+
+
   <div class="menu-bar-recommend" id="menu-bar-topic">
     <h2>เมนูแนะนำ</h2>
   </div>
@@ -568,7 +552,7 @@ if (!empty($_GET["action"])) {
   <!-- Initialize Swiper -->
   <script>
     var swiper = new Swiper('.swiper', {
-      slidesPerView: 3,
+      slidesPerView: getSlidesPerView(),
       direction: getDirection(),
       navigation: {
         nextEl: '.swiper-button-next',
@@ -576,6 +560,7 @@ if (!empty($_GET["action"])) {
       },
       on: {
         resize: function () {
+          swiper.params.slidesPerView = getSlidesPerView();
           swiper.changeDirection(getDirection());
         },
       },
@@ -586,6 +571,18 @@ if (!empty($_GET["action"])) {
       var direction = window.innerWidth <= 760 ? 'horizontal' : 'horizontal';
 
       return direction;
+    }
+    function getSlidesPerView() {
+      var windowWidth = window.innerWidth;
+      if (windowWidth <= 430) {
+        return 2;
+      } else if (windowWidth <= 600) {
+        return 3;
+      } else if (windowWidth <= 768) {
+        return 4;
+      } else {
+        return 5; // Default value
+      }
     }
   </script>
 
@@ -892,8 +889,9 @@ if (!empty($_GET["action"])) {
                                   </p>
                                 </div>
                                 <p>
-                                  <a href="#" class="btnRemoveAction" onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                      <img src="delete-icon.png" width="90%" alt="">
+                                  <a href="#" class="btnRemoveAction"
+                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                    <img src="delete-icon.png" width="90%" alt="">
                                   </a>
                                 </p>
                               </div>
