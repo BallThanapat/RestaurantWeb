@@ -671,29 +671,6 @@ footer {
     background-color: white;
 }
 
-.cart-action2 {
-    width: 25%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 2%;
-    border-radius: 10px;
-}
-
-.cart-action2 button {
-    width: 30%;
-    height: 100%;
-    border: none;
-    border-radius: 2px;
-    border: 1px solid grey;
-    background-color: white;
-}
-
-.cart-action2 input {
-    width: 50%;
-    height: 100%;
-}
 
 /* #buttonBar1{
     color: white;
@@ -751,8 +728,8 @@ footer {
         content: "";
         display: block;
         position: absolute;
-        left: calc(3% + 10px);
-        bottom: calc(1% + 16px);
+        left: calc(1%);
+        bottom: calc(1%);
         width: 0;
         height: 5px;
         border-radius: 10px;
@@ -819,8 +796,8 @@ footer {
     }
 
     .header-link::after {
-        left: 5%;
-        bottom: calc(1% + 16px);
+        left: calc(2%);
+        bottom: calc(1%);
     }
 
     .header-link:hover::after {
@@ -859,14 +836,41 @@ footer {
     }
 
     .header-link::after {
-        left: 5%;
+        left: 3%;
         bottom: calc(1% + 6px);
         height: 3px;
         /* width: px; */
     }
 
     .header-link:hover::after {
-        width: calc(23%);
+        width: calc(30%);
+    }
+
+    .col1 {
+        width: 47%;
+        height: 30vh;
+        box-sizing: border-box;
+        box-shadow: 5px 5px 20px;
+        background-color: white;
+    }
+
+    .cart-action button {
+        width: 20px;
+        height: 35%;
+        border: none;
+        border-radius: 2px;
+        border: 1px solid grey;
+        background-color: white;
+        font-size: 10px;
+    }
+    .cart-action input{
+        width: 40%;
+        font-size: 14px;
+    }
+
+    .col1-sub-content-2:hover button::before {
+        font-size: 12px;
+        content: "Add to Cart";
     }
 
     .test1 {
@@ -879,8 +883,11 @@ footer {
 
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 425px) {
     .col1 {
         width: 100%;
+    }
+    .header-link:hover::after {
+        width: calc(47%);
     }
 }

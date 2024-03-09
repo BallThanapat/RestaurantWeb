@@ -346,6 +346,9 @@ body {
         margin-bottom: 2%;
         object-fit: cover;
     }
+    .header-link:hover::after {
+        width: calc(27%);
+    }
 }
 @media screen and (max-width: 768px) {
 
@@ -366,6 +369,11 @@ body {
     .box {
         margin-bottom: 1%;
     }
+    .header-link::after {
+        left: 2%;
+        bottom: calc(10%);
+        height: 3px;
+    }
 }
 
 @media screen and (max-width: 425px) {
@@ -378,6 +386,9 @@ body {
         max-width: 100%;
         margin-bottom: 2%;
         object-fit: cover;
+    }
+    .header-link:hover::after {
+        width: calc(50%);
     }
 }
 

@@ -95,6 +95,7 @@ if (!empty($_GET["action"])) {
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="userAuthen.js"></script>
+  
 
   <title>Menu</title>
 </head>
@@ -328,6 +329,19 @@ if (!empty($_GET["action"])) {
       <i class="fa-solid fa-list-ul" id="list-menu"></i>
     </nav>
   </header> -->
+    <script>
+        document.getElementById("navbarToggle").addEventListener("click", function() {
+            var nT = document.getElementById("navbarToggle");
+            console.log(nT.getAttribute("aria-expanded"));
+            if (nT.getAttribute("aria-expanded") == "false") {
+                nT.setAttribute("aria-expanded", true)
+                console.log(nT.getAttribute("aria-expanded") + " " + "true");
+            } else {
+                nT.setAttribute("aria-expanded", false)
+                console.log(nT.getAttribute("aria-expanded") + " " + "false");
+            }
+        });
+    </script>
 
 
 
