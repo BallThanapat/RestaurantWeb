@@ -225,9 +225,22 @@ if (!empty($_GET["action"])) {
       xhr.send();
     }
 
+    function deleteItem(foodDetail) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "menu.php?action=remove&foodDetail=" + foodDetail, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              $('.modal-cart').load(location.href + ' .modal-cart');
+              alert("ลบสำเร็จ");
+            }
+        };
+        xhr.send();
+    }
+
     function clear_cart() {
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", "menu.php?action=empty", true); // ปรับแก้ URL ให้ถูกต้องที่นี่
+      xhr.open("POST", "menu.php?action=empty", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
@@ -876,6 +889,11 @@ if (!empty($_GET["action"])) {
                                     <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
                                   </p>
                                 </div>
+                                <p>
+                                  <a href="#" class="btnRemoveAction" onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                      <img src="delete-icon.png" width="90%" alt="">
+                                  </a>
+                                </p>
                               </div>
                             </div>
                           </div>

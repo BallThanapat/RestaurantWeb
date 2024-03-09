@@ -89,13 +89,11 @@
                 if (selectedValue == "1" || selectedValue == "2") {
                     // Hide all item containers
                     $(".item-container").hide();
-                    alert(selectedValue)
-
+                    alert(selectedValue);
                     // Show the item container for the selected option
                     $("#div" + selectedValue).show();
+                    localStorage.setItem('sendV', selectedValue);
                 }
-
-
             });
 
             $(".get-selected-btn").click(function () { 
@@ -112,6 +110,16 @@
                 };
             });
         });
+        function addToAddr() {
+            // ดึงค่าที่เลือกจาก dropdown
+            var selectedValue = $(".select-option.selected p").text();
+            
+            // อัปเดตข้อความใน <p> ที่มี id="address"
+            $("p#address").text(selectedValue);
+
+            // แสดงอัลเลิร์ต
+            alert("เปลี่ยนที่อยู่สำเร็จ");
+        }
     </script>
 
     <title>สั่งซื้อสินค้า</title>
@@ -156,7 +164,7 @@
                                     <div class="container">
                                         <div class="row row1">
                                             <div class="col-sm-5">
-                                                <img src="Image_inventory/Menu/friedFood.png" alt="">
+                                                <img src="<?php echo $item["picture"]; ?>" alt="">
                                                 <!-- รูปภาพจาก MENU -->
                                             </div>
                                             <div class="col-sm-6">
@@ -207,6 +215,15 @@
             </div>
 
             <!-- Second Page -->
+            <?php
+                $uID = $_SESSION['uID'];
+                $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
+                address.address, address.province, address.district, address.sub_district, address.postcode
+                FROM users
+                INNER JOIN address ON users.uid=address.uid where users.uid=$uID;"); //แก้ uid ต้องรับค่ามากจากการ login
+                $first_address = reset($addr_array); // ดึงค่าที่อยู่แรกออกมาจากอาเรย์
+                $first_key = key($addr_array); // ดึงคีย์ของอาเรย์แรก
+            ?>
             <div class="mt-3" id="page2" style="display: none;">
                 <h4>รายละเอียดการจัดส่ง</h4>
                 <div class="mt-3">
@@ -223,6 +240,11 @@
                                     <div class="select-option col-sm-5" data-value="2">
                                         <h6 class="delivery">รับที่ร้าน <i class="fa-solid fa-shop"></i></h6>
                                     </div>
+                                    <!-- สำคัญ
+                                    สำคัญ -->
+                                    <!-- อย่าลืมส่ง selectedValue เพื่อไว้เช็ครูปแบบการรับสินค้า -->
+                                    <!-- สำคัญ
+                                    สำคัญ -->
                                 </div>
                             </div>
 
@@ -231,35 +253,27 @@
                     </div>
                 </div>
                 <div id="div1" class="item-container">
-                    <h4>ที่อยู่จัดส่ง</h4>
-                    <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
-                        <div class="container">
-                            <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
-                                
-                                <?php 
-                                    $addr_result = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
-                                    address.address, address.province, address.district, address.sub_district, address.postcode
-                                    FROM users
-                                    INNER JOIN address ON users.uid=address.uid where users.uid=1 limit 1;"); //แก้ uid ต้องรับค่ามากจากการ login
-                                    if(!empty($addr_result)){
-                                        foreach($addr_result as $key => $value) {
-                                ?>
-                                <div class="col-sm-10">
-                                    <p><?php echo $addr_result[$key]["firstName"].' '.$addr_result[$key]["lastName"]; ?><br>
-                                        <?php echo 'Tel. '. $addr_result[$key]["telephone"]; ?><br>
-                                        <?php echo $addr_result[$key]["address"].' '.$addr_result[$key]["province"].' '.$addr_result[$key]["district"]
-                                        .' '.$addr_result[$key]["sub_district"].' '.$addr_result[$key]["postcode"]; ?></p>
+                <h4>ที่อยู่จัดส่ง</h4>
+                <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
+                    <div class="container">
+                        <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
+                            <div class="col-sm-10">
+                                    <?php if(!empty($first_address)) { ?>
+                                        <p class="addr1" id="address"><?php echo $first_address["firstName"].' '.$first_address["lastName"],' <br>'
+                                            .'Tel. '. $first_address["telephone"],' <br>'
+                                            .$first_address["address"].' '.$first_address["province"].' '.$first_address["district"]
+                                            .' '.$first_address["sub_district"].' '.$first_address["postcode"]; ?>
+                                        </p>
+                                    <?php
+                                    } 
+                                    ?>
                                 </div>
-                                <?php 
-                                        }
-                                    }
-                                ?>
-                                <div class="col-sm-2 ms-auto" id="change-address">
-                                    <h6 class="change">เปลี่ยน</h6>
-                                </div>
+                            <div class="col-sm-2 ms-auto" id="change-address">
+                                <h6 class="change">เปลี่ยน</h6>
                             </div>
                         </div>
-                    </a>
+                    </div>
+                </a>
                 </div>
                 <div id="div2" class="item-container" style="display: none;">
                     <h3>ที่อยู่ร้าน</h3>
@@ -348,19 +362,16 @@
                                         <div class="row">
                                             <div class="custom-select" id="custom-select1">
                                                 <?php 
-                                                    $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
-                                                    address.address, address.province, address.district, address.sub_district, address.postcode
-                                                    FROM users
-                                                    INNER JOIN address ON users.uid=address.uid where users.uid=1;"); //แก้ uid ต้องรับค่ามากจากการ login
                                                     if(!empty($addr_array)){
                                                         foreach($addr_array as $key => $value) {
                                                 ?>
                                                 <div class="select-option selected" data-value="optionA"
                                                     id="option-address">
-                                                    <p><?php echo $addr_array[$key]["firstName"].' '.$addr_array[$key]["lastName"]; ?><br>
-                                                        <?php echo 'Tel. '. $addr_array[$key]["telephone"]; ?><br>
-                                                        <?php echo $addr_array[$key]["address"].' '.$addr_array[$key]["province"].' '.$addr_array[$key]["district"]
-                                                        .' '.$addr_array[$key]["sub_district"].' '.$addr_array[$key]["postcode"]; ?></p>
+                                                    <p><?php echo $addr_array[$key]["firstName"].' '.$addr_array[$key]["lastName"].' <br>'
+                                                        .'Tel. '. $addr_array[$key]["telephone"].' <br>'
+                                                        .$addr_array[$key]["address"].' '.$addr_array[$key]["province"].' '.$addr_array[$key]["district"]
+                                                        .' '.$addr_array[$key]["sub_district"].' '.$addr_array[$key]["postcode"]; ?>
+                                                        </p>
                                                 </div>
                                                 <?php
                                                     }
@@ -368,7 +379,7 @@
                                                 ?>
                                             </div>
 
-                                            <input type="hidden" class="selected-option" name="selected-option1">
+                                            <input type="hidden" class="selected-option" name="quantity" id="quantity">
                                             <!-- <button id="get-selected-btn">Get Selected Value</button> -->
                                         </div>
                                         </div>
@@ -376,8 +387,9 @@
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                <button type="button" class="btn get-selected-btn" id="custom-select1" style="background-color: #ff7b00; color: white;"
-                                    data-target="custom-select1">ตกลง</button>
+                                
+                                <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();">ตกลง</button>
+
                             </div>
                         </div>
                     </div>
