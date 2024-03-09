@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('./backend/api/config.php');
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +34,7 @@ session_start();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
 
     <!-- User Authentication -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
@@ -90,7 +90,7 @@ session_start();
 
         }
 
-        function menuList1(menuSelected){
+        function menuList1(menuSelected) {
             var dashboard = document.getElementById('dashboard');
             var manage = document.getElementById('manage');
             var list_staff = document.getElementById('list-staff');
@@ -462,9 +462,9 @@ session_start();
             </div>
 
             <div class="box-add-menu" id="add-menu">
-                <div class="content add-menu" >
+                <div class="content add-menu">
                     <h2>เพิ่มเมนูอาหาร</h2>
-                    <form action="" id="form-add-menu">
+                    <form action="" method="post" enctype="multipart/form-data" id="form-add-menu">
                         <div class="row">
                             <div class="col">
                                 <label for="food" class="form-label">ชื่ออาหาร :</label>
@@ -489,7 +489,7 @@ session_start();
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="price" class="form-label">ราคา :</label>
-                                <input type="text" class="form-control" id="price" placeholder="กรอกราคาอาหาร" style="width: 20%;"><br>
+                                <input type="text" class="form-control" id="price" name="price" placeholder="กรอกราคาอาหาร" style="width: 20%;"><br>
 
                             </div>
                         </div>
@@ -505,11 +505,11 @@ session_start();
 
                         <div class="row mt-3">
                             <label for="formFile" class="form-label">แนบไฟล์รูปภาพ</label>
-                            <input class="form-control" type="file" id="formFile" accept=".png, .webp, .jpeg" style="width: 30%;">
+                            <input class="form-control" type="file" id="formFile" accept=".png, .webp, .jpeg, .jpg" name="uploadfile" style="width: 30%;">
                         </div><br>
 
                         <div class="btn">
-                            <button class="btn btn-success">Add Menu</button>
+                            <button type="button" class="btn btn-success" name="btn-addmenu" onclick="addMenu()">Add Menu</button>
                         </div>
 
                     </form>
@@ -535,7 +535,11 @@ session_start();
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="sales-price" class="form-label">ลดราคา :</label>
-                                <input type="text" class="form-control" id="sales-price" placeholder="" style="width: 20%;"><br>
+                                <input type="text" class="form-control" id="sales-price" placeholder=""><br>
+                            </div>
+                            <div class="col">
+                                <label for="sales-price" class="form-label">โค้ด :</label>
+                                <input type="text" class="form-control" id="sales-price" placeholder=""><br>
                             </div>
                         </div>
 
@@ -559,6 +563,104 @@ session_start();
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            function addMenu() {
+                var pass = true;
+                if ($("#food").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "food name can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#price").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "price can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#foodDetail").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "foodDetail can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#type-food").val() == "NULL") {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "type can't be Null!!",
+                        timer: 5000,
+                    });
+                }
+
+                if (pass) {
+                    $(document).ready(function() {
+                        var formData = new FormData();
+                        var files = $('#formFile')[0].files;
+                        formData.append('fileImg', files[0]);
+                        formData.append('foodName', $('#food').val());
+                        formData.append('foodPrice', $('#price').val());
+                        formData.append('foodType', $('#type-food').val());
+                        formData.append('foodRecommend', $('#recommendCheck').val());
+                        formData.append('foodDetail', $('#foodDetail').val());
+
+                        $.ajax({
+                            url: './addMenu.php',
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                console.log(response);
+                                try {
+                                    var responseObject = JSON.parse(response);
+                                    if (responseObject.RespCode == 200) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Add Menu success!!",
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
+                                        clearForm();
+                                    } else if (responseObject.RespCode == 400) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Add Menu failed!!",
+                                            timer: 2000,
+                                        });
+                                    }
+                                } catch (error) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Something went wrong!",
+                                        timer: 2000,
+                                    });
+                                }
+                            },
+                            error: function(err) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 2000,
+                                });
+                            }
+                        })
+                    })
+                }
+            }
+
+            function clearForm() {
+                $('#food').val('');
+                $('#type-food').val('NULL');
+                $('#price').val('');
+                $('#foodDetail').val('');
+                $('#recommendCheck').prop('checked', false);
+                $('#formFile').val('');
+            }
+        </script>
 </body>
 
 </html>

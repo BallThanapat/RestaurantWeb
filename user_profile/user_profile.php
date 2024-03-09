@@ -660,9 +660,6 @@ session_start();
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1000);
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 2000);
                             } else if (responseObject.RespCode == 400) {
                                 Swal.fire({
                                     icon: "error",
