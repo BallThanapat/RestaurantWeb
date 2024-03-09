@@ -519,44 +519,44 @@ require_once('./backend/api/config.php');
             <div class="box-add-promotion" id="add-promotion">
                 <div class="content add-promotion">
                     <h2>เพิ่มโปรโมชั่น/โพสต์</h2>
-                    <form action="" id="form-add-promotion">
+                    <form action="" id="form-add-promotion" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col">
                                 <label for="promotion" class="form-label">ชื่อโปรโมชั่น/โพสต์ :</label>
-                                <input type="promotion" class="form-control" id="promotion" name="promotion" placeholder="กรอกชื่อโปรโมชั่น">
+                                <input type="promotion" class="form-control" id="promoName" name="promotion" placeholder="กรอกชื่อโปรโมชั่น">
                             </div>
 
                             <div class="col">
                                 <label for="typeFood" class="form-label">ขั้นต่ำ :</label>
-                                <input type="promotion" class="form-control" id="promotion" name="promotion" value="0">
+                                <input type="promotion" class="form-control" id="promoMin" name="promotion" value="0">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="sales-price" class="form-label">ลดราคา :</label>
-                                <input type="text" class="form-control" id="sales-price" placeholder=""><br>
+                                <input type="text" class="form-control" id="discount" placeholder=""><br>
                             </div>
                             <div class="col">
                                 <label for="sales-price" class="form-label">โค้ด :</label>
-                                <input type="text" class="form-control" id="sales-price" placeholder=""><br>
+                                <input type="text" class="form-control" id="code" placeholder=""><br>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="foodDetail" class="form-label">รายละเอียด :</label>
-                                <textarea class="form-control" name="foodDetail" id="foodDetail" cols="30" rows="10" placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
+                                <textarea class="form-control" name="foodDetail" id="promoDetail" cols="30" rows="10" placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <label for="formFile" class="form-label">แนบไฟล์รูปภาพ</label>
-                            <input class="form-control" type="file" id="formFile" accept=".png, .webp, .jpeg" style="width: 30%;">
+                            <input class="form-control" type="file" id="imgFile" accept=".png, .webp, .jpeg" style="width: 30%;">
                         </div><br>
 
                         <div class="btn">
-                            <button class="btn btn-success">Add-Promotion</button>
+                            <button type="button" class="btn btn-success" onclick="addPromo()">Add-Promotion</button>
                         </div>
 
                     </form>
@@ -564,6 +564,101 @@ require_once('./backend/api/config.php');
             </div>
         </div>
         <script type="text/javascript">
+            function addPromo() {
+                var pass = true;
+                if ($("#promoName").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#promoMin").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#discount").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#code").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#promoDetail").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                }
+
+                if (pass) {
+                    $(document).ready(function() {
+                        var formData = new FormData();
+                        var files = $('#imgFile')[0].files;
+                        formData.append('fileImg', files[0]);
+                        formData.append('promoName', $('#promoName').val());
+                        formData.append('promoMin', $('#promoMin').val());
+                        formData.append('discount', $('#discount').val());
+                        formData.append('code', $('#code').val());
+                        formData.append('promoDetail', $('#promoDetail').val());
+
+                        $.ajax({
+                            url: './addPromotion.php',
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            success: function(response) {
+                                console.log(response);
+                                try {
+                                    var responseObject = JSON.parse(response);
+                                    if (responseObject.RespCode == 200) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "Add Promotion/Code success!!",
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
+                                        clearFormPromo()
+                                    } else if (responseObject.RespCode == 400) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Add Promotion/Code failed!!",
+                                            timer: 2000,
+                                        });
+                                    }
+                                } catch (error) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Something went wrong!",
+                                        timer: 2000,
+                                    });
+                                }
+                            },
+                            error: function(err) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 2000,
+                                });
+                            }
+                        })
+                    })
+                }
+            }
+
             function addMenu() {
                 var pass = true;
                 if ($("#food").val().length <= 0) {
@@ -659,6 +754,15 @@ require_once('./backend/api/config.php');
                 $('#foodDetail').val('');
                 $('#recommendCheck').prop('checked', false);
                 $('#formFile').val('');
+            }
+
+            function clearFormPromo() {
+                $('#promoName').val('');
+                $('#promoMin').val('');
+                $('#discount').val('');
+                $('#code').val('');
+                $('#promoDetail').val('');
+                $('#imgFile').val('');
             }
         </script>
 </body>
