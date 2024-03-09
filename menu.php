@@ -396,7 +396,6 @@ if (!empty($_GET["action"])) {
                 <label for="address-province">อำเภอ</label>
                 <input type="address-province" class="form-control" id="district_1">
               </div>
-
             </div>
 
             <div class="row">

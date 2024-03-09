@@ -214,7 +214,6 @@ session_start();
                 <label for="address-province">อำเภอ</label>
                 <input type="text" class="form-control" id="district_1">
               </div>
-
             </div>
 
             <div class="row">
