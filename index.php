@@ -131,6 +131,8 @@ session_start();
       </div>
     </nav>
   </header>
+
+
   <!-- Login/Register Modals -->
   <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -293,7 +295,7 @@ session_start();
           ลูกค้าสามารถดูโปรโมชั่นของทางร้านเราผ่านหน้าโปรโมชั่น คลิ๊กเล๊ย!
         </p>
         <a href="promotion.php" class="btn btn-warning">โปรโมชั่น</a>
-        <button type="button" class="btn btn-outline-warning" id="btn2" style="width: 20%" data-bs-toggle="modal"
+        <button type="button" class="btn btn-outline-warning" id="btn2" data-bs-toggle="modal"
           data-bs-target="#loginRegisModal">
           สมัครสมาชิก
         </button>
