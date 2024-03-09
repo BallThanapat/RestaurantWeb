@@ -216,7 +216,12 @@ if (!empty($_GET["action"])) {
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-          alert("เพิ่มสินค้าสำเร็จ");
+          Swal.fire({
+            icon: "success",
+            title: "เพิ่มสินค้าสำเร็จ!!",
+            timer: 1000,
+            showConfirmButton: false
+          });
         }
       };
       xhr.send();
@@ -229,7 +234,12 @@ if (!empty($_GET["action"])) {
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
           $('.modal-cart').load(location.href + ' .modal-cart');
-          alert("ลบสำเร็จ");
+          Swal.fire({
+            icon: "success",
+            title: "ลบสำเร็จ!!",
+            timer: 1000,
+            showConfirmButton: false
+          });
         }
       };
       xhr.send();
