@@ -42,7 +42,7 @@ session_start();
         <?php include "managerPage.css" ?>
     </style>
 
-    <title>Document</title>
+    <title>Manager</title>
 </head>
 
 <body>

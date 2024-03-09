@@ -1,43 +1,171 @@
 <?php
 session_start();
-// Get the session ID
-// $session_id = session_id();
+require_once('menuController.php');
+$db_handle = new MenuControll();
 
-// Output the session ID
-// echo "<script>console.log('Session ID: $session_id')</script>";
+if (!empty($_GET["action"])) {
+    switch ($_GET["action"]) {
+        case "add":
+            if (!empty($_GET["foodDetail"]) && !empty($_GET["quantity"])) {
+                $productByDetail = $db_handle->runQuery("SELECT * FROM menu where foodDetail='" . $_GET["foodDetail"] . "'");
+                $itemArray = array(
+                    $productByDetail[0]["foodDetail"] => (
+                        array(
+                            'foodID' => $productByDetail[0]["foodID"],
+                            'foodName' => $productByDetail[0]["foodName"],
+                            'foodDetail' => $productByDetail[0]["foodDetail"],
+                            'quantity' => $_GET["quantity"],
+                            'price' => $productByDetail[0]["price"],
+                            'picture' => $productByDetail[0]["picture"]
+                        )
+                    )
+                );
+
+                if (!empty($_SESSION["cart_item"])) {
+                    if (array_key_exists($productByDetail[0]["foodDetail"], $_SESSION["cart_item"])) {
+                        $_SESSION["cart_item"][$productByDetail[0]["foodDetail"]]["quantity"] += $_GET["quantity"];
+                    } else {
+                        $_SESSION["cart_item"] = array_merge($_SESSION["cart_item"], $itemArray);
+                    }
+                } else {
+                    $_SESSION["cart_item"] = $itemArray;
+                }
+            }
+            break;
+        case "remove";
+            if (!empty($_SESSION["cart_item"])) {
+                foreach ($_SESSION["cart_item"] as $k => $v) {
+                    if ($_GET["foodDetail"] == $k)
+                        unset($_SESSION["cart_item"][$k]);
+                    if (empty($_SESSION["cart_item"]))
+                        unset($_SESSION["cart_item"]);
+                }
+            }
+            break;
+        case "empty";
+            unset($_SESSION["cart_item"]);
+            break;
+    }
+}
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="mainPage.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff</title>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Font Header-->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Font Common-text -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
-        rel="stylesheet" />
+        rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="managerPage.css">
 
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
+
+    <!-- User Authentication -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="userAuthen.js"></script>
+
+    <style>
+        <?php
+        include "menu.css";
+        include "managerPage.css";
+        include "staff.css";
+        ?>
+    </style>
+
+    
+
+</head>
+
+<body>
     <script>
+        function clickMenu(menuType) {
+            var order01 = document.getElementById('order');
+            var payment01 = document.getElementById('payment');
+            var order_history01 = document.getElementById('order-history');
+            var menu = document.getElementById('menu');
+
+            if (menuType == "order") {
+                order01.style.display = 'block';
+                payment01.style.display = 'none';
+                order_history01.style.display = 'none';
+                menu = 'none';
+            } else if (menuType == "payment") {
+                order01.style.display = 'none';
+                payment01.style.display = 'block';
+                order_history01.style.display = 'none';
+                menu = 'none';
+            } else if (menuType == "order_history") {
+                order01.style.display = 'none';
+                payment01.style.display = 'none';
+                order_history01.style.display = 'block';
+                menu = 'none';
+            } else if (menuType == "menu") {
+                order01.style.display = 'none';
+                payment01.style.display = 'none';
+                order_history01.style.display = 'none';
+                menu = 'block';
+            }
+        }
+
+        function getCurrentDateTime() {
+            var currentDateTime = new Date();
+            var year = currentDateTime.getFullYear();
+            var month = (currentDateTime.getMonth() + 1).toString().padStart(2, '0');
+            var day = currentDateTime.getDate().toString().padStart(2, '0');
+            var hours = currentDateTime.getHours().toString().padStart(2, '0');
+            var minutes = currentDateTime.getMinutes().toString().padStart(2, '0');
+            var seconds = currentDateTime.getSeconds().toString().padStart(2, '0');
+
+            return hours + ':' + minutes + ':' + seconds + ' ' + year + '/' + month + '/' + day;
+        }
+
+        function updateDateTime() {
+            var datetimeElement = document.getElementById('clock-icon');
+            datetimeElement.textContent = getCurrentDateTime();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        });
+
+        function viewPay(clickImg) {
+
+            // var img = document.getElementById('img-payment');
+            var modal_img = document.getElementById('modalBodyContent');
+            var delImg = modal_img.querySelector('img');
+            // console.log(img);
+            // console.log(view_payment);
+            if (delImg) {
+                delImg.remove();
+            }
+            var imgClone = clickImg.cloneNode(true);
+            modal_img.appendChild(imgClone);
+        }
         document.addEventListener("DOMContentLoaded", function () {
             var radio1 = document.getElementById("btnradio1");
             var radio2 = document.getElementById("btnradio2");
@@ -45,15 +173,11 @@ session_start();
             var form2 = document.getElementById("form2");
             var buttonBar1 = document.getElementById("buttonBar1");
             var buttonBar2 = document.getElementById("buttonBar2");
-            // var btnLogin = document.getElementById("btnlogin");
-            // var btnRegis = document.getElementById("btnsignup");
 
             radio1.addEventListener("change", function () {
                 if (radio1.checked) {
                     form1.style.display = "block";
                     form2.style.display = "none";
-                    // btnLogin.style.display = "block";
-                    // btnRegis.style.display = "none";
                     buttonBar1.style.backgroundColor = "orange";
                     buttonBar2.style.backgroundColor = "white";
                     buttonBar1.style.color = "white";
@@ -65,8 +189,6 @@ session_start();
                 if (radio2.checked) {
                     form1.style.display = "none";
                     form2.style.display = "block";
-                    // btnLogin.style.display = "none";
-                    // btnRegis.style.display = "block";
                     buttonBar2.style.backgroundColor = "orange";
                     buttonBar1.style.backgroundColor = "white";
                     buttonBar1.style.color = "black";
@@ -74,555 +196,954 @@ session_start();
                 }
             });
         });
+
+        function showMenu(menuType) {
+            var menuBarTopic = document.getElementById("menu-bar-topic");
+            var recommend = document.getElementById("row-recommend-menu");
+            var fried = document.getElementById("row-fried-menu");
+            var soup = document.getElementById("row-soup-menu");
+            var seafood = document.getElementById("row-seafood-menu");
+            var steak = document.getElementById("row-steak-menu");
+            var dessert = document.getElementById("row-dessert-menu");
+            var drink = document.getElementById("row-drink-menu");
+
+            if (menuType == "recommend") {
+                menuBarTopic.innerHTML = "<h2> เมนูแนะนำ </h2>";
+                recommend.style.display = "flex";
+                fried.style.display = "none";
+                soup.style.display = "none";
+                seafood.style.display = "none";
+                steak.style.display = "none";
+                dessert.style.display = "none";
+                drink.style.display = "none";
+            } else if (menuType == "fried") {
+                menuBarTopic.innerHTML = "<h2> เมนูทอด </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "flex";
+                soup.style.display = "none";
+                seafood.style.display = "none";
+                steak.style.display = "none";
+                dessert.style.display = "none";
+                drink.style.display = "none";
+            } else if (menuType == "soup") {
+                menuBarTopic.innerHTML = "<h2> เมนูยำ/ต้ม </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "none";
+                soup.style.display = "flex";
+                seafood.style.display = "none";
+                steak.style.display = "none";
+                dessert.style.display = "none";
+                drink.style.display = "none";
+            } else if (menuType == "seafood") {
+                menuBarTopic.innerHTML = "<h2> อาหารทะเล </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "none";
+                soup.style.display = "none";
+                seafood.style.display = "flex";
+                steak.style.display = "none";
+                dessert.style.display = "none";
+                drink.style.display = "none";
+            } else if (menuType == "steak") {
+                menuBarTopic.innerHTML = "<h2> สเต็ก/เนื้อ </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "none";
+                soup.style.display = "none";
+                seafood.style.display = "none";
+                steak.style.display = "flex";
+                dessert.style.display = "none";
+                drink.style.display = "none";
+            } else if (menuType == "dessert") {
+                menuBarTopic.innerHTML = "<h2> ของหวาน </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "none";
+                soup.style.display = "none";
+                seafood.style.display = "none";
+                steak.style.display = "none";
+                dessert.style.display = "flex";
+                drink.style.display = "none";
+            } else if (menuType == "drink") {
+                menuBarTopic.innerHTML = "<h2> เครื่องดื่ม </h2>";
+                recommend.style.display = "none";
+                fried.style.display = "none";
+                soup.style.display = "none";
+                seafood.style.display = "none";
+                steak.style.display = "none";
+                dessert.style.display = "none";
+                drink.style.display = "flex";
+            }
+        }
+
+        function addToCart(foodDetail) {
+            var quantity = document.getElementById("quantity_" + foodDetail).value;
+            var xhr = new XMLHttpRequest();
+            $('.modal-cart').load(location.href + ' .modal-cart');
+            xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    alert("เพิ่มสินค้าสำเร็จ");
+                }
+            };
+            xhr.send();
+        }
+
+        function deleteItem(foodDetail) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "menu.php?action=remove&foodDetail=" + foodDetail, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    $('.modal-cart').load(location.href + ' .modal-cart');
+                    alert("ลบสำเร็จ");
+                }
+            };
+            xhr.send();
+        }
+
+        function clear_cart() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "menu.php?action=empty", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    $('.modal-cart').load(location.href + ' .modal-cart');
+                    alert("ล้างตะกร้าสำเร็จ");
+                }
+            };
+            xhr.send(); // ส่งพารามิเตอร์ foodDetail และ quantity ไปยัง menu.php
+        }
+
+        function addNum(foodDetail) {
+            var inputElement = document.getElementById("quantity_" + foodDetail);
+            var count = parseInt(inputElement.value);
+            count++;
+            inputElement.value = count;
+        }
+
+        function minusNum(foodDetail) {
+            var inputElement = document.getElementById("quantity_" + foodDetail);
+            var count = parseInt(inputElement.value);
+            if (count > 1) { // Ensure count doesn't go below 1
+                count--;
+                inputElement.value = count;
+            }
+        }
     </script>
 
-    <title>Home</title>
-</head>
-
-<body>
-    <header class="header">
-        <nav class="navbar navbar-expand-xxl navbar-dark">
-            <div class="container-fluid">
-                <a href="index.html" class="header-link">KITCHENHOME</a>
-                <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon text-white"></span>
-                </button>
-                <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a href="index.html" class="links nav-link" id="">หน้าแรก</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="promotion.html" class="links nav-link" id="">โปรโมชั่น</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="menu.html" class="links nav-link" id="">เมนูทั้งหมด</a>
-                        </li>
-                        <?php
-                        // echo $_SESSION["username"];
-                        if (isset($_SESSION["username"])) {
-                            $username = $_SESSION["username"];
-                            echo "<li class=\"nav-item dropdown\">
-                            <a class=\"nav-link dropdown-toggle links\" href=\"#\" id=\"navbarDropdown\" role=\"button\" data-bs-toggle=\"dropdown\" aria-expanded=\"false\">
-                            $username
-                            </a>
-                            <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
-                                <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.html\">โปรไฟล์</a></li>
-                                <li><hr class=\"dropdown-divider\"></li>
-                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout()\">logout</a></li>
-                            </ul>
-                        </li>";
-                        } else {
-                            echo "<li class=\"nav-item\">
-                            <a href=\"\" class=\"links nav-link\" data-bs-toggle=\"modal\"
-                            data-bs-target=\"#loginRegisModal\">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                            </li>";
-                        }
-                        ?>
-                        <!-- <li class="nav-item">
-                            <a href="" class="links nav-link" data-bs-toggle="modal"
-                                data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-                        </li> -->
-                        <li class="nav-item">
-                            <a href="contractUs.html" class="links nav-link" id="">ติดต่อเรา</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <!-- Login/Register Modals -->
-    <div class="modal fade" id="loginRegisModal" tabindex="-1" aria-labelledby="loginRegisModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="loginRegisModalLabel">
-                        KhunGame Restaurant
-                    </h5>
+                    <h2 class="modal-title" id="staticBackdropLabel">หลักฐานการชำระเงิน</h2>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <div class="btn-group w-100 mb-3" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio1" autocomplete="off"
-                            checked />
-                        <label class="btn btn-outline-warning" id="buttonBar1" for="btnradio1">Login</label>
+                <div class="modal-body" id="modalBodyContent">
+                    <!-- ร -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Understood</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-                        <input type="radio" class="btn-check w-50" name="btnradio" id="btnradio2" autocomplete="off" />
-                        <label class="btn btn-outline-warning" id="buttonBar2" for="btnradio2">Register</label>
+    <!-- The Modal Info -->
+    <div class="modal fade" id="infoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Information</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body modal-body-info" id="modal-body-info" style="width: 100%;margin-left: 10px;">
+                    <div class="row">
+                        <div class="col">
+                            <h5>ชื่อ: นายธีรภัทร์ สังข์สี</h5>
+                        </div>
+                        <div class="col">
+                            <h5>เบอร์โทร : 095-xxxxx-xxxx</h5>
+                        </div>
+                    </div><br>
+                    <div class="row">
+                        <div class="col">
+                            <p>ที่อยู่ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci provident eum
+                                Lorem ipsum dolor sit amet.</p>
+                        </div>
                     </div>
 
-                    <!-- Login Form -->
-                    <form id="form1">
-                        <div class="mb-3">
-                            <label for="uNameOrEmail" class="col-form-label">Username/Email:</label>
-                            <input type="text" class="form-control" id="uNameOrEmail" />
+                    <div class="row">
+                        <div class="col">
+                            <p>จังหวัด: กรุงเทพมหานคร</p>
                         </div>
-                        <div class="mb-3">
-                            <label for="lPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="lPassword" />
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" class="btn btn-success" id="btnlogin" onclick="gotologin()">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- Register Form -->
-                    <form id="form2" style="display: none">
-                        <div class="mb-3">
-                            <label for="uName" class="col-form-label">Username:</label>
-                            <input type="text" class="form-control" id="uName" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="col-form-label">Email:</label>
-                            <input type="text" class="form-control" id="email" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="rPassword" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="rPassword" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="fName" class="col-form-label">ชื่อ:</label>
-                            <input type="text" class="form-control" id="fName" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="lName" class="col-form-label">นามสกุล:</label>
-                            <input type="text" class="form-control" id="lName" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="col-form-label">เบอร์โทร:</label>
-                            <input type="text" class="form-control" id="phone" />
-                        </div>
-                        <!-- <div class="mx -->
-                        <div class="mb-3">
-                            <label for="address" class="col-form-label">สถานที่จัดส่งสินค้า:</label>
-                            <input type="text" class="form-control" id="address" />
-                        </div>
-                        <div class="modal-footer d-flex justify-content-center">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button onclick="gotosignup()" type="button" class="btn btn-warning" id="btnsignup">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
-                <!-- <div class="modal-footer d-flex justify-content-center">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button type="button" class="btn btn-success" id="btnlogin">Submit</button>
-            <button onclick="gotosignup()" type="button" class="btn btn-warning" id="btnsignup" style="display: none">Submit</button>
-          </div> -->
-            </div>
-        </div>
-    </div>
-
-    <div class="bgImg">
-        <img src="Image_inventory/Home/BGRestau1.webp" alt="" width="100%" />
-        <div class="box-text">
-            <h1>Let Me Cook!</h1>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-                asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-                ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-                similique? Similique alias cum eos! Fuga optio facilis itaque velit
-                omnis soluta distinctio, delectus veritatis suscipit debitis nam
-                accusantium eum! Veritatis velit provident eaque quis laudantium!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-                debitis quasi dolorem officiis nesciunt reprehenderit est molestiae
-                culpa itaque minima aperiam labore expedita assumenda, inventore
-                quidem eum, magni reiciendis quis nisi veritatis perspiciatis ipsa
-                eius facilis eaque. Quam minus eligendi laborum facilis, consectetur
-                minima in non. Facere enim obcaecati mollitia!
-            </p>
-            <button type="button" class="btn btn-warning" id="btn1">
-                ติดต่อเรา
-            </button>
-            <button type="button" class="btn btn-outline-warning" id="btn2">
-                เกี่ยวกับเรา
-            </button>
-        </div>
-    </div>
-
-    <!-- หน้าแนะนำเมนูรูปสไลด์ -->
-    <div class="bgImg page2">
-        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img class="d-block w-100" src="Image_inventory/Home/BGRestau2.webp" alt="First slide" />
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="Image_inventory/Home/BGRestau3.jpg" alt="Second slide" />
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="Image_inventory/Home/BGRestau4.jpg" alt="Third slide" />
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-            <div class="box-text">
-                <h1>PROMOTION</h1>
-                <p>
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-                    asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-                    ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-                    similique? Similique alias cum eos! Fuga optio facilis itaque velit
-                    omnis soluta distinctio, delectus veritatis suscipit debitis nam
-                    accusantium eum! Veritatis velit provident eaque quis laudantium!
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-                    debitis quasi dolorem officiis nesciunt
-                </p>
-                <button type="button" class="btn btn-warning" id="btn1">
-                    โปรโมชั่น
-                </button>
-                <button type="button" class="btn btn-outline-warning" id="btn2">
-                    สมัครสมาชิก
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="bgImg page3">
-        <div class="shadow-tab"></div>
-        <img src="Image_inventory/Home/BGRestau5.png" alt="" width="100%" />
-        <div class="box-text">
-            <h1>Menu</h1>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-                asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-                ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-                similique? Similique alias cum eos! Fuga optio facilis itaque velit
-                omnis soluta distinctio, delectus veritatis suscipit debitis nam
-                accusantium eum! Veritatis velit provident eaque quis laudantium!
-                Lorem,
-            </p>
-            <button type="button" class="btn btn-warning" id="btn1">
-                ดูเมนูทั้งหมด
-            </button>
-            <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
-        </div>
-    </div>
-
-    <div class="bgImg page4">
-        <img src="Image_inventory/Home/BGRestau6.jpg" alt="" width="100%" />
-        <div class="box-text">
-            <h1>Delivery / Pickup</h1>
-            <p>
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est,
-                asperiores nulla? Temporibus iste perspiciatis, excepturi error,
-                ducimus labore facilis saepe nostrum, repellendus distinctio quaerat
-                similique? Similique alias cum eos! Fuga optio facilis itaque velit
-                omnis soluta distinctio, delectus veritatis suscipit debitis nam
-                accusantium eum! Veritatis velit provident eaque quis laudantium!
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis
-                debitis quasi dolorem officiis nesciunt reprehenderit est molestiae
-                culpa itaque minima aperiam labore expedita assumenda, inventore
-                quidem eum, magni reiciendis quis nisi veritatis perspiciatis ipsa
-                eius facilis eaque. Quam minus eligendi laborum facilis, consectetur
-                minima in non. Facere enim obcaecati mollitia!
-            </p>
-            <button type="button" class="btn btn-warning" id="btn1">
-                สั่งเดลิเวอรี่
-            </button>
-            <button type="button" class="btn btn-outline-warning" id="btn1">
-                รับที่ร้าน
-            </button>
-            <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
-        </div>
-    </div>
-
-    <div class="bgImg page6">
-        <img src="Image_inventory/Kitchen-Restaurant-1.png" alt="" width="100%" />
-        <div class="box-text">
-            <h1>Contact Us</h1>
-            <p>
-                คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1
-                ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
-            </p>
-            <i class="bi bi-facebook"></i>
-            <!-- <button type="button" class="btn btn-outline-warning" id="btn2">โปรโมชั่</button> -->
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer d-flex justify-content-center w-100">
-            <div class="box-footer container w-100">
-                <div class="row">
-                    <div class="col-lg-5 col-md-12">
-                        <h2>KhunGame Restaurant</h2>
-                        <br />
-                        <p class="icontext">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad vero
-                            vel quia facilis a hic aut laudantium, repudiandae doloribus
-                            alias! Accusamus, asperiores similique voluptatum consequatur
-                            dolorem praesentium modi
-                        </p>
-                        <div class="icon container">
-                            <p class="row">
-                                <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
-                                <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube"></i></a>
-                            </p>
+                        <div class="col">
+                            <p>อำเภอ/แขวง: ลาดบัง</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12">
-                        <h2>FIND OUR RESTAURANT</h2>
-                        <p class="icontext">
-                            <i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
-                            แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520
-                        </p>
+
+                    <div class="row">
+                        <div class="col">
+                            <p>ตำบล/เขต: ลาดบัง</p>
+                        </div>
+                        <div class="col">
+                            <p>รหัสไปรษณีย์: 85000</p>
+                        </div>
                     </div>
-                    <div class="col-lg-3 col-md-12" id="col3">
-                        <h2>WORKING HOURS</h2>
-                        <br />
-                        <p class="icontext">MONDAY UNTIL FRIDAY <br />09.00 - 23.00</p>
-                        <br /><br />
-                        <p>SATURDAY - SUNDAY <br />09.00 - 24.00</p>
-                    </div>
+
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 
 
+    <!-- --------- -->
+
+    <div class="adminmain">
+        <div class="sidebar">
+            <div class="head-bar">KhunGame-Restaurant</div>
+            <div class="datetime" id="datetime">
+                <i class="fa-regular fa-clock"></i>
+                <span id="clock-icon"></span>
+            </div>
+            <div class="menu">
+                <div class="item" onclick="clickMenu('order')"><a><i class="fa-solid fa-user-pen"></i></i>ORDER</a>
+                </div>
+                <div class="item" onclick="clickMenu('payment')"><a><i
+                            class="fa-solid fa-cash-register"></i>CONFIRM-ORDER</a></div>
+                <div class="item" onclick="clickMenu('menu')"><a><i class="fa-solid fa-cash-register"></i>Menu</a></div>
+                <!-- <div class="item">
+                    <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
+                    <div class="sub-menu" id="sub-menu">
+                        <a class="sub-item" onclick=""><span>All Staff</span></a>
+                        <a class="sub-item" onclick=""><span>Add Staff</span></a>
+                    </div>
+                </div> -->
+                <div class="item" onclick="gotologout('staff')"><a><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+            </div>
+        </div>
+
+        <div class="outputspace">
+            <div class="mainbar">
+                <div class="account-staff">
+                    <?php
+                    $username = $_SESSION['username'];
+                    echo $username;
+                    ?>
+                </div>
+            </div>
+            <div class="content" id="order"> <!--  -->
+                <h1>รายการคำสั่งซื้อ</h1>
+                <div class="box-list-order">
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6>
+                            <h1>0001</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                            <h6>รายการอาหาร</h6>
+                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                        </div>
+
+                        <div class="content-order order-img-payment" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                        </div>
+
+                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
+                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>120.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button>
+                        </div>
+                    </div>
+
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6>
+                            <h1>0002</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+
+                        </div>
+
+                        <div class="content-order order-img-payment" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                        </div>
+
+                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
+                            style="cursor: pointer;">
+                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>299.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content" id="payment">
+                <h1>ยืนยันรายการสั่งซื้อ</h1>
+                <div class="status-payment">
+                    <div class="box-list-order">
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6>
+                                <h1>0001</h1>
+                            </div>
+                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                                <h6>รายการอาหาร</h6>
+                                <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                            </div>
+
+                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
+                                <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>120.00฿</h5>
+                            </div>
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                            </div>
+                        </div>
+
+                        <div class="order">
+                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                                <h6>หมายเลขคำสั่งซื้อ</h6>
+                                <h1>0002</h1>
+                            </div>
+                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
+
+                            </div>
+
+                            <div class="content-order order-img-payment" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                            </div>
+
+                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
+                                style="cursor: pointer;">
+                                <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                            </div>
+
+                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                                <h4>Total</h4>
+                                <h5>299.00฿</h5>
+                            </div>
+                            <div class="content-order order-btn">
+                                <button class="btn btn-success">Confirm</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content" id="order-history"> <!--  -->
+                <h1>รายการคำสั่งซื้อ</h1>
+                <div class="box-list-order">
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6>
+                            <h1>0199</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                            <h6>รายการอาหาร</h6>
+                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
+                        </div>
+                        <div class="content-order order-type">
+                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>120.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <!-- <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button> -->
+                        </div>
+                    </div>
+
+                    <div class="order">
+                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
+                            <h6>หมายเลขคำสั่งซื้อ</h6>
+                            <h1>0200</h1>
+                        </div>
+                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+
+                        </div>
+                        <div class="content-order order-type">
+                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                        </div>
+                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
+                            <h4>Total</h4>
+                            <h5>299.00฿</h5>
+                        </div>
+                        <div class="content-order order-btn">
+                            <!-- <button class="btn btn-success">Accept</button>
+                            <button class="btn btn-danger mt-2">Decline</button> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="content" id="menu">
+
+                <div class="menu-bar test1">
+                    <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/recommend.png" alt="" />
+                        </div>
+                        <div class="menu-box-bar-content">เมนูแนะนำ</div>
+                    </div>
+
+                    <div class="menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/friedFood.png" alt="" />
+                        </div>
+                        <div class="menu-box-bar-content">เมนูทอด</div>
+                    </div>
+
+                    <div class="menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
+                        </div>
+                        <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
+                    </div>
+                    <div class="menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
+                        </div>
+                        <div class="menu-box-bar-content">อาหารทะเล</div>
+                    </div>
+                    <div class="menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
+                        </div>
+                        <div class="menu-box-bar-content">สเต็ก</div>
+                    </div>
+                    <div class="menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/dessert2.png" alt="" />
+                        </div>
+                        <div class="menu-box-bar-content">ของหวาน</div>
+                    </div>
+                    <div class="menu-box-bar" id="drink" onclick="showMenu('drink')">
+                        <div class="menu-box-bar-image">
+                            <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
+                        </div>
+                        <div class="menu-box-bar-content">เครื่องดื่ม</div>
+                    </div>
+                </div>
+
+                <div class="swiper test2">
+                    <div class="swiper-wrapper menu-bar">
+                        <div class="swiper-slide menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/recommend.png" alt="" />
+                            </div>
+                            <div class="menu-box-bar-content">เมนูแนะนำ</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="fried-menu" onclick="showMenu('fried')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/friedFood.png" alt="" />
+                            </div>
+                            <div class="menu-box-bar-content">เมนูทอด</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="soup-menu" onclick="showMenu('soup')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/Tomyumkung4.png" alt="" />
+                            </div>
+                            <div class="menu-box-bar-content">ยำ/ต้มยำ</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="seafood-menu" onclick="showMenu('seafood')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/Seafood2.png" alt="" id="pic-sea" />
+                            </div>
+                            <div class="menu-box-bar-content">อาหารทะเล</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="steak-menu" onclick="showMenu('steak')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/Steak.png" alt="" id="pic-steak" />
+                            </div>
+                            <div class="menu-box-bar-content">สเต็ก</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="dessert" onclick="showMenu('dessert')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/dessert2.png" alt="" />
+                            </div>
+                            <div class="menu-box-bar-content">ของหวาน</div>
+                        </div>
+                        <div class="swiper-slide menu-box-bar" id="drink" onclick="showMenu('drink')">
+                            <div class="menu-box-bar-image">
+                                <img src="Image_inventory/Menu/drinks2.png" alt="" id="pic-drink" />
+                            </div>
+                            <div class="menu-box-bar-content">เครื่องดื่ม</div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
 
 
+                <div class="menu-bar-recommend" id="menu-bar-topic">
+                    <h2>เมนูแนะนำ</h2>
+                </div>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js"
-        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-        //email valudation
-        const validateEmail = (email) => {
-            return email.match(
-                /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-            );
-        };
+                <!-- Swiper JS -->
+                <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-        // register example
-        function gotosignup() {
-            //ฝากไปทำ validate หน่อยนะ frontend
-            var pass = true;
-            if ($("#uName").val().length <= 8) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Username must be at least 8 characters!!",
-                    timer: 5000,
-                });
-            } else if (!validateEmail($("#email").val())) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "email is invalid!!",
-                    timer: 5000,
-                });
-            } else if ($("#rPassword").val().length <= 8) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Password must be at least 8 characters!!",
-                    timer: 5000,
-                });
-            } else if ($("#fName").val().length <= 0) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "First name can't be empty!!",
-                    timer: 5000,
-                });
-            } else if ($("#lName").val().length <= 0) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Last name can't be empty!!",
-                    timer: 5000,
-                });
-            } else if ($("#phone").val().length <= 8) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Phone must be at least 8 characters!!",
-                    timer: 5000,
-                });
-            } else if ($("#address").val().length <= 20) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Address must be at least 20 characters!!",
-                    timer: 5000,
-                });
-            }
-
-            if (pass) {
-                $.ajax({
-                    method: "post",
-                    url: "./backend/api/signup.php",
-                    data: {
-                        username: $("#uName").val(),
-                        password: $("#rPassword").val(),
-                        email: $("#email").val(),
-                        firstname: $("#fName").val(),
-                        lastname: $("#lName").val(),
-                        phone: $("#phone").val(),
-                        address: $("#address").val(),
-                    },
-                    success: function (response) {
-                        console.log("good", response);
-                        try {
-                            var responseObject = JSON.parse(response);
-                            console.log(responseObject.RespCode);
-                            if (responseObject.RespCode == 200) {
-
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Signup success!!",
-                                    timer: 5000,
-                                });
-                                window.location.href = "./index.php";
-
-                            } else if (responseObject.RespCode == 400) {
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Signup failed!!",
-                                    timer: 5000,
-                                });
-                            }
-                        } catch (error) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Something went wrong!",
-                                timer: 5000,
-                            });
-                        }
-
-                    },
-                    error: function (err) {
-                        console.log("badmakmak", err);
-                    },
-                });
-            }
-        }
-
-        function gotologin() {
-            var pass = true;
-            if ($("#uNameOrEmail").val().length <= 0) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Please insert username",
-                    timer: 5000,
-                });
-            } else if ($("#lPassword").val().length <= 0) {
-                pass = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Please insert username",
-                    timer: 5000,
-                });
-            }
-            if (pass) {
-                console.log("go to login...");
-                $.ajax({
-                    method: "post",
-                    url: "./backend/api/login.php",
-                    data: {
-                        username: $("#uNameOrEmail").val(),
-                        password: $("#lPassword").val(),
-                    },
-                    success: (response) => {
-                        console.log("valid", response);
-                        console.log(response);
-                        try {
-                            var responseObject = JSON.parse(response);
-                            if (responseObject.RespCode == 200) {
-
-                                localStorage.setItem("username", responseObject.RespUsername);
-                                localStorage.setItem("uid", responseObject.RespUid);
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Login success!!",
-                                    timer: 5000,
-                                });
-                                window.location.href = "./index.php";
-                            } else {
-                                console.log('test1')
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Something went wrong!",
-                                    timer: 5000,
-                                });
-                            }
-                        } catch (error) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Something went wrong!",
-                                timer: 5000,
-                            });
-                        }
-
-                    },
-                    error: (err) => {
-                        console.log('test1')
-
-                        console.log("error", err);
-                    },
-                });
-            }
-        }
-
-        function gotologout() {
-            console.log("go to logout");
-            $.ajax({
-                url: "./backend/api/logout.php", // URL of the server-side script to handle the logout
-                type: "POST",
-                success: function (response) {
-                    // Redirect to the login page or perform any other actions after logout
-                    Swal.fire({
-                        icon: "success",
-                        title: "Logout success!!",
-                        timer: 5000,
+                <!-- Initialize Swiper -->
+                <script>
+                    var swiper = new Swiper('.swiper', {
+                        slidesPerView: getSlidesPerView(),
+                        direction: getDirection(),
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        on: {
+                            resize: function () {
+                                swiper.params.slidesPerView = getSlidesPerView();
+                                swiper.changeDirection(getDirection());
+                            },
+                        },
                     });
-                    window.location.href = "./index.php";
-                },
-                error: function (xhr, status, error) {
-                    // Handle error if AJAX request fails
-                    console.log("AJAX Error: " + error);
-                }
-            });
-        }
-    </script>
+
+                    function getDirection() {
+                        var windowWidth = window.innerWidth;
+                        var direction = window.innerWidth <= 760 ? 'horizontal' : 'horizontal';
+
+                        return direction;
+                    }
+                    function getSlidesPerView() {
+                        var windowWidth = window.innerWidth;
+                        if (windowWidth <= 430) {
+                            return 2;
+                        } else if (windowWidth <= 600) {
+                            return 3;
+                        } else if (windowWidth <= 768) {
+                            return 4;
+                        } else {
+                            return 5; // Default value
+                        }
+                    }
+                </script>
+
+
+
+                <!-- เมนูแนะนำ -->
+                <div class="col-menu recommend-menu" id="recommend-menu">
+                    <div class="row1" id="row-recommend-menu">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where recommend = 1 order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                    </div>
+                </div>
+
+                <!-- เมนูทอด -->
+                <div class="col-menu fried-menu" id="fried-menu">
+                    <div class="row1" id="row-fried-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- เมนูยำ/ต้ม -->
+                <div class="col-menu soup-menu" id="soup-menu">
+                    <div class="row1" id="row-soup-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'soup' or type = 'yum' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- เมนูทะเล -->
+                <div class="col-menu seafood-menu" id="seafood-menu">
+                    <div class="row1" id="row-seafood-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'seafood' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+                    </div>
+                </div>
+
+                <!-- เมนูเสต็ก-->
+                <div class="col-menu steak-menu" id="steak-menu">
+                    <div class="row1" id="row-steak-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'steak' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                    </div>
+                </div>
+
+                <!-- เมนูของหวาน -->
+                <div class="col-menu dessert-menu" id="dessert-menu">
+                    <div class="row1" id="row-dessert-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'dessert' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                    </div>
+                </div>
+
+                <!-- เมนูเครื่องดื่ม -->
+                <div class="col-menu drink-menu" id="drink-menu">
+                    <div class="row1" id="row-drink-menu" style="display: none;">
+                        <?php
+                        $product_array = $db_handle->runQuery("SELECT * From menu where type = 'drink' order by foodID asc");
+                        if (!empty($product_array)) {
+                            foreach ($product_array as $key => $value) {
+                                ?>
+                                <div class="col1">
+                                    <div class="col1-sub"><a
+                                            href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                                                src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+                                    <div class="col1-sub-content">
+                                        <div class="col1-sub-content-1">
+                                            <?php echo $product_array[$key]["foodName"]; ?>
+                                        </div>
+                                        <div class="cart-action">
+                                            <button
+                                                onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
+                                            <input type="text" class="quantity_input"
+                                                id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity"
+                                                value="1" size="1">
+                                            <button
+                                                onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
+                                        </div>
+                                        <div class="col1-sub-content-2"><button
+                                                style="background-color: transparent;border: none;"
+                                                onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
+                                                <?php echo "THB " . $product_array[$key]["price"]; ?>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        }
+                        ?>
+
+                    </div>
+                </div>
+            </div>
+            <div>
+
+
+
+
+
+                <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+                    <i class="fa-solid fa-cart-shopping my-float"></i>
+                </a>
+                <!-- Shopping Cart Modals -->
+                <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="modal-cart">
+                                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
+                                        class="scrollspy-example" tabindex="0">
+                                        <div class="container">
+                                            <div class="row">
+                                                <?php
+                                                if (isset($_SESSION["cart_item"])) {
+                                                    $total_quantity = 0;
+                                                    $total_price = 0;
+                                                    foreach ($_SESSION["cart_item"] as $item) {
+                                                        $item_price = $item["quantity"] * $item["price"];
+                                                        ?>
+                                                        <div class="col-lg-6 mb-3"> <!-- Item of menu to order -->
+                                                            <div class="container">
+                                                                <div class="row">
+                                                                    <div class="col-sm-5">
+                                                                        <img src="<?php echo $item["picture"]; ?>"
+                                                                            class="w-100">
+                                                                        <!-- รูปภาพจาก MENU -->
+                                                                    </div>
+                                                                    <div class="col-sm-6">
+                                                                        <p>
+                                                                            <?php echo $item["foodName"]; ?>
+                                                                        </p> <!-- ชื่อของเมนู -->
+                                                                        <hr>
+                                                                        <div class="d-flex">
+                                                                            <p class="w-25">
+                                                                                <?php echo "x" . $item["quantity"]; ?>
+                                                                            </p> <!-- จำนวน -->
+                                                                            <p class="w-25 ms-auto text-danger">
+                                                                                <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
+                                                                            </p>
+                                                                        </div>
+                                                                        <p>
+                                                                            <a href="#" class="btnRemoveAction"
+                                                                                onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                                                                <img src="delete-icon.png" width="90%" alt="">
+                                                                            </a>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <?php
+                                                        $total_quantity += $item["quantity"];
+                                                        $total_price += $item["price"] * $item["quantity"];
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                } else {
+                                                    ?>
+                                                    <div class="no-records">ตระกร้าว่างเปล่า</div>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer d-flex justify-content-center">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">ปิด</button>
+                                        <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
+                                        <button type="button" onclick="location.href='purchaseOrder.php'"
+                                            class="btn btn-warning">ทำการสั่งซื้อ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 </body>
 
 </html>
