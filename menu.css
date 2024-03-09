@@ -527,6 +527,7 @@ footer {
     justify-content: center;
 }
 
+
 /* ---------------------------   */
 
 .float {
@@ -876,4 +877,10 @@ footer {
         display: flex;
     }
 
+}
+
+@media screen and (max-width: 550px) {
+    .col1 {
+        width: 100%;
+    }
 }

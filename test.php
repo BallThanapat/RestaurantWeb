@@ -61,6 +61,9 @@ if (!empty($_GET["action"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <!-- Font Header-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,13 +93,13 @@ if (!empty($_GET["action"])) {
 
     <style>
         <?php
-        include "menu.css";
         include "managerPage.css";
         include "staff.css";
+        include "test2.css";
         ?>
     </style>
 
-    
+
 
 </head>
 
@@ -433,7 +436,7 @@ if (!empty($_GET["action"])) {
             </div>
         </div>
 
-        <div class="outputspace">
+        <div class="outputspace" id="outputspace">
             <div class="mainbar">
                 <div class="account-staff">
                     <?php
@@ -621,7 +624,6 @@ if (!empty($_GET["action"])) {
             </div>
 
             <div class="content" id="menu">
-
                 <div class="menu-bar test1">
                     <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
                         <div class="menu-box-bar-image">
@@ -754,11 +756,11 @@ if (!empty($_GET["action"])) {
                         if (windowWidth <= 430) {
                             return 2;
                         } else if (windowWidth <= 600) {
-                            return 3;
+                            return 2;
                         } else if (windowWidth <= 768) {
-                            return 4;
+                            return 3;
                         } else {
-                            return 5; // Default value
+                            return 5;
                         }
                     }
                 </script>
@@ -1050,10 +1052,6 @@ if (!empty($_GET["action"])) {
                 </div>
             </div>
             <div>
-
-
-
-
 
                 <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
                     <i class="fa-solid fa-cart-shopping my-float"></i>
