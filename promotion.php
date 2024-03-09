@@ -262,17 +262,19 @@ session_start();
                     <button type="button" data-bs-target="#carouselPromotion" data-bs-slide-to="2"
                         aria-label="Slide 3"></button>
                 </div>
+                
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau2.webp" alt="First slide">
+                        <img class="img-slide" src="Image_inventory/Promotion/promotionSlideFood4.png" alt="First slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau3.jpg" alt="Second slide">
+                        <img class="img-slide" src="Image_inventory/Promotion/promotionSlideFood1.png" alt="Second slide">
                     </div>
                     <div class="carousel-item">
-                        <img class="d-block w-100" src="Image_inventory/Promotion/BGRestau4.jpg" alt="Third slide">
+                        <img class="img-slide" src="Image_inventory/Promotion/promotionSlideFood5.png" alt="Third slide">
                     </div>
                 </div>
+
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselPromotion"
                     data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -286,88 +288,96 @@ session_start();
             </div>
         </div>
     </div>
-    <section class="boxes ">
-        <div class="container w-100 h-100">
-            <div class="row d-flex justify-content-center h-100 w-100">
-                <a href="menu.html" class="col-lg-5 col-md-12 box">
+
+    <section class="boxes">
+    <div class="container-fluid">
+        <div class="row h-100 w-120">
+            <div class="col-lg-4 col-md-12">
+                <a href="index.php" class="box">
                     <div class="w-100">
-                        <header class="h2 text-center p-4">
-                            ดูเมนู
-                        </header>
-                        <div class="b-item d-flex justify-content-center text-center">
-                            <div class="img"><img src="Image_inventory/Promotion/munu.jpg" class="w-100 h-100"></div>
-                            <div class="text">
-                                <p>เมนูอาหารน่าลอง<br>มากมากนับไม่ถ้วน</p>
-                            </div>
+                        <div class="b-item d-flex justify-content-center">
+                           <div class="img">
+                                <h4>เกี่ยวกับเรา</h4>
+                                <img src="Image_inventory/Kitchen-Restaurant-2.png" alt="">
+                           </div>
                         </div>
                     </div>
                 </a>
-                <a href="" class="col-lg-5 col-md-12 box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <a href="menu.php" class="box">
                     <div class="w-100">
-                        <header class="h2 text-center p-4">
-                            สั่งอาหาร
-                        </header>
-                        <div class="b-item d-flex justify-content-center text-center">
-                            <div class="img"><img src="Image_inventory/Promotion/orderFood.png" class="w-100 h-100">
-                            </div>
-                            <div class="text">
-                                <p>สั่งอาหารได้จากทุกที่<br>
-                                    รับที่ร้าน/<br>บริการถึงบ้าน</p>
+                        <div class="b-item d-flex justify-content-center">
+                            <div class="img">
+                                <h4>เลือกเมนู</h4>
+                                <img src="Image_inventory/Food2.jpg" alt="">
                             </div>
                         </div>
                     </div>
                 </a>
             </div>
+
+            <div class="col-lg-4 col-md-12">
+                <a href="" class="box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
+                    <div class="w-100">
+                        <div class="b-item d-flex justify-content-center">
+                           <div class="img">
+                                <h4>สั่งอาหาร</h4>
+                                <img src="Image_inventory/Delivery.png" alt="">
+                           </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="allPromotionSection">
-        <div class="container">
-            <div class="row d-flex justify-content-center" id="allPromotion">
-                <a class="col-lg-5 col-md-12 mt-3 mb-3 ms-4 me-4 test" data-bs-toggle="modal"
+        <div class="container-fluid">
+            <div class="row" id="allPromotion">
+                <a class="box-promotion" data-bs-toggle="modal"
                     data-bs-target="#promotionModal">
-                    <div>
-                        <img src="Image_inventory/Promotion/promotion.png" class="w-100">
+                    <div class="img-promotion">
+                        <img src="Image_inventory/Delivery.png" alt="">
                     </div>
-                    <div class="p-3 d-flex">
-                        <p>Test 1</p>
-                        <button class="p-1 ms-auto me-2">รายละเอียด</button>
-                        <button class="p-1 bg-success">สั่งซื้อ</button>
+                    <div class="item-promotion">
+                        <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
-                <a class="col-lg-5 col-md-12 mt-3 mb-3 ms-4 me-4 test" data-bs-toggle="modal"
+
+                <a class="box-promotion" data-bs-toggle="modal"
                     data-bs-target="#promotionModal">
-                    <div>
-                        <img src="Image_inventory/Promotion/promotion.png" class="w-100">
+                    <div class="img-promotion">
+                        
                     </div>
-                    <div class="p-3 d-flex">
-                        <p>Test 2</p>
-                        <button class="p-1 ms-auto me-2">รายละเอียด</button>
-                        <button class="p-1 bg-success">สั่งซื้อ</button>
+                    <div class="item-promotion">
+                        <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
-                <a class="col-lg-5 col-md-12 mt-3 mb-3 ms-4 me-4 test" data-bs-toggle="modal"
+
+                <a class="box-promotion" data-bs-toggle="modal"
                     data-bs-target="#promotionModal">
-                    <div>
-                        <img src="Image_inventory/Promotion/promotion.png" class="w-100">
+                    <div class="img-promotion">
+                        
                     </div>
-                    <div class="p-3 d-flex">
-                        <p>Test 3</p>
-                        <button class="p-1 ms-auto me-2">รายละเอียด</button>
-                        <button class="p-1 bg-success">สั่งซื้อ</button>
+                    <div class="item-promotion">
+                        <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
-                <a class="col-lg-5 col-md-12 mt-3 mb-3 ms-4 me-4 test" data-bs-toggle="modal"
+
+                <a class="box-promotion" data-bs-toggle="modal"
                     data-bs-target="#promotionModal">
-                    <div>
-                        <img src="Image_inventory/Promotion/promotion.png" class="w-100">
+                    <div class="img-promotion">
+                        
                     </div>
-                    <div class="p-3 d-flex">
-                        <p>Test 4</p>
-                        <button class="p-1 ms-auto me-2">รายละเอียด</button>
-                        <button class="p-1 bg-success">สั่งซื้อ</button>
+                    <div class="item-promotion">
+                        <button class="btn btn-outline-success">รายละเอียด</button>
                     </div>
                 </a>
+                
+
             </div>
         </div>
     </section>
@@ -429,11 +439,11 @@ session_start();
     </div>
 
     <!-- Shopping Cart Modals -->
-    <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+    <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" style="display: none;">
         <i class="fa-solid fa-cart-shopping my-float"></i>
     </a>
 
-    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+    <div class="modal fade" id="shoppingCartModal" style="display: none;" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
             <div class="modal-content">
