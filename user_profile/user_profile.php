@@ -496,7 +496,7 @@ session_start();
                                 <p style="text-align: start;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>•
                                     ซื้อสินค้าครบ 10 บาท = 1 Points</p>
                             </div>
-                            <button type="button" class="btn btn-info" id="code">แลกโค้ดส่วนลด</button>
+                            <button type="button" class="btn btn-info" id="code" onclick="getCoupon()">แลกโค้ดส่วนลด</button>
                         </div>
                     </div>
                 </div>
@@ -765,6 +765,53 @@ session_start();
                 }
             });
         };
+
+        function getCoupon() {
+            $.ajax({
+                method: "post",
+                url: "../backend/api/pointCoupon.php",
+                data: {
+                    num: 1,
+                },
+                success: function(response) {
+                    try {
+                        var responseObject = JSON.parse(response);
+                        if (responseObject.RespCode == 200) {
+                            Swal.fire({
+                                icon: "success",
+                                title: "Add Coupon success!!",
+                                timer: 1000,
+                                showConfirmButton: false
+                            });
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        } else if (responseObject.RespCode == 400 && responseObject.Log == 4) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "point not enough!!",
+                                timer: 2000,
+                            });
+                        } else if (responseObject.RespCode == 400) {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Add Coupon failed!!",
+                                timer: 2000,
+                            });
+                        }
+                    } catch (error) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Something went wrong!",
+                            timer: 2000,
+                        });
+                    }
+                },
+                error: function(err) {
+                    console.log("badmakmak", err);
+                }
+            })
+        }
     </script>
 </body>
 
