@@ -348,7 +348,7 @@ session_start();
             <h2>KhunGame Restaurant</h2>
             <br />
             <p class="icontext">
-              ลูกค้าสามารถติดต่อทางร้านผ่านทางช่องทางต่างๆได้ดังนี้
+            ลูกค้าสามารถติดต่อทางร้านผ่านทางช่องทางต่างๆได้ดังนี้
             </p>
             <div class="icon container">
               <p class="row">
