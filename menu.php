@@ -955,7 +955,15 @@ if (!empty($_GET["action"])) {
                 function checkLog() {
                   <?php
                   if (isset($_SESSION["uID"])) {
-                    echo "location.href='purchaseOrder.php'";
+                    if (isset($_SESSION["cart_item"])) {
+                      echo "location.href='purchaseOrder.php'";
+                    } else {
+                      echo "Swal.fire({
+                        icon: \"error\",
+                        title: \"You must add menu first. !!!\",
+                        timer: 5000,
+                      });";
+                    }
                   } else {
                     echo "Swal.fire({
                       icon: \"error\",
