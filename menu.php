@@ -944,7 +944,7 @@ if (!empty($_GET["action"])) {
                       <?php
                     } else {
                       ?>
-                      <div class="no-records">ตระกร้าว่างเปล่า</div>
+                      <div class="no-records">ตะกร้าว่างเปล่า</div>
                       <?php
                     }
                     ?>
