@@ -97,6 +97,7 @@ require_once('./backend/api/config.php');
             var add_staff = document.getElementById('add-staff');
             var add_menu = document.getElementById('add-menu');
             var add_promotion = document.getElementById('add-promotion');
+            var add_code = document.getElementById('add-code');
 
             dashboard.style.display = 'flex';
             manage.style.display = 'none';
@@ -104,6 +105,7 @@ require_once('./backend/api/config.php');
             add_staff.style.display = 'none';
             add_menu.style.display = 'none';
             add_promotion.style.display = 'none';
+            add_code.style.display = 'none';
 
             if (menuSelected == 'dashboard') {
                 dashboard.style.display = 'flex';
@@ -121,6 +123,10 @@ require_once('./backend/api/config.php');
                 dashboard.style.display = 'none';
             } else if (menuSelected == 'addPromotion') {
                 add_promotion.style.display = 'flex';
+                dashboard.style.display = 'none';
+            } 
+            else if (menuSelected == 'addCode'){
+                add_code.style.display = 'flex';
                 dashboard.style.display = 'none';
             }
         }
@@ -226,6 +232,7 @@ require_once('./backend/api/config.php');
                 </div>
                 <div class="item"><a onclick="menuList1('addMenu')"><i class="fa-solid fa-utensils"></i>MENU</a></div>
                 <div class="item"><a onclick="menuList1('addPromotion')"><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
+                <div class="item"><a onclick="menuList1('addCode')"><i class="fa-solid fa-ticket"></i>COUPON</a></div>
                 <div class="item"><a onclick="gotologout('manager')"><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
@@ -479,6 +486,39 @@ require_once('./backend/api/config.php');
                     </form>
                 </div>
             </div>
+
+            <div class="box-add-promotion" id="add-code">
+                <div class="content add-promotion">
+                    <h2>เพิ่มโค้ดส่วนลด/คูปอง</h2>
+                    <form action="" id="form-add-promotion" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col">
+                                <label for="promotion" class="form-label">รหัส Code ส่วนลด :</label>
+                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="กรอกรหัส code ส่วนลดที่ต้องการใช้">
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col">
+                                <label for="promotion" class="form-label">ขั้นต่ำการใช้คูปอง/code : </label>
+                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="ราคาขั้นต่ำการใช้">
+                            </div>
+
+                            <div class="col">
+                                <label for="promotion" class="form-label">ส่วนลด : </label>
+                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="ราคาส่วนลด">
+                            </div>
+                        </div>
+
+
+                        <div class="btn mt-3">
+                            <button type="button" class="btn btn-success" onclick="addPromo()">Add-Coupon</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
         </div>
         <script type="text/javascript">
             function delStaff(button) {

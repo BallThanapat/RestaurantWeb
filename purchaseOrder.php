@@ -120,9 +120,9 @@ if (!empty($_GET["action"])) {
         }
 
         $(document).ready(function() {
-            $(".select-option2").click(function() {
+            $(".select-option").click(function() {
 
-                $(".select-option2").removeClass("selected");
+                $(".select-option").removeClass("selected");
 
                 $(this).addClass("selected");
 
@@ -147,9 +147,9 @@ if (!empty($_GET["action"])) {
                 });
 
                 if (selectedValue == "1" || selectedValue == "2") {
-                    
+
                     $(".item-container").hide();
-                    
+
                     $("#div" + selectedValue).show();
                 }
             });
@@ -441,72 +441,82 @@ if (!empty($_GET["action"])) {
                                             <div class="custom-select" id="custom-select1">
                                                 <?php
                                                 if (!empty($addr_array)) {
+                                                    $count = 1;
                                                     foreach ($addr_array as $key => $value) {
                                                 ?>
-                                                        <?php $ad = $addr_array[$key]["addr_id"]; ?>
-                                                        <div class="select-option selected" data-value="<?php echo $ad; ?>">
-                                                            <p><?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
-                                                                    . 'Tel. ' . $addr_array[$key]["telephone"] . ' <br>'
-                                                                    . $addr_array[$key]["address"] . ' ' . $addr_array[$key]["province"] . ' ' . $addr_array[$key]["district"]
-                                                                    . ' ' . $addr_array[$key]["sub_district"] . ' ' . $addr_array[$key]["postcode"]; ?>
-                                                            </p>
-                                                        </div>
-                                                <?php
+                                                        <?php $ad = $addr_array[$key]["addr_id"];
+                                                        if ($count == 1) {
+                                                        ?>
+                                                            <div class="select-option selected" data-value="<?php echo $ad; ?>">
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                                <div class="select-option" data-value="<?php echo $ad; ?>">
+                                                                <?php
+                                                            }
+                                                            $count++;
+                                                                ?>
+                                                                <p><?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
+                                                                        . 'Tel. ' . $addr_array[$key]["telephone"] . ' <br>'
+                                                                        . $addr_array[$key]["address"] . ' ' . $addr_array[$key]["province"] . ' ' . $addr_array[$key]["district"]
+                                                                        . ' ' . $addr_array[$key]["sub_district"] . ' ' . $addr_array[$key]["postcode"]; ?>
+                                                                </p>
+                                                                </div>
+                                                        <?php
                                                     }
                                                 }
-                                                ?>
-                                            </div>
+                                                        ?>
+                                                            </div>
 
-                                            <input type="hidden" class="selected-option" name="quantity" id="quantity">
-                                            <!-- <button id="get-selected-btn">Get Selected Value</button> -->
+                                                            <input type="hidden" class="selected-option" name="quantity" id="quantity">
+                                                            <!-- <button id="get-selected-btn">Get Selected Value</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+
+                                    <button class="btn get-selected-btn" id="btn-order" onclick="addToAddr();">ตกลง</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Page -->
+                <div class="mt-2 mb-5" id="page3" style="display: none;">
+                    <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="qr-payment">
+                                <img src="Image_inventory/PurchaseOrder/payment.png">
+                            </div>
+                            <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
+                                <div class="contanier">
+                                    <div class="row">
+                                        <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
+                                        <form class="col-sm-8 d-flex justify-content-center">
+                                            <input type="file" class="input-file" />
+                                        </form>
+                                        <div class="pay-btn">
+                                            <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
+                                            <form method="post" action="purchaseInsert.php">
+                                                <button class="btn get-selected-btn" id="btn-order" data-target="custom-select3">ยืนยัน</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-
-                                <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();">ตกลง</button>
-                                <!-- แก้ css ปุ่ม ตกลง -->
-
-                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
-
-            <!-- Third Page -->
-            <div class="mt-2 mb-5" id="page3" style="display: none;">
-                <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
-                <div class="container">
-                    <div class="row">
-                        <div class="qr-payment">
-                            <img src="Image_inventory/PurchaseOrder/payment.png">
-                        </div>
-                        <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
-                            <div class="contanier">
-                                <div class="row">
-                                    <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
-                                    <form class="col-sm-8 d-flex justify-content-center">
-                                        <input type="file" class="input-file" />
-                                    </form>
-                                    <div class="pay-btn">
-                                        <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                        <form method="post" action="purchaseInsert.php">
-                                            <button class="btn get-selected-btn" id="btn-order" data-target="custom-select3">ยืนยัน</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
         </div>
-    </div>
 
 </body>
 

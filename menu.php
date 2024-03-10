@@ -973,7 +973,7 @@ if (!empty($_GET["action"])) {
                 <!-- <button type="button" onclick="location.href='purchaseOrder.php'"
                   class="btn btn-warning">ทำการสั่งซื้อ</button> -->
                 <button type="button" onclick="checkLog()"
-                  class="btn btn-warning">ทำการสั่งซื้อ</button>
+                  class="btn btn-warning" style="color: white; background-color: orangered">ทำการสั่งซื้อ</button>
               </div>
             </div>
           </div>
