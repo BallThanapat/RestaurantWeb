@@ -905,7 +905,7 @@ if (!empty($_GET["action"])) {
                                 <img src="<?php echo $item["picture"]; ?>" class="w-100">
                                 <!-- รูปภาพจาก MENU -->
                               </div>
-                              <div class="col-sm-6">
+                              <div class="col-sm-5">
                                 <p>
                                   <?php echo $item["foodName"]; ?>
                                 </p> <!-- ชื่อของเมนู -->
@@ -918,13 +918,20 @@ if (!empty($_GET["action"])) {
                                     <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
                                   </p>
                                 </div>
-                                <p>
+                                <!-- <p>
                                   <a href="#" class="btnRemoveAction"
                                     onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
                                     <img src="delete-icon.png" width="90%" alt="">
                                   </a>
-                                </p>
+                                </p> -->
                               </div>
+                              <div class="col-sm-2">
+                                  <a href="#" class="btnRemoveAction"
+                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                    <img src="delete-icon.png" width="100%" alt="">
+                                  </a>
+                              </div>
+
                             </div>
                           </div>
                         </div>
