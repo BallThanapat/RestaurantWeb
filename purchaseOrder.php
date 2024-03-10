@@ -288,8 +288,7 @@ if (!empty($_GET["action"])) {
                 </div>
 
                 <div class="d-flex below">
-                    <!-- แก้สีปุ่ม ยกเลิก -->
-                    <button class="btn btn-warning" id="btn-order"><a href="menu.php">ยกเลิก</a></button>
+                    <button class="btn btn-secondary me-1"><a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
@@ -313,7 +312,7 @@ if (!empty($_GET["action"])) {
             ?>
             <div class="mt-3" id="page2" style="display: none;">
                 <h4>รายละเอียดการจัดส่ง</h4>
-                <div class="mt-3">
+                <div class="mt-3 mb-3">
                     <div>
                         <h5 style="text-align: center;">เลือกรูปแบบการรับสินค้า</h5>
                     </div>
@@ -323,11 +322,9 @@ if (!empty($_GET["action"])) {
                                 <div class="row5" id="row-select">
                                     <div class="col1-sub-content-2">
                                         <button class="select-option2 selected" value="1" onclick="typePick('delivery');">เดลิเวอรี่</button>
-                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                     <div class="col1-sub-content-2">
                                         <button class="select-option2" onclick="typePick('selfpickup');">รับที่ร้าน</button>
-                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                 </div>
                             </div>
@@ -336,6 +333,7 @@ if (!empty($_GET["action"])) {
                         <input type="hidden" class="selected-option" name="selected-option2">
                     </div>
                 </div>
+
                 <div id="div1" class="item-container">
                     <h4>ที่อยู่จัดส่ง</h4>
                     <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
