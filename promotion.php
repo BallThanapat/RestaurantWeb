@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once('./backend/api/config.php');
 ?>
 
 <!DOCTYPE html>
@@ -322,101 +323,74 @@ session_start();
     <section class="allPromotionSection">
         <div class="container-fluid">
             <div class="row" id="allPromotion">
-                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
-                    <div class="img-promotion">
-                        <img src="Image_inventory/Delivery.png" alt="">
-                    </div>
-                    <div class="item-promotion">
-                        <button class="btn btn-outline-success">รายละเอียด</button>
-                    </div>
-                </a>
 
-                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
-                    <div class="img-promotion">
-
-                    </div>
-                    <div class="item-promotion">
-                        <button class="btn btn-outline-success">รายละเอียด</button>
-                    </div>
-                </a>
-
-                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
-                    <div class="img-promotion">
-
-                    </div>
-                    <div class="item-promotion">
-                        <button class="btn btn-outline-success">รายละเอียด</button>
-                    </div>
-                </a>
-
-                <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#promotionModal">
-                    <div class="img-promotion">
-
-                    </div>
-                    <div class="item-promotion">
-                        <button class="btn btn-outline-success">รายละเอียด</button>
-                    </div>
-                </a>
-
-
+                <?php
+                $query1 = "select * from post";
+                $stmt1 = $conn->prepare($query1);
+                if ($stmt1->execute()) {
+                    $postPics = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+                    foreach ($postPics as $key => $value) {
+                ?>
+                        <a class="box-promotion" data-bs-toggle="modal" data-bs-target="#post<?php echo $postPics[$key]['postID'] ?>">
+                            <div class="img-promotion">
+                                <img src="<?php echo $postPics[$key]['postPicture'] ?>" alt="">
+                            </div>
+                            <div class="item-promotion">
+                                <button class="btn btn-outline-success">รายละเอียด</button>
+                            </div>
+                        </a>
+                <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </section>
 
     <!-- Promotion Modals -->
-    <div class="modal fade" id="promotionModal" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="promotionModalLabel">Test I(Name Promotion)</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
-                        <div class="container">
-                            <div class="row d-flex justify-content-center">
-                                <div class="col-sm-8">
-                                    <img src="Image_inventory/Promotion/promotion.png" class="w-100">
-                                </div>
-                                <div class="col-sm-12 mt-2">
-                                    <h2>รายละเอียดโปรโมชั่น</h2>
-                                </div>
-                                <hr>
-                                <div class="col-sm-12">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ut
-                                        sollicitudin dolor. Aliquam porta suscipit purus non pretium. Integer ut
-                                        volutpat ante, id finibus tortor. Fusce nibh mauris, dapibus sed diam et,
-                                        pellentesque sollicitudin sapien. In pretium leo sed libero sodales ultrices.
-                                        Donec molestie risus eget ornare vehicula. Ut finibus risus in pretium
-                                        consectetur. Donec malesuada erat sapien, nec malesuada nisl maximus non. Sed
-                                        nibh erat, mattis eget accumsan pretium, venenatis quis erat. Nunc massa velit,
-                                        commodo at dui et, varius aliquet velit. Curabitur ullamcorper ligula nulla, vel
-                                        congue metus malesuada non. Donec finibus sagittis volutpat. Vestibulum
-                                        fermentum eleifend urna, non pharetra sapien porta ac. Etiam id neque enim.
-
-                                        Suspendisse non sem vel elit posuere feugiat sed vel nibh. Donec tristique felis
-                                        nec lorem posuere auctor. Sed imperdiet erat vel magna luctus, eget ullamcorper
-                                        diam tristique. Proin dapibus enim at viverra interdum. Ut massa diam, tristique
-                                        bibendum elementum eu, viverra et metus. Proin sapien mauris, venenatis lacinia
-                                        neque in, dapibus rhoncus lectus. Quisque tincidunt purus nulla, vel congue
-                                        dolor consectetur vitae. Nullam vel venenatis purus, at aliquet nulla. Cras
-                                        blandit est vitae arcu mattis porta et vitae risus. Nullam quis metus dui.
-                                        Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc rhoncus
-                                        hendrerit vulputate. Duis posuere, sem ut suscipit maximus, sapien sapien
-                                        malesuada massa, eget sagittis velit mauris quis justo. Nunc varius nulla et
-                                        justo tempus, rhoncus porttitor lectus porta.</p>
+    <?php
+    $query2 = "select * from post";
+    $stmt2 = $conn->prepare($query2);
+    if ($stmt2->execute()) {
+        $row = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($row as $key => $value) {
+    ?>
+            <div class="modal fade" id="post<?php echo $row[$key]['postID']; ?>" tabindex="-1" aria-labelledby="promotionModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="promotionModalLabel">Test I(Name Promotion)</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                                <div class="container">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-sm-8">
+                                            <img src="<?php echo $row[$key]['postPicture']; ?>" class="w-100">
+                                        </div>
+                                        <div class="col-sm-12 mt-2">
+                                            <h2><?php echo $row[$key]['postName']; ?></h2>
+                                        </div>
+                                        <hr>
+                                        <div class="col-sm-12">
+                                            <p><?php echo $row[$key]['postDetail']; ?></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="modal-footer d-flex justify-content-center">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                            <button type="button" class="btn btn-warning">สั่งซื้อ</button>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                    <button type="button" class="btn btn-warning">สั่งซื้อ</button>
-                </div>
             </div>
-        </div>
-    </div>
+    <?php
+        }
+    }
+    ?>
 
     <!-- Shopping Cart Modals -->
     <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal" style="display: none;">
