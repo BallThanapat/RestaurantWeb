@@ -89,6 +89,15 @@ if (!empty($_GET["action"])) {
         }
 
         function typePick(type) {
+
+            if (type == "selfpickup") {
+                document.getElementById("div1").style.display = "none";
+                document.getElementById("div2").style.display = "block";
+            } else if (type == "delivery") {
+                document.getElementById("div1").style.display = "block";
+                document.getElementById("div2").style.display = "none";
+            }
+
             var buttons = document.querySelectorAll('.select-option2');
             buttons.forEach(function(button) {
                 button.classList.remove('selected');
