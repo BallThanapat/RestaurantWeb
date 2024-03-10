@@ -86,7 +86,22 @@
     z-index: 1;
 }
 
+@media screen and (max-width: 1024px) {
+    .header-link {
+        font-size: 1.5rem;
+    }
+}
 
+@media screen and (max-width: 768px) {
+
+    .header {
+        width: 80%;
+        border-radius: 16px;
+    }
+    .header-link {
+        font-size: 1.3em;
+    }
+}
 @media screen and (max-width: 700px) {
     .header {
         position: relative;
@@ -103,6 +118,24 @@
         font-size: 1em;
     }
 }
+
+
+/* @media screen and (max-width: 700px) {
+    .header {
+        position: relative;
+        width: 100%;
+    }
+
+    .header-link {
+        font-size: 1.5em;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .header-link {
+        font-size: 1em;
+    }
+} */
 
 /* 
 .header-link::after {

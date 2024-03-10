@@ -55,11 +55,16 @@ if (!empty($_GET["action"])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <style>
+    <?php include("menu.css"); ?>
+  </style>
+
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Link Swiper's CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -82,27 +87,28 @@ if (!empty($_GET["action"])) {
   <!-- Font Common-text -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+    rel="stylesheet" />
 
   <!-- Icon -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    <?php include "menu.css" ?>
-  </style>
+
   <!-- User Authentication -->
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="userAuthen.js"></script>
-  
+
 
   <title>Menu</title>
 </head>
 
 <body>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       var radio1 = document.getElementById("btnradio1");
       var radio2 = document.getElementById("btnradio2");
       var form1 = document.getElementById("form1");
@@ -110,7 +116,7 @@ if (!empty($_GET["action"])) {
       var buttonBar1 = document.getElementById("buttonBar1");
       var buttonBar2 = document.getElementById("buttonBar2");
 
-      radio1.addEventListener("change", function() {
+      radio1.addEventListener("change", function () {
         if (radio1.checked) {
           form1.style.display = "block";
           form2.style.display = "none";
@@ -121,7 +127,7 @@ if (!empty($_GET["action"])) {
         }
       });
 
-      radio2.addEventListener("change", function() {
+      radio2.addEventListener("change", function () {
         if (radio2.checked) {
           form1.style.display = "none";
           form2.style.display = "block";
@@ -215,7 +221,7 @@ if (!empty($_GET["action"])) {
       $('.modal-cart').load(location.href + ' .modal-cart');
       xhr.open("POST", "menu.php?action=add&foodDetail=" + foodDetail + "&quantity=" + quantity, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           Swal.fire({
             icon: "success",
@@ -232,7 +238,7 @@ if (!empty($_GET["action"])) {
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "menu.php?action=remove&foodDetail=" + foodDetail, true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           $('.modal-cart').load(location.href + ' .modal-cart');
           Swal.fire({
@@ -250,7 +256,7 @@ if (!empty($_GET["action"])) {
       var xhr = new XMLHttpRequest();
       xhr.open("POST", "menu.php?action=empty", true);
       xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-      xhr.onreadystatechange = function() {
+      xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
           $('.modal-cart').load(location.href + ' .modal-cart');
           alert("ล้างตะกร้าสำเร็จ");
@@ -284,14 +290,16 @@ if (!empty($_GET["action"])) {
     <nav class="navbar navbar-expand-lg navbar-light">
       <div class="container-fluid">
         <a href="index.php" class="header-link">KITCHENHOME</a>
-        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" id="navbarToggle">
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+          aria-label="Toggle navigation" id="navbarToggle">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="navbar01 collapse navbar-collapse" id="navbarSupportedContent">
           <a href="index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
+              <a href="menu.php" class="nav-link links" id="">เมนูทั้งหมด</a>
             </li>
             <?php
             if (isset($_SESSION["username"])) {
@@ -303,7 +311,7 @@ if (!empty($_GET["action"])) {
                             <ul class=\"dropdown-menu\" aria-labelledby=\"navbarDropdown\">
                                 <li><a class=\"dropdown-item\" href=\"user_profile/user_profile.php\">โปรไฟล์</a></li>
                                 <li><hr class=\"dropdown-divider\"></li>
-                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout('menu')\">logout</a></li>
+                                <li><a class=\"dropdown-item text-danger\" href=\"#\" onclick=\"gotologout('promotion')\">logout</a></li>
                             </ul>
                         </li>";
             } else {
@@ -329,19 +337,19 @@ if (!empty($_GET["action"])) {
       <i class="fa-solid fa-list-ul" id="list-menu"></i>
     </nav>
   </header> -->
-    <script>
-        document.getElementById("navbarToggle").addEventListener("click", function() {
-            var nT = document.getElementById("navbarToggle");
-            console.log(nT.getAttribute("aria-expanded"));
-            if (nT.getAttribute("aria-expanded") == "false") {
-                nT.setAttribute("aria-expanded", true)
-                console.log(nT.getAttribute("aria-expanded") + " " + "true");
-            } else {
-                nT.setAttribute("aria-expanded", false)
-                console.log(nT.getAttribute("aria-expanded") + " " + "false");
-            }
-        });
-    </script>
+  <script>
+    document.getElementById("navbarToggle").addEventListener("click", function () {
+      var nT = document.getElementById("navbarToggle");
+      console.log(nT.getAttribute("aria-expanded"));
+      if (nT.getAttribute("aria-expanded") == "false") {
+        nT.setAttribute("aria-expanded", true)
+        console.log(nT.getAttribute("aria-expanded") + " " + "true");
+      } else {
+        nT.setAttribute("aria-expanded", false)
+        console.log(nT.getAttribute("aria-expanded") + " " + "false");
+      }
+    });
+  </script>
 
 
 
@@ -570,6 +578,7 @@ if (!empty($_GET["action"])) {
 
   <!-- Initialize Swiper -->
   <script>
+
     var swiper = new Swiper('.swiper', {
       slidesPerView: getSlidesPerView(),
       direction: getDirection(),
@@ -578,7 +587,7 @@ if (!empty($_GET["action"])) {
         prevEl: '.swiper-button-prev',
       },
       on: {
-        resize: function() {
+        resize: function () {
           swiper.params.slidesPerView = getSlidesPerView();
           swiper.changeDirection(getDirection());
         },
@@ -601,9 +610,10 @@ if (!empty($_GET["action"])) {
       } else if (windowWidth <= 768) {
         return 4;
       } else {
-        return 5; // Default value
+        return 6; // Default value
       }
     }
+
   </script>
 
 
@@ -615,25 +625,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where recommend = 1 order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -648,25 +661,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'fried' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -680,25 +696,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'soup' or type = 'yum' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -712,25 +731,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'seafood' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -744,25 +766,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'steak' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -777,25 +802,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'dessert' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -810,25 +838,28 @@ if (!empty($_GET["action"])) {
       $product_array = $db_handle->runQuery("SELECT * From menu where type = 'drink' order by foodID asc");
       if (!empty($product_array)) {
         foreach ($product_array as $key => $value) {
-      ?>
+          ?>
           <div class="col1">
-            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
+            <div class="col1-sub"><a href="./infoFood.php?food=<?php echo $product_array[$key]["foodID"]; ?>"><img
+                  src="<?php echo $product_array[$key]["picture"]; ?>" alt=""></a></div>
             <div class="col1-sub-content">
               <div class="col1-sub-content-1">
                 <?php echo $product_array[$key]["foodName"]; ?>
               </div>
               <div class="cart-action">
                 <button onclick="minusNum('<?php echo $product_array[$key]['foodDetail']; ?>')">-</button>
-                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>" name="quantity" value="1" size="1">
+                <input type="text" class="quantity_input" id="quantity_<?php echo $product_array[$key]["foodDetail"]; ?>"
+                  name="quantity" value="1" size="1">
                 <button onclick="addNum('<?php echo $product_array[$key]['foodDetail']; ?>')">+</button>
               </div>
-              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
+              <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
+                  onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
                   <?php echo "THB " . $product_array[$key]["price"]; ?>
                 </button>
               </div>
             </div>
           </div>
-      <?php
+          <?php
         }
       }
       ?>
@@ -846,7 +877,8 @@ if (!empty($_GET["action"])) {
       <i class="fa-solid fa-cart-shopping my-float"></i>
     </a>
     <!-- Shopping Cart Modals -->
-    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel" aria-hidden="true">
+    <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
+      aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
           <div class="modal-header">
@@ -855,7 +887,8 @@ if (!empty($_GET["action"])) {
           </div>
           <div class="modal-body">
             <div class="modal-cart">
-              <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+              <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example"
+                tabindex="0">
                 <div class="container">
                   <div class="row">
                     <?php
@@ -864,7 +897,7 @@ if (!empty($_GET["action"])) {
                       $total_price = 0;
                       foreach ($_SESSION["cart_item"] as $item) {
                         $item_price = $item["quantity"] * $item["price"];
-                    ?>
+                        ?>
                         <div class="col-lg-6 mb-3"> <!-- Item of menu to order -->
                           <div class="container">
                             <div class="row">
@@ -886,7 +919,8 @@ if (!empty($_GET["action"])) {
                                   </p>
                                 </div>
                                 <p>
-                                  <a href="#" class="btnRemoveAction" onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                  <a href="#" class="btnRemoveAction"
+                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
                                     <img src="delete-icon.png" width="90%" alt="">
                                   </a>
                                 </p>
@@ -895,25 +929,44 @@ if (!empty($_GET["action"])) {
                           </div>
                         </div>
 
-                      <?php
+                        <?php
                         $total_quantity += $item["quantity"];
                         $total_price += $item["price"] * $item["quantity"];
                       }
                       ?>
-                    <?php
+                      <?php
                     } else {
-                    ?>
+                      ?>
                       <div class="no-records">ตระกร้าว่างเปล่า</div>
-                    <?php
+                      <?php
                     }
                     ?>
                   </div>
                 </div>
               </div>
+              <script>
+                function checkLog() {
+                  <?php
+                  if (isset($_SESSION["uID"])) {
+                    echo "location.href='purchaseOrder.php'";
+                  } else {
+                    echo "Swal.fire({
+                      icon: \"error\",
+                      title: \"You must login first. !!!\",
+                      timer: 5000,
+                  });";
+                  }
+                  ?>
+                }
+              </script>
               <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                 <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
-                <button type="button" onclick="location.href='purchaseOrder.php'" class="btn btn-warning">ทำการสั่งซื้อ</button>
+
+                <!-- <button type="button" onclick="location.href='purchaseOrder.php'"
+                  class="btn btn-warning">ทำการสั่งซื้อ</button> -->
+                <button type="button" onclick="checkLog()"
+                  class="btn btn-warning">ทำการสั่งซื้อ</button>
               </div>
             </div>
           </div>
@@ -934,7 +987,8 @@ if (!empty($_GET["action"])) {
               <div class="icon container">
                 <p class="row">
                   <a href="#" class="ic col-sm-3"><i class="fa-solid fa-phone" style="color: greenyellow"></i></a>
-                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook" style="color: #0097FF;"></i></a>
+                  <a href="#" class="ic col-sm-3"><i class="fa-brands fa-square-facebook"
+                      style="color: #0097FF;"></i></a>
                   <a href="#" class="ic col-sm-3"><i class="fa-brands fa-instagram"></i></a>
                   <a href="#" class="ic col-sm-3"><i class="fa-brands fa-youtube" style="color: red"></i></a>
                 </p>
