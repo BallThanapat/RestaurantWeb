@@ -119,13 +119,8 @@ if (!empty($_GET["action"])) {
             xhr.send();
         }
 
-<<<<<<< Updated upstream
         $(document).ready(function() {
             $(".select-option").click(function() {
-=======
-        $(document).ready(function () {
-            $(".select-option").click(function () {
->>>>>>> Stashed changes
 
                 $(".select-option").removeClass("selected");
 
@@ -357,12 +352,6 @@ if (!empty($_GET["action"])) {
                             <div class="container">
                                 <div class="row5" id="row-select">
                                     <div class="col1-sub-content-2">
-<<<<<<< Updated upstream
-                                        <button class="select-option2 selected" value="1" onclick="typePick('delivery');">เดลิเวอรี่</button>
-                                    </div>
-                                    <div class="col1-sub-content-2">
-                                        <button class="select-option2" onclick="typePick('selfpickup');">รับที่ร้าน</button>
-=======
                                         <button class="select-option2 selected" value="1"
                                             onclick="typePick('delivery');">เดลิเวอรี่</button>
                                         <!--แก้ ปรับ css ให้ปุ่ม -->
@@ -371,7 +360,6 @@ if (!empty($_GET["action"])) {
                                         <button class="select-option2"
                                             onclick="typePick('selfpickup');">รับที่ร้าน</button>
                                         <!--แก้ ปรับ css ให้ปุ่ม -->
->>>>>>> Stashed changes
                                     </div>
                                 </div>
                             </div>
@@ -506,7 +494,6 @@ if (!empty($_GET["action"])) {
                                                 if (!empty($addr_array)) {
                                                     $count = 1;
                                                     foreach ($addr_array as $key => $value) {
-<<<<<<< Updated upstream
                                                 ?>
                                                         <?php $ad = $addr_array[$key]["addr_id"];
                                                         if ($count == 1) {
@@ -521,28 +508,10 @@ if (!empty($_GET["action"])) {
                                                             $count++;
                                                                 ?>
                                                                 <p><?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
-=======
-                                                        ?>
-                                                        <?php $ad = $addr_array[$key]["addr_id"];
-                                                        if ($count == 1) {
-                                                            ?>
-                                                            <div class="select-option selected" data-value="<?php echo $ad; ?>">
-                                                                <?php
-                                                        } else {
-                                                            ?>
-                                                                <div class="select-option" data-value="<?php echo $ad; ?>">
-                                                                    <?php
-                                                        }
-                                                        $count++;
-                                                        ?>
-                                                                <p>
-                                                                    <?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
->>>>>>> Stashed changes
                                                                         . 'Tel. ' . $addr_array[$key]["telephone"] . ' <br>'
                                                                         . $addr_array[$key]["address"] . ' ' . $addr_array[$key]["province"] . ' ' . $addr_array[$key]["district"]
                                                                         . ' ' . $addr_array[$key]["sub_district"] . ' ' . $addr_array[$key]["postcode"]; ?>
                                                                 </p>
-<<<<<<< Updated upstream
                                                                 </div>
                                                         <?php
                                                     }
@@ -552,18 +521,6 @@ if (!empty($_GET["action"])) {
 
                                                             <input type="hidden" class="selected-option" name="quantity" id="quantity">
                                                             <!-- <button id="get-selected-btn">Get Selected Value</button> -->
-=======
-                                                            </div>
-                                                            <?php
-                                                    }
-                                                }
-                                                ?>
-                                                </div>
-
-                                                <input type="hidden" class="selected-option" name="quantity"
-                                                    id="quantity">
-                                                <!-- <button id="get-selected-btn">Get Selected Value</button> -->
->>>>>>> Stashed changes
                                             </div>
                                         </div>
                                     </div>
@@ -571,13 +528,9 @@ if (!empty($_GET["action"])) {
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
 
-<<<<<<< Updated upstream
-                                    <button class="btn get-selected-btn" id="btn-order" onclick="addToAddr();">ตกลง</button>
-=======
                                     <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();"
                                         data-bs-dismiss="modal">ตกลง</button>
                                     <!-- แก้ css ปุ่ม ตกลง -->
->>>>>>> Stashed changes
 
                                 </div>
                             </div>
@@ -603,12 +556,8 @@ if (!empty($_GET["action"])) {
                                         <div class="pay-btn">
                                             <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
                                             <form method="post" action="purchaseInsert.php">
-<<<<<<< Updated upstream
-                                                <button class="btn get-selected-btn" id="btn-order" data-target="custom-select3">ยืนยัน</button>
-=======
                                                 <button class="btn get-selected-btn" id="btn-order"
                                                     data-target="custom-select3">ยืนยัน</button>
->>>>>>> Stashed changes
                                             </form>
                                         </div>
                                     </div>
