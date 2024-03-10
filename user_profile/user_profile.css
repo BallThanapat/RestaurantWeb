@@ -33,6 +33,9 @@ body{
 #space-address, #space-bought, #space-statuss, #space-member-card{
     display: none;
 }
+
+
+
 .modal-content.scale {
     height: 55vh;
 }
@@ -122,6 +125,26 @@ body{
     width: 100%;
 }
 
+@media screen and (max-width: 1024px) {
+    .list-menu {
+        width: 25%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .list-menu {
+        width: 30%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .list-menu {
+        width: 40%;
+    }
+    .account-item h2 {
+        font-size: 14px;
+    }
+}
+
+
 /* Info-user */
 #staticEmail{
     width: 40%;
@@ -162,6 +185,15 @@ body{
 .account-topic{
     margin-bottom: 2%;
 }
+
+.account-topic button {
+    width: 10%;
+}
+
+.address-list h5 {
+    font-weight: bold;
+}
+
 .address-list{
     width: 50%;
     height: 100%;
@@ -172,6 +204,54 @@ body{
     height: 100%;
     max-height: 100%;
     text-align: right;
+}
+
+@media screen and (max-width: 768px) {
+    .address-list h5 {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .address-list p {
+        font-size: 12px;
+    }
+    .account-topic button {
+        width: 25%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .account-topic h2 {
+        font-size: 17px;
+        font-weight: bold;
+    }
+    #row-username, #staticEmail {
+        font-size: 16px;
+    }
+    .row .col label{
+        font-size: 14px;
+    }
+    .row .col input {
+        width: 100%;
+        font-size: 10px;
+    }
+    .detail-topic button {
+        width: 40%;
+        font-size: 12px;
+    }
+    .address-list {
+        width: 90%;
+    }
+
+    .address-list h5 {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .address-list p {
+        font-size: 10px;
+    }
+    .account-topic button {
+        width: 50%;
+        font-size: 12px;
+    }
 }
 
 /* History bough */
@@ -197,6 +277,7 @@ body{
 }
 
 .img-bought{
+    padding: 2px 2px;
     width: 20%;
     max-height: 100%;
     max-width: 100%;
@@ -205,7 +286,31 @@ body{
 .img-bought img{
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 1024px) {
+    .img-bought {
+        width: 30%;
+        max-height: 100%;
+        max-width: 100%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .img-bought {
+        width: 70%;
+        height: auto;
+    }
+    .img-bought img{
+        height: 100%;
+    }
+}
+@media screen and (max-width: 425px) {
+    .img-bought {
+        width: 100%;
+        height: 80%;
+    }
+    
 }
 
 .detail-menu {
@@ -227,6 +332,7 @@ body{
     padding: 6px 6px;
     text-align: end;
     font-size: 22px;
+    font-weight: 600;
 }
 
 /* Status-Order */
@@ -258,6 +364,12 @@ body{
 .fa-clock {
     color: black;
     margin: 0 auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .fa-circle-check, .fa-circle-xmark, .fa-clock {
+        font-size: 20px;
+    }
 }
 
 /* Card-Point */
@@ -293,6 +405,10 @@ body{
     margin-bottom: 2%;
     /* border: 5px solid salmon; */
 }
+.detail-text h5 {
+    font-weight: bold;
+}
+
 .detail-point h1{
     color: #ff4444;
     font-weight: 600;
@@ -301,6 +417,31 @@ body{
     color: white;
 }
 
+@media screen and (max-width: 1024px) {
+
+    .detail-text h5 {
+        font-weight: bold;
+    }
+    .detail-text p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .detail-text h5 {
+        font-size: 14px;
+    }
+    .detail-point h1 {
+        font-size: 18px;
+    }
+    .detail-text p {
+        font-size: 10px;
+    }
+    .detail-point button {
+        width: 90%;
+        font-size: 12px;
+    }
+}
 
 /* ---------------------------------------------------------- */
 /* Footer */

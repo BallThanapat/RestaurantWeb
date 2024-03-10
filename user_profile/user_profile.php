@@ -372,8 +372,8 @@ session_start();
                                                 </p> <!-- จำนวนการซื้อ -->
                                             </div>
                                             <div class="detail-cost">
-                                                <p>฿
-                                                    <?php echo $foodOrders[$row]["totalPriceUnit"] ?>
+                                                <p>
+                                                    <?php echo $foodOrders[$row]["totalPriceUnit"] ?>฿
                                                 </p>
                                             </div>
                                         </div>
@@ -381,8 +381,8 @@ session_start();
                                 </div>
 
                                 <div class="total-price">
-                                    <p>ราคารวม: ฿
-                                        <?php echo $userLogs[$key]["totalPrice"]; ?>
+                                    <p>ราคารวม: 
+                                        <?php echo $userLogs[$key]["totalPrice"]; ?>฿
                                     </p>
                                 </div>
                             </div>
@@ -425,8 +425,8 @@ session_start();
                                             <td><a>
                                                     <?php echo $formatted_num ?>
                                                 </a></td>
-                                            <td>฿
-                                                <?php echo $rowBill[$keyBill]["totalPrice"] ?>
+                                            <td>
+                                                <?php echo $rowBill[$keyBill]["totalPrice"] ?>฿
                                             </td>
                                             <?php
                                             if ($rowBill[$keyBill]["status"] == 1) {
@@ -473,7 +473,7 @@ session_start();
                 <div class="detail-topic">
                     <div class="box-point">
                         <div class="img-point">
-                            <img src="/Image_inventory/credit-card2.png" alt="">
+                            <img src="../Image_inventory/credit-card2.png" alt="">
                         </div>
                         <div class="detail-point">
                             <div class="detail-text">
@@ -481,8 +481,8 @@ session_start();
                                 <h1>
                                     <?php echo $point; ?> Points
                                 </h1><br>
-                                <p style="text-align: start;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>•
-                                    ซื้อสินค้าครบ 10 บาท = 1 Points</p>
+                                <p style="text-align: center;">• เงื่อนไขการใช้งานบัตรเป็นไปตามที่ร้านกำหนด <br>•
+                                    เพียงแค่สั่งซื้ออาหารจากทางร้านครบ 10 บาท = 1 Points</p>
                             </div>
                             <button type="button" class="btn btn-info" id="code" onclick="getCoupon()">แลกโค้ดส่วนลด</button>
                         </div>
@@ -491,39 +491,6 @@ session_start();
             </div>
         </div>
 
-    </div>
-    <div class="footer">
-        <footer>
-            <div class="box-footer">
-                <div class="row">
-                    <div class="col">
-                        <h2>KhunGame Restaurant</h2><br>
-                        <p class="icontext">Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Ad vero vel quia facilis a hic aut laudantium, repudiandae doloribus alias!
-                            Accusamus, asperiores similique voluptatum consequatur dolorem praesentium modi
-                        </p>
-                        <p class="icon">
-                            <a href="#"><i class="fa-solid fa-phone"></i></a>
-                            <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                        </p>
-                    </div>
-                    <div class="col">
-                        <h2>FIND OUR RESTAURANT</h2>
-                        <p class="icontext"><i class="fa-solid fa-location-dot" id="locate"></i>คณะเทคโนโลยีสารสนเทศ
-                            สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง
-                            1 ซอย ฉลองกรุง 1 แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-                    </div>
-                    <div class="col" id="col3">
-                        <h2>WORKING HOURS</h2><br>
-                        <p class="icontext">MONDAY UNTIL FRIDAY <br>09.00 - 23.00 </p><br><br>
-                        <p>SATURDAY - SUNDAY <br>09.00 - 24.00</p>
-                    </div>
-                </div>
-                <!-- <h1>LET ME COOK Restaurant</h1><br> -->
-            </div>
-        </footer>
     </div>
 
     <!-- <script src="https://code.jquery.com/jquery-3.7.1.js"
