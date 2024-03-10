@@ -475,7 +475,7 @@ require_once('./backend/api/config.php');
 
                         <div class="row mt-3">
                             <label for="formFile" class="form-label">แนบไฟล์รูปภาพ</label>
-                            <input class="form-control" type="file" id="imgFile" accept=".png, .webp, .jpeg" style="width: 30%;">
+                            <input class="form-control" type="file" id="imgFile" accept=".png, .webp, .jpeg, .jpg" style="width: 30%;">
                         </div><br>
 
                         <div class="btn">
@@ -713,6 +713,7 @@ require_once('./backend/api/config.php');
                                     Swal.fire({
                                         icon: "error",
                                         title: "Something went wrong!",
+                                        text: "คุณอาจลืมใส่รูปภาพ โปรดใส่รูปภาพด้วย!!",
                                         timer: 2000,
                                     });
                                 }
@@ -801,6 +802,7 @@ require_once('./backend/api/config.php');
                                     Swal.fire({
                                         icon: "error",
                                         title: "Something went wrong!",
+                                        text: "คุณอาจลืมใส่รูปภาพ โปรดใส่รูปภาพด้วย!!",
                                         timer: 2000,
                                     });
                                 }
