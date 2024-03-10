@@ -271,6 +271,10 @@ require_once('./backend/api/config.php');
                         array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
                         array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
                         array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
+                        array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
+                        array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
+                        array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
+                        array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
                     );
 
                     ?>
@@ -306,7 +310,7 @@ require_once('./backend/api/config.php');
                     <div class="sum">
                         <?php
                         //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill โดยมีเงื่อนไขคือวันก่อนหน้าวันปัจจุบัน 1 วัน
-                        $query3 = 'SELECT SUM(bill.totalPrice) AS total_last_day FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE DATE(log.date_log) = CURDATE() - INTERVAL 1 DAY';
+                        $query3 = 'SELECT SUM(bill.totalPrice) AS total_last_day FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE DATE(log.date_log) = CURDATE()';
                         $stmt3 = $conn->prepare($query3);
                         $stmt3->execute();
                         $result1 = $stmt3->fetch(PDO::FETCH_ASSOC);
