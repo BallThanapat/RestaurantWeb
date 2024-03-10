@@ -124,8 +124,7 @@ require_once('./backend/api/config.php');
             } else if (menuSelected == 'addPromotion') {
                 add_promotion.style.display = 'flex';
                 dashboard.style.display = 'none';
-            } 
-            else if (menuSelected == 'addCode'){
+            } else if (menuSelected == 'addCode') {
                 add_code.style.display = 'flex';
                 dashboard.style.display = 'none';
             }
@@ -383,8 +382,8 @@ require_once('./backend/api/config.php');
                                 foreach ($row2 as $key => $value) {
                             ?>
                                     <tr>
-                                        <td><?php echo $number ?></td>
-                                        <!-- <td><?php echo $row2[$key]["uid"] ?></td> -->
+                                        <!-- <td><?php echo $number ?></td> -->
+                                        <td><?php echo $row2[$key]["uid"] ?></td>
                                         <td><?php echo "คุณ " . $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?></td>
                                         <td><?php echo $row2[$key]['telephone'] ?></td>
                                         <td><?php echo $row2[$key]['email'] ?></td>
@@ -490,29 +489,29 @@ require_once('./backend/api/config.php');
             <div class="box-add-promotion" id="add-code">
                 <div class="content add-promotion">
                     <h2>เพิ่มโค้ดส่วนลด/คูปอง</h2>
-                    <form action="" id="form-add-promotion" method="post" enctype="multipart/form-data">
+                    <form action="" id="form-add-code" method="post" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col">
                                 <label for="promotion" class="form-label">รหัส Code ส่วนลด :</label>
-                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="กรอกรหัส code ส่วนลดที่ต้องการใช้">
+                                <input type="promotion" class="form-control" id="codeText" name="promotion" placeholder="กรอกรหัส code ส่วนลดที่ต้องการใช้">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="promotion" class="form-label">ขั้นต่ำการใช้คูปอง/code : </label>
-                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="ราคาขั้นต่ำการใช้">
+                                <input type="promotion" class="form-control" id="codeMin" name="promotion" placeholder="ราคาขั้นต่ำการใช้">
                             </div>
 
                             <div class="col">
                                 <label for="promotion" class="form-label">ส่วนลด : </label>
-                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="ราคาส่วนลด">
+                                <input type="promotion" class="form-control" id="codeDiscount" name="promotion" placeholder="ราคาส่วนลด">
                             </div>
                         </div>
 
 
                         <div class="btn mt-3">
-                            <button type="button" class="btn btn-success" onclick="addPromo()">Add-Coupon</button>
+                            <button type="button" class="btn btn-success" onclick="addCode()">Add-Coupon</button>
                         </div>
 
                     </form>
@@ -585,6 +584,80 @@ require_once('./backend/api/config.php');
             };
 
 
+            function addCode() {
+                var pass = true;
+                if ($("#codeText").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#codeMin").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                } else if ($("#codeDiscount").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ!!",
+                        timer: 5000,
+                    });
+                }
+
+                if (pass) {
+                    $.ajax({
+                        method: "post",
+                        url: "./backend/api/addCode.php",
+                        data: {
+                            codeText: $("#codeText").val(),
+                            codeMin: $("#codeMin").val(),
+                            codeDiscount: $("#codeDiscount").val()
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            try {
+                                var responseObject = JSON.parse(response);
+                                if (responseObject.RespCode == 200) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "เพิ่มโค้ดสำเร็จ!!",
+                                        timer: 2000,
+                                    });
+                                    clearFormCode();
+                                } else if (responseObject.RespCode == 400 && responseObject.Log == 1) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "เพิ่มโค้ดล้มเหลว!!",
+                                        timer: 2000,
+                                    });
+                                } else if (responseObject.RespCode == 400 && responseObject.Log == 2) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "มีโค้ดนี้อยู่ในระบบแล้ว!!",
+                                        timer: 2000,
+                                    });
+                                }
+                            } catch (error) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "มีข้อผิดพลาดเกิดขึ้น!",
+                                    timer: 2000,
+                                });
+                            }
+                        },
+                        error: function(err) {
+                            console.log("bad", err);
+                        }
+                    })
+                }
+            }
+
+
             function addPromo() {
                 var pass = true;
                 if ($("#postName").val().length <= 0) {
@@ -612,7 +685,7 @@ require_once('./backend/api/config.php');
                         formData.append('postDetail', $('#postDetail').val());
 
                         $.ajax({
-                            url: './addPromotion.php',
+                            url: './backend/api/addPromotion.php',
                             type: 'post',
                             data: formData,
                             contentType: false,
@@ -700,7 +773,7 @@ require_once('./backend/api/config.php');
                         formData.append('foodDetail', $('#foodDetail').val());
 
                         $.ajax({
-                            url: './addMenu.php',
+                            url: './backend/api/addMenu.php',
                             type: 'post',
                             data: formData,
                             contentType: false,
@@ -893,6 +966,12 @@ require_once('./backend/api/config.php');
                 $('#postName').val('');
                 $('#postDetail').val('');
                 $('#imgFile').val('');
+            }
+
+            function clearFormCode() {
+                $('#codeText').val('');
+                $('#codeMin').val('');
+                $('#codeDiscount').val('');
             }
         </script>
 </body>

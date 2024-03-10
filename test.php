@@ -56,13 +56,21 @@ if (!empty($_GET["action"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Staff</title>
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        <?php
+        include "menu.css";
+        include "managerPage.css";
+        include "staff.css";
+        ?>
+    </style>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Link Swiper's CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <!-- Font Header-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -91,13 +99,7 @@ if (!empty($_GET["action"])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
-    <style>
-        <?php
-        include "managerPage.css";
-        include "staff.css";
-        include "test2.css";
-        ?>
-    </style>
+    
 
 
 
@@ -730,6 +732,7 @@ if (!empty($_GET["action"])) {
 
                 <!-- Initialize Swiper -->
                 <script>
+
                     var swiper = new Swiper('.swiper', {
                         slidesPerView: getSlidesPerView(),
                         direction: getDirection(),
@@ -751,18 +754,20 @@ if (!empty($_GET["action"])) {
 
                         return direction;
                     }
+
                     function getSlidesPerView() {
                         var windowWidth = window.innerWidth;
                         if (windowWidth <= 430) {
                             return 2;
                         } else if (windowWidth <= 600) {
-                            return 2;
-                        } else if (windowWidth <= 768) {
                             return 3;
+                        } else if (windowWidth <= 768) {
+                            return 4;
                         } else {
-                            return 5;
+                            return 6; // Default value
                         }
                     }
+
                 </script>
 
 
@@ -1053,6 +1058,10 @@ if (!empty($_GET["action"])) {
             </div>
             <div>
 
+
+
+
+
                 <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
                     <i class="fa-solid fa-cart-shopping my-float"></i>
                 </a>
@@ -1087,7 +1096,7 @@ if (!empty($_GET["action"])) {
                                                                             class="w-100">
                                                                         <!-- รูปภาพจาก MENU -->
                                                                     </div>
-                                                                    <div class="col-sm-6">
+                                                                    <div class="col-sm-5">
                                                                         <p>
                                                                             <?php echo $item["foodName"]; ?>
                                                                         </p> <!-- ชื่อของเมนู -->
@@ -1100,13 +1109,20 @@ if (!empty($_GET["action"])) {
                                                                                 <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
                                                                             </p>
                                                                         </div>
-                                                                        <p>
-                                                                            <a href="#" class="btnRemoveAction"
-                                                                                onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                                                                <img src="delete-icon.png" width="90%" alt="">
-                                                                            </a>
-                                                                        </p>
+                                                                        <!-- <p>
+                                  <a href="#" class="btnRemoveAction"
+                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                    <img src="delete-icon.png" width="90%" alt="">
+                                  </a>
+                                </p> -->
                                                                     </div>
+                                                                    <div class="col-sm-2">
+                                                                        <a href="#" class="btnRemoveAction"
+                                                                            onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                                                            <img src="delete-icon.png" width="50%" alt="">
+                                                                        </a>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1126,12 +1142,30 @@ if (!empty($_GET["action"])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <script>
+                                        // function checkLog() {
+                                            <?php
+                                            // if (isset($_SESSION["uID"])) {
+                                            //     echo "location.href='purchaseOrder.php'";
+                                            // } else {
+                                            //     echo "Swal.fire({
+                                            //     icon: \"error\",
+                                            //     title: \"You must login first. !!!\",
+                                            //     timer: 5000,
+                                            // });";
+                                            // }
+                                            ?>
+                                        // }
+                                    </script>
                                     <div class="modal-footer d-flex justify-content-center">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">ปิด</button>
                                         <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
+
                                         <button type="button" onclick="location.href='purchaseOrder.php'"
-                                            class="btn btn-warning">ทำการสั่งซื้อ</button>
+                  class="btn btn-warning">ทำการสั่งซื้อ</button>
+                                        <!-- <button type="button" onclick="checkLog()"
+                                            class="btn btn-warning">ทำการสั่งซื้อ</button> -->
                                     </div>
                                 </div>
                             </div>

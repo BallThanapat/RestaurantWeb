@@ -100,7 +100,7 @@ if (!empty($_GET["action"])) {
             }
 
             var buttons = document.querySelectorAll('.select-option2');
-            buttons.forEach(function(button) {
+            buttons.forEach(function (button) {
                 button.classList.remove('selected');
             });
 
@@ -111,7 +111,7 @@ if (!empty($_GET["action"])) {
 
             var xhr = new XMLHttpRequest();
             xhr.open("GET", "purchaseOrder.php?action=pickType&type=" + type, true);
-            xhr.onreadystatechange = function() {
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     console.log("good");
                 }
@@ -129,22 +129,25 @@ if (!empty($_GET["action"])) {
                 var selectedValue = $(this).val();
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
                 sessionStorage.setItem('selectedValue', selectedValue);
+                var storedValue = sessionStorage.getItem('selectedValue');
+                console.log(storedValue)
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'purchaseOrder.php',
-                    data: {
-                        selectedValue: selectedValue
-                    },
-                    success: function(response) {
-                        // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
-                        console.log(response);
-                    },
-                    error: function(xhr, status, error) {
-                        // จัดการข้อผิดพลาด (ถ้ามี)
-                        console.error(xhr.responseText);
-                    }
-                });
+                // $.ajax({
+                //     type: 'POST',
+                //     url: 'purchaseOrder.php',
+                //     data: {
+                //         selectedValue: selectedValue
+                //     },
+                //     success: function (response) {
+                //         // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
+                //         console.log("good");
+                //         // console.log(response);
+                //     },
+                //     error: function (xhr, status, error) {
+                //         // จัดการข้อผิดพลาด (ถ้ามี)
+                //         console.error(xhr.responseText);
+                //     }
+                // });
 
                 if (selectedValue == "1" || selectedValue == "2") {
 
@@ -154,20 +157,39 @@ if (!empty($_GET["action"])) {
                 }
             });
 
-            $(".get-selected-btn").click(function() {
+            $(".get-selected-btn").click(function () {
                 var targetCustomSelect = $(this).data("target");
-                var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
+                // console.log(targetCustomSelect);
+                var selectedValue = $(".select-option.selected").data("value");
+
+                // var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
                 console.log("Selected value: " + selectedValue);
 
-                var targetCustomSelect = $(this).data("target");
                 if (targetCustomSelect === "custom-select1") {
                     alert("Button 1 was clicked.");
                 } else if (targetCustomSelect === "custom-select2") {
                     // alert("Button 2 was clicked.");
                     click2();
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'purchaseOrder.php',
+                        data: {
+                            selectedValue: selectedValue
+                        },
+                        success: function (response) {
+                            // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
+                            console.log("good");
+                            // console.log(response);
+                        },
+                        error: function (xhr, status, error) {
+                            // จัดการข้อผิดพลาด (ถ้ามี)
+                            console.error(xhr.responseText);
+                        }
+                    });
                 } else if (targetCustomSelect === "custom-select3") {
                     // alert("Button 3 was clicked.");
-                    click2();
+                    // click2();
                     location.href = "menu.php";
                 };
             });
@@ -237,7 +259,7 @@ if (!empty($_GET["action"])) {
                                 $total_price2 = 0;
                                 foreach ($_SESSION["cart_item"] as $item) {
                                     $item_price = $item["quantity"] * $item["price"];
-                            ?>
+                                    ?>
 
                                     <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
                                         <div class="container">
@@ -247,23 +269,29 @@ if (!empty($_GET["action"])) {
                                                     <!-- รูปภาพจาก MENU -->
                                                 </div>
                                                 <div class="col-sm-6">
-                                                    <p><?php echo $item["foodName"]; ?></p> <!-- ชื่อของเมนู -->
+                                                    <p>
+                                                        <?php echo $item["foodName"]; ?>
+                                                    </p> <!-- ชื่อของเมนู -->
                                                     <hr>
                                                     <div class="d-flex">
-                                                        <p class="w-25" id="text-quantity"><?php echo "x" . $item["quantity"]; ?></p> <!-- จำนวน -->
-                                                        <p class="w-25 ms-auto text-danger" id="text-price"><?php echo "฿" . number_format($item["quantity"] * $item["price"], 2); ?></p>
+                                                        <p class="w-25" id="text-quantity">
+                                                            <?php echo "x" . $item["quantity"]; ?>
+                                                        </p> <!-- จำนวน -->
+                                                        <p class="w-25 ms-auto text-danger" id="text-price">
+                                                            <?php echo "฿" . number_format($item["quantity"] * $item["price"], 2); ?>
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                <?php
+                                    <?php
                                     $total_quantity2 += $item["quantity"];
                                     $total_price2 += $item["price"] * $item["quantity"];
                                 }
                                 ?>
-                            <?php
+                                <?php
                             }
                             ?>
 
@@ -284,7 +312,9 @@ if (!empty($_GET["action"])) {
                         <h5>ราคารวม</h5>
                     </div>
                     <div class="ms-5">
-                        <p><?php echo "THB" . number_format($total_price2, 2); ?></p>
+                        <p>
+                            <?php echo "THB" . number_format($total_price2, 2); ?>
+                        </p>
                     </div>
                 </div>
 
@@ -322,10 +352,14 @@ if (!empty($_GET["action"])) {
                             <div class="container">
                                 <div class="row5" id="row-select">
                                     <div class="col1-sub-content-2">
-                                        <button class="select-option2 selected" value="1" onclick="typePick('delivery');">เดลิเวอรี่</button>
+                                        <button class="select-option2 selected" value="1"
+                                            onclick="typePick('delivery');">เดลิเวอรี่</button>
+                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                     <div class="col1-sub-content-2">
-                                        <button class="select-option2" onclick="typePick('selfpickup');">รับที่ร้าน</button>
+                                        <button class="select-option2"
+                                            onclick="typePick('selfpickup');">รับที่ร้าน</button>
+                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                 </div>
                             </div>
@@ -343,12 +377,13 @@ if (!empty($_GET["action"])) {
                                 <div class="col-sm-10">
                                     <?php
                                     if (!empty($first_address)) { ?>
-                                        <p class="addr1" id="address"><?php echo $first_address["firstName"] . ' ' . $first_address["lastName"], ' <br>'
-                                                                            . 'Tel. ' . $first_address["telephone"], ' <br>'
-                                                                            . $first_address["address"] . ' ' . $first_address["province"] . ' ' . $first_address["district"]
-                                                                            . ' ' . $first_address["sub_district"] . ' ' . $first_address["postcode"]; ?>
+                                        <p class="addr1" id="address">
+                                            <?php echo $first_address["firstName"] . ' ' . $first_address["lastName"], ' <br>'
+                                                . 'Tel. ' . $first_address["telephone"], ' <br>'
+                                                . $first_address["address"] . ' ' . $first_address["province"] . ' ' . $first_address["district"]
+                                                . ' ' . $first_address["sub_district"] . ' ' . $first_address["postcode"]; ?>
                                         </p>
-                                    <?php
+                                        <?php
                                     }
                                     ?>
                                 </div>
@@ -363,7 +398,10 @@ if (!empty($_GET["action"])) {
                     <h3>ที่อยู่ร้าน</h3>
                     <p>คณะเทคโนโลยีสารสนเทศ สถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง 1 ซอย ฉลองกรุง 1
                         แขวงลาดกระบัง เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7751.638226068855!2d100.77202249284046!3d13.72939879664036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d66308ce98ffd%3A0xcb43a76f038c38ca!2z4LiE4LiT4Liw4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Liq4Liy4Lij4Liq4LiZ4LmA4LiX4LioIOC4quC4luC4suC4muC4seC4meC5gOC4l-C4hOC5guC4meC5guC4peC4ouC4teC4nuC4o-C4sOC4iOC4reC4oeC5gOC4geC4peC5ieC4suC5gOC4iOC5ieC4suC4hOC4uOC4k-C4l-C4q-C4suC4o-C4peC4suC4lOC4geC4o-C4sOC4muC4seC4hyAoSVRLTUlUTCk!5e0!3m2!1sth!2sth!4v1709218587479!5m2!1sth!2sth" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7751.638226068855!2d100.77202249284046!3d13.72939879664036!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x311d66308ce98ffd%3A0xcb43a76f038c38ca!2z4LiE4LiT4Liw4LmA4LiX4LiE4LmC4LiZ4LmC4Lil4Lii4Li14Liq4Liy4Lij4Liq4LiZ4LmA4LiX4LioIOC4quC4luC4suC4muC4seC4meC5gOC4l-C4hOC5guC4meC5guC4peC4ouC4teC4nuC4o-C4sOC4iOC4reC4oeC5gOC4geC4peC5ieC4suC5gOC4iOC5ieC4suC4hOC4uOC4k-C4l-C4q-C4suC4o-C4peC4suC4lOC4geC4o-C4sOC4muC4seC4hyAoSVRLTUlUTCk!5e0!3m2!1sth!2sth!4v1709218587479!5m2!1sth!2sth"
+                        style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
 
                 <div class="mt-5">
@@ -373,7 +411,7 @@ if (!empty($_GET["action"])) {
                         $total_quantity2 = 0;
                         $total_price2 = 0;
 
-                    ?>
+                        ?>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -386,23 +424,31 @@ if (!empty($_GET["action"])) {
                                 foreach ($_SESSION["cart_item"] as $item) {
                                     $item_price = $item["quantity"] * $item["price"];
 
-                                ?>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope="row"><?php echo $item["foodName"]; ?></td>
-                                    <td><?php echo $item["price"]; ?></td>
-                                    <td><?php echo $item["quantity"]; ?></td>
-                                    <td><?php echo number_format($item["quantity"] * $item["price"], 2); ?></td>
-                                </tr>
-                            <?php
+                                    ?>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row">
+                                            <?php echo $item["foodName"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $item["price"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $item["quantity"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo number_format($item["quantity"] * $item["price"], 2); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
                                     $total_quantity2 += $item["quantity"];
                                     $total_price2 += $item["price"] * $item["quantity"];
                                 }
-                            ?>
+                                ?>
                             </tbody>
                         </table>
-                    <?php
+                        <?php
                     }
                     ?>
                 </div>
@@ -412,7 +458,9 @@ if (!empty($_GET["action"])) {
                         <h4>ราคารวม</h4>
                     </div>
                     <div class="ms-3">
-                        <p><?php echo "THB" . number_format($total_price2, 2); ?></p>
+                        <p>
+                            <?php echo "THB" . number_format($total_price2, 2); ?>
+                        </p>
                     </div>
                 </div>
 
@@ -426,16 +474,19 @@ if (!empty($_GET["action"])) {
 
 
                 <!-- Address Modals -->
-                <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addressModalLabel">ที่อยู่ของคุณ</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
 
-                                <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0" class="scrollspy-example" tabindex="0">
+                                <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
+                                    class="scrollspy-example" tabindex="0">
                                     <div class="container">
                                         <div class="row">
                                             <div class="custom-select" id="custom-select1">
@@ -477,7 +528,9 @@ if (!empty($_GET["action"])) {
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
 
-                                    <button class="btn get-selected-btn" id="btn-order" onclick="addToAddr();">ตกลง</button>
+                                    <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();"
+                                        data-bs-dismiss="modal">ตกลง</button>
+                                    <!-- แก้ css ปุ่ม ตกลง -->
 
                                 </div>
                             </div>
@@ -503,7 +556,8 @@ if (!empty($_GET["action"])) {
                                         <div class="pay-btn">
                                             <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
                                             <form method="post" action="purchaseInsert.php">
-                                                <button class="btn get-selected-btn" id="btn-order" data-target="custom-select3">ยืนยัน</button>
+                                                <button class="btn get-selected-btn" id="btn-order"
+                                                    data-target="custom-select3">ยืนยัน</button>
                                             </form>
                                         </div>
                                     </div>
