@@ -9,11 +9,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Staff</title>
+
+    <style>
+        <?php
+        include "managerPage.css";
+        include "staff.css";
+        ?>
+    </style>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <!-- Font Header-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,12 +50,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
-    <style>
-        <?php
-        include "managerPage.css";
-        include "staff.css";
-        ?>
-    </style>
 
 </head>
 
