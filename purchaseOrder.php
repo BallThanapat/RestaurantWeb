@@ -89,6 +89,7 @@ if (!empty($_GET["action"])) {
 
         }
 
+        // เลือกประเภทการจัดส่ง
         function typePick(type) {
 
             if (type == "selfpickup") {
