@@ -309,12 +309,16 @@ require_once('./backend/api/config.php');
 
                     <div class="sum">
                         <?php
-                        //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill โดยมีเงื่อนไขคือวันก่อนหน้าวันปัจจุบัน 1 วัน
-                        $query3 = 'SELECT SUM(bill.totalPrice) AS total_last_day FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE DATE(log.date_log) = CURDATE()';
+                        //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill โดยมีเงื่อนไขคือวันก่อนหน้าวันปัจจุบัน 1 วันนะ
+                        $query3 = 'SELECT SUM(bill.totalPrice) AS total_this_day FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE DATE(log.date_log) = CURDATE()';
                         $stmt3 = $conn->prepare($query3);
                         $stmt3->execute();
                         $result1 = $stmt3->fetch(PDO::FETCH_ASSOC);
-                        $totalLastDay = $result1['total_last_day'];
+                        if ($result1 !== false) {
+                            $totalThisDay = $result1['total_this_day'];
+                        } else {
+                            $totalThisDay = 0;
+                        }
 
                         //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill ที่อยู่ในเดือนปัจจุบัน
                         $query4 = 'SELECT SUM(bill.totalPrice) AS total_this_month FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE YEAR(log.date_log) = YEAR(CURRENT_DATE) AND MONTH(log.date_log) = MONTH(CURRENT_DATE)';
@@ -324,7 +328,7 @@ require_once('./backend/api/config.php');
                         $totalThisMonth = $result2['total_this_month'];
                         ?>
                         <div class="sum-day">
-                            <h4>รายได้ต่อวันสุทธิ: <?php echo $totalLastDay; ?></h4>
+                            <h4>รายได้ต่อวันสุทธิ: <?php echo $totalThisDay; ?></h4>
                         </div>
                         <div class="sum-month">
                             <h4>รายได้ต่อเดือนสุทธิ: <?php echo $totalThisMonth; ?></h4>
