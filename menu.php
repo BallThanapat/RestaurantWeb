@@ -299,7 +299,7 @@ if (!empty($_GET["action"])) {
           <a href="index.php" class="nav-link links ms-auto" id="backHome"><i class="fa-solid fa-house-chimney"></i></a>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a href="menu.php" class="nav-link links" id="">เมนูทั้งหมด</a>
+              <a href="promotion.php" class="nav-link links" id="">โปรโมชั่น</a>
             </li>
             <?php
             if (isset($_SESSION["username"])) {
