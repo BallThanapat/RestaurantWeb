@@ -2,6 +2,7 @@
     session_start();
     require_once('menuController.php');
     $db_handle = new MenuControll();
+    require_once('./backend/api/config.php');
 
     if(!empty($_GET["action"])){
         switch($_GET["action"]){
@@ -18,6 +19,10 @@
             case "empty";
                 unset($_SESSION["cart_item"]);
             break;
+            case "pickType";
+                $_SESSION['type'] = $_GET['type']; // เก็บค่า type เมื่อเลือกเดลิเวอรี่
+            break;
+                
         }
     }
 ?>
@@ -27,7 +32,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="purchaseOrder.css">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -37,9 +41,13 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
-
+<style>
+    <?php include "./purchaseOrder.css" ?>
+</style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         function click1() {
             document.getElementById("num1").style.background = "white";
@@ -78,6 +86,16 @@
 
         }
 
+        function typePick(type) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "purchaseOrder.php?action=pickType&type=" + type, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log("good");
+                }
+            };
+            xhr.send();
+        }
         $(document).ready(function () {
 
             $(".select-option").click(function () {
@@ -85,16 +103,31 @@
                 $(this).addClass("selected");
                 var selectedValue = $(this).data("value");
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
+                sessionStorage.setItem('selectedValue', selectedValue);
+                var selectedValue = sessionStorage.getItem('selectedValue');
+                $.ajax({
+                    type: 'POST',
+                    url: 'purchaseOrder.php',
+                    data: { selectedValue: selectedValue },
+                    success: function(response) {
+                        // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        // จัดการข้อผิดพลาด (ถ้ามี)
+                        console.error(xhr.responseText);
+                    }
+                });
 
                 if (selectedValue == "1" || selectedValue == "2") {
                     // Hide all item containers
                     $(".item-container").hide();
-                    alert(selectedValue);
                     // Show the item container for the selected option
                     $("#div" + selectedValue).show();
-                    localStorage.setItem('sendV', selectedValue);
+                    // localStorage.setItem('sendV', selectedValue);
                 }
             });
+
 
             $(".get-selected-btn").click(function () { 
                 var targetCustomSelect = $(this).data("target");
@@ -107,18 +140,27 @@
                 } else if (targetCustomSelect === "custom-select2") { 
                     // alert("Button 2 was clicked.");
                     click2();
+                } else if (targetCustomSelect === "custom-select3") { 
+                    // alert("Button 3 was clicked.");
+                    click2();
+                    location.href = "menu.php";
                 };
             });
         });
         function addToAddr() {
-            // ดึงค่าที่เลือกจาก dropdown
-            var selectedValue = $(".select-option.selected p").text();
-            
-            // อัปเดตข้อความใน <p> ที่มี id="address"
-            $("p#address").text(selectedValue);
-
-            // แสดงอัลเลิร์ต
-            alert("เปลี่ยนที่อยู่สำเร็จ");
+            var selectedValue1 = $(".select-option.selected p").text();
+            var selectedAddrId = $(".select-option.selected").attr("data-addr-id");
+            $("p#address").text(selectedValue1);
+            $("#quantity2").val(selectedAddrId); // เก็บค่า addr_id
+            Swal.fire({
+                    icon: "success",
+                    title: "เลือกประเภทสำเร็จ!!",
+                    timer: 2000,
+                });
+        }
+        function readValue() {
+            var selectedValue = sessionStorage.getItem('selectedValue');
+            document.getElementById("demo").innerHTML = selectedValue;
         }
     </script>
 
@@ -126,6 +168,15 @@
 </head>
 
 <body>
+    <?php
+    if(isset($_POST['selectedValue'])) {
+        $selectedValue = $_POST['selectedValue'];
+        $addr = $selectedValue;
+        $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
+    } else {
+        echo "";
+    }
+    ?>
     <header class="header">
         <nav class="navbar navbar-expand-xxl navbar-dark">
             <div class="container-fluid">
@@ -154,8 +205,8 @@
                         <div class="row d-flex justify-content-center">
                             <?php
                             if(isset($_SESSION["cart_item"])){
-                                $total_quantity = 0;
-                                $total_price = 0;
+                                $total_quantity2 = 0;
+                                $total_price2 = 0;
                                 foreach($_SESSION["cart_item"] as $item) {
                                     $item_price = $item["quantity"] * $item["price"];
                             ?>
@@ -180,8 +231,8 @@
                                 </div>
                            
                                 <?php
-                                    $total_quantity += $item["quantity"];
-                                    $total_price += $item["price"]*$item["quantity"];
+                                    $total_quantity2 += $item["quantity"];
+                                    $total_price2 += $item["price"]*$item["quantity"];
                                     }
                                 ?>
                             <?php
@@ -205,11 +256,13 @@
                         <h5>ราคารวม</h5>
                     </div>
                     <div class="ms-5">
-                        <p><?php echo "THB". number_format($total_price, 2); ?></p>
+                        <p><?php echo "THB". number_format($total_price2, 2); ?></p>
                     </div>
                 </div>
 
                 <div class="d-flex below">
+                    <!-- แก้สีปุ่ม ยกเลิก -->
+                    <button class="btn btn-warning" id="btn-order"><a href="menu.php">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
@@ -218,11 +271,18 @@
             <?php
                 $uID = $_SESSION['uID'];
                 $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
-                address.address, address.province, address.district, address.sub_district, address.postcode
+                address.address, address.province, address.district, address.sub_district, address.postcode, address.addr_id
                 FROM users
-                INNER JOIN address ON users.uid=address.uid where users.uid=$uID;"); //แก้ uid ต้องรับค่ามากจากการ login
-                $first_address = reset($addr_array); // ดึงค่าที่อยู่แรกออกมาจากอาเรย์
-                $first_key = key($addr_array); // ดึงคีย์ของอาเรย์แรก
+                INNER JOIN address ON users.uid=address.uid where users.uid=$uID;");
+                $first_address = reset($addr_array);
+                $first_key = key($addr_array);
+                if(isset($_POST['selectedValue'])) {
+                    $selectedValue = $_POST['selectedValue'];
+                    $addr = $selectedValue;
+                    $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
+                } else {
+                    $_SESSION["addrID2"] = $first_address["addr_id"];
+                }
             ?>
             <div class="mt-3" id="page2" style="display: none;">
                 <h4>รายละเอียดการจัดส่ง</h4>
@@ -234,17 +294,14 @@
                         <div class="custom-select" id="custom-select1">
                             <div class="container">
                                 <div class="row5" id="row-select">
-                                    <div class="select-option selected col-sm-5" data-value="1">
-                                        <h6 class="delivery">เดลิเวอรี่ <i class="fa-solid fa-truck"></i></h6>
-                                    </div>
-                                    <div class="select-option col-sm-5" data-value="2">
-                                        <h6 class="delivery">รับที่ร้าน <i class="fa-solid fa-shop"></i></h6>
-                                    </div>
-                                    <!-- สำคัญ
-                                    สำคัญ -->
-                                    <!-- อย่าลืมส่ง selectedValue เพื่อไว้เช็ครูปแบบการรับสินค้า -->
-                                    <!-- สำคัญ
-                                    สำคัญ -->
+                                <div class="col1-sub-content-2">
+                                    <button class="select-option2 selected2"  value="1" onclick="typePick('delivery');">เดลิเวอรี่</button> 
+                                    <!--แก้ ปรับ css ให้ปุ่ม -->
+                                </div>
+                                <div class="col1-sub-content-2">
+                                    <button class="select-option2 selected2"  onclick="typePick('selfpickup');">รับที่ร้าน</button>
+                                    <!--แก้ ปรับ css ให้ปุ่ม -->
+                                </div>
                                 </div>
                             </div>
 
@@ -258,14 +315,15 @@
                     <div class="container">
                         <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
                             <div class="col-sm-10">
-                                    <?php if(!empty($first_address)) { ?>
+                                    <?php 
+                                    if(!empty($first_address)) { ?>
                                         <p class="addr1" id="address"><?php echo $first_address["firstName"].' '.$first_address["lastName"],' <br>'
                                             .'Tel. '. $first_address["telephone"],' <br>'
                                             .$first_address["address"].' '.$first_address["province"].' '.$first_address["district"]
                                             .' '.$first_address["sub_district"].' '.$first_address["postcode"]; ?>
                                         </p>
                                     <?php
-                                    } 
+                                    }
                                     ?>
                                 </div>
                             <div class="col-sm-2 ms-auto" id="change-address">
@@ -289,8 +347,8 @@
                     <h2>สั่งซื้อสินค้าแล้ว</h2>
                     <?php
                         if(isset($_SESSION["cart_item"])){
-                            $total_quantity = 0;
-                            $total_price = 0;
+                            $total_quantity2 = 0;
+                            $total_price2 = 0;
                         
                     ?>
                     <table class="table table-striped">
@@ -315,8 +373,8 @@
                                 <td><?php echo number_format($item["quantity"] * $item["price"], 2); ?></td>
                             </tr>
                             <?php
-                                $total_quantity += $item["quantity"];
-                                $total_price += $item["price"]*$item["quantity"];
+                                $total_quantity2 += $item["quantity"];
+                                $total_price2 += $item["price"]*$item["quantity"];
                                 }
                             ?>
                         </tbody>
@@ -331,7 +389,7 @@
                         <h4>ราคารวม</h4>
                     </div>
                     <div class="ms-3">
-                        <p><?php echo "THB". number_format($total_price, 2); ?></p>
+                        <p><?php echo "THB". number_format($total_price2, 2); ?></p>
                     </div>
                 </div>
 
@@ -365,8 +423,8 @@
                                                     if(!empty($addr_array)){
                                                         foreach($addr_array as $key => $value) {
                                                 ?>
-                                                <div class="select-option selected" data-value="optionA"
-                                                    id="option-address">
+                                                    <?php $ad=$addr_array[$key]["addr_id"];?>
+                                                <div class="select-option selected" data-value="<?php echo $ad; ?>">
                                                     <p><?php echo $addr_array[$key]["firstName"].' '.$addr_array[$key]["lastName"].' <br>'
                                                         .'Tel. '. $addr_array[$key]["telephone"].' <br>'
                                                         .$addr_array[$key]["address"].' '.$addr_array[$key]["province"].' '.$addr_array[$key]["district"]
@@ -374,21 +432,22 @@
                                                         </p>
                                                 </div>
                                                 <?php
+                                                        }
                                                     }
-                                                }
                                                 ?>
                                             </div>
 
                                             <input type="hidden" class="selected-option" name="quantity" id="quantity">
                                             <!-- <button id="get-selected-btn">Get Selected Value</button> -->
                                         </div>
-                                        </div>
                                     </div>
+                                </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                                 
                                 <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();">ตกลง</button>
+                                <!-- แก้ css ปุ่ม ตกลง -->
 
                             </div>
                         </div>
@@ -413,8 +472,10 @@
                                     </form>
                                     <div class="pay-btn">
                                         <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                        <button class="btn get-selected-btn" id="btn-order"
-                                            data-target="custom-select2">ยืนยัน</button>
+                                        <form method="post" action="purchaseInsert.php">
+                                            <button class="btn get-selected-btn" id="btn-order"
+                                                data-target="custom-select3">ยืนยัน</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

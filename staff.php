@@ -1,7 +1,8 @@
 <?php
-session_start();
+    session_start();
+    require_once('menuController.php');
+    $db_handle = new MenuControll();
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,60 +130,7 @@ session_start();
         </div>
     </div>
 
-    <!-- The Modal Info -->
-    <div class="modal fade" id="infoModal" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Information</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body modal-body-info" id="modal-body-info" style="width: 100%;margin-left: 10px;">
-                    <div class="row">
-                        <div class="col">
-                            <h5>ชื่อ: นายธีรภัทร์ สังข์สี</h5>
-                        </div>
-                        <div class="col">
-                            <h5>เบอร์โทร : 095-xxxxx-xxxx</h5>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col">
-                            <p>ที่อยู่ Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci provident eum
-                                Lorem ipsum dolor sit amet.</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <p>จังหวัด: กรุงเทพมหานคร</p>
-                        </div>
-                        <div class="col">
-                            <p>อำเภอ/แขวง: ลาดบัง</p>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
-                            <p>ตำบล/เขต: ลาดบัง</p>
-                        </div>
-                        <div class="col">
-                            <p>รหัสไปรษณีย์: 85000</p>
-                        </div>
-                    </div>
-
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
 
     <!-- --------- -->
@@ -222,63 +170,143 @@ session_start();
             <div class="content" id="order"> <!--  -->
                 <h1>รายการคำสั่งซื้อ</h1>
                 <div class="box-list-order">
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0001</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
-                            <h6>รายการอาหาร</h6>
-                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
-                        </div>
 
-                        <div class="content-order order-img-payment" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
-                        </div>
+                <?php
+                    $bill_array = $db_handle->runQuery("SELECT * FROM bill where status=1");
+                    if (!empty($bill_array)) {
+                        foreach ($bill_array as $key => $bill) {
+                            $total_quantity2 = 0;
+                            $total_price2 = 0;
+                            $foodL = '';
+                            if (isset($_SESSION["cart_item2"])) {
+                                foreach ($_SESSION["cart_item2"] as $item) {
+                                    $item_food = $item["foodName"];
+                                    $item_quantity = $item["quantity"];
+                                    $total_price2 += $item["price"] * $item_quantity;
+                                    $total_quantity2 += $item_quantity;
+                                    $foodL .= $item_food . ' x' . $item_quantity . ' | ';
+                                }
 
-                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
-                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
+                            }
+                            $billID = $bill["bill_id"];
+                ?>
+                                <!-- The Modal Info -->
+                                <div class="modal fade" id="s<?php echo $billID ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Information</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <?php
+                                                $bill_array2 = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, address.address, address.province, address.district,
+                                                address.sub_district, address.postcode FROM bill 
+                                                INNER JOIN address ON bill.addr_id=address.addr_id 
+                                                INNER JOIN users ON bill.uid=users.uid
+                                                where status=1 and bill_id=$billID");
+                                                if (!empty($bill_array2)) {
+                                                    foreach ($bill_array2 as $key => $bill2) {
+                                            ?>
+                                            <div class="modal-body modal-body-info" id="modal-body-info" style="width: 100%;margin-left: 10px;">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5>ชื่อ: <?php echo $bill2["firstName"].' '.$bill2["lastName"]; ?></h5>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>เบอร์โทร : <?php echo $bill2["telephone"]; ?></h5>
+                                                    </div>
+                                                </div><br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p><?php echo $bill2["address"]; ?></p>
+                                                    </div>
+                                                </div>
 
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>120.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button>
-                        </div>
-                    </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>ตำบล/เขต: <?php echo $bill2["sub_district"]; ?></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>อำเภอ/แขวง: <?php echo $bill2["district"]; ?></p>
+                                                    </div>
+                                                </div>
 
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0002</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>จังหวัด: <?php echo $bill2["province"]; ?></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>รหัสไปรษณีย์: <?php echo $bill2["postcode"]; ?></p>
+                                                    </div>
+                                                </div>
 
-                        </div>
+                                            </div>
+                                            <?php
+                                                    }
+                                                }
+                                                ?>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="content-order order-img-payment" data-bs-toggle="modal"
-                            data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                            <img src="Image_inventory/billtest.png" alt="" id="img-payment">
-                        </div>
+                            <div class="order">
+                                <div class="content-order order-num">
+                                    <h6>หมายเลขคำสั่งซื้อ</h6>
+                                    <h1><?php echo $bill["bill_id"]; ?></h1>
+                                </div>
 
-                        <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
-                            style="cursor: pointer;">
-                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
+                                <div class="content-order order-detail">
+                                    <h6>รายการอาหาร</h6>
+                                    <p><?php echo $foodL?></p>
+                                </div>
 
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>299.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button>
-                        </div>
-                    </div>
+                                <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                    <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                                </div>
+                            <?php
+                                if($bill["type"] == "delivery"){
+                            ?>
+                                <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#s<?php echo $billID ?>">
+                                    <h5>Delivery</h5>
+                                </div>
+                            <?php
+                                }else{
+                            ?>
+                                <div class="content-order order-type"
+                                    style="cursor: pointer;">
+                                    <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                                </div>
+                            <?php
+                                }
+                            ?>
+                                <div class="content-order order-price">
+                                    <h4>Total</h4>
+                                    <h5><?php echo $bill["totalPrice"]; ?> ฿</h5>
+                                </div>
+                                <?php
+                                    $_SESSION['bill_id']=$bill['bill_id'];
+                                ?>
+                                <div class="content-order order-btn">
+                                    <form method="post" action="acceptStaff.php?action=accept">
+                                        <button class="btn btn-success" id="btn-order"
+                                        data-target="custom-select3">Accept</button>
+                                    </form>
+                                    <form method="post" action="acceptStaff.php?action=decline">
+                                    <button class="btn btn-danger mt-2">Decline</button>
+                                    </form>
+                                </div>
+                            </div>
+                    <?php
+                        }
+                    }
+                    ?>
 
                 </div>
             </div>
@@ -287,117 +315,139 @@ session_start();
                 <h1>ยืนยันรายการสั่งซื้อ</h1>
                 <div class="status-payment">
                     <div class="box-list-order">
-                        <div class="order">
-                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                                <h6>หมายเลขคำสั่งซื้อ</h6>
-                                <h1>0001</h1>
-                            </div>
-                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
-                                <h6>รายการอาหาร</h6>
-                                <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
-                            </div>
 
-                            <div class="content-order order-img-payment" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
-                            </div>
+                    <?php
+                        $bill_array = $db_handle->runQuery("SELECT * FROM bill where status=2");
+                        if (!empty($bill_array)) {
+                            foreach ($bill_array as $key => $bill) {
+                                $total_quantity2 = 0;
+                                $total_price2 = 0;
+                                $foodL = '';
+                                if (isset($_SESSION["cart_item2"])) {
+                                    foreach ($_SESSION["cart_item2"] as $item) {
+                                        $item_food = $item["foodName"];
+                                        $item_quantity = $item["quantity"];
+                                        $total_price2 += $item["price"] * $item_quantity;
+                                        $total_quantity2 += $item_quantity;
+                                        $foodL .= $item_food . ' x' . $item_quantity . ' | ';
+                                    }
+                                    $billID = $bill["bill_id"];
+                                } ?>
 
-                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal">
-                                <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
-                            </div>
+                                <!-- The Modal Info -->
+                                <div class="modal fade" id="s<?php echo $billID ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Information</h4>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <?php
+                                                $bill_array2 = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, address.address, address.province, address.district,
+                                                address.sub_district, address.postcode FROM bill 
+                                                INNER JOIN address ON bill.addr_id=address.addr_id 
+                                                INNER JOIN users ON bill.uid=users.uid
+                                                where status=2 and bill_id=$billID");
+                                                if (!empty($bill_array2)) {
+                                                    foreach ($bill_array2 as $key => $bill2) {
+                                            ?>
+                                            <div class="modal-body modal-body-info" id="modal-body-info" style="width: 100%;margin-left: 10px;">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5>ชื่อ: <?php echo $bill2["firstName"].' '.$bill2["lastName"]; ?></h5>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h5>เบอร์โทร : <?php echo $bill2["telephone"]; ?></h5>
+                                                    </div>
+                                                </div><br>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p><?php echo $bill2["address"]; ?></p>
+                                                    </div>
+                                                </div>
 
-                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                                <h4>Total</h4>
-                                <h5>120.00฿</h5>
-                            </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>ตำบล/เขต: <?php echo $bill2["sub_district"]; ?></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>อำเภอ/แขวง: <?php echo $bill2["district"]; ?></p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <p>จังหวัด: <?php echo $bill2["province"]; ?></p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <p>รหัสไปรษณีย์: <?php echo $bill2["postcode"]; ?></p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <?php
+                                                    }
+                                                }
+                                                ?>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="order">
+                                <div class="content-order order-num">
+                                    <h6>หมายเลขคำสั่งซื้อ</h6>
+                                    <h1><?php echo $bill["bill_id"]; ?></h1>
+                                </div>
+
+                                <div class="content-order order-detail">
+                                    <h6>รายการอาหาร</h6>
+                                    <p><?php echo $foodL?></p>
+                                </div>
+
+                                <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
+                                    <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                                </div>
+                            <?php
+                                if($bill["type"] == "delivery"){
+                            ?>
+                                <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#s<?php echo $billID?>">
+                                    <h5>Delivery</h5>
+                                </div>
+                                
+                            <?php
+                                }else{
+                            ?>
+                                <div class="content-order order-type"
+                                    style="cursor: pointer;">
+                                    <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
+                                </div>
+                            <?php
+                                }
+                            ?>
+                                <div class="content-order order-price">
+                                    <h4>Total</h4>
+                                    <h5><?php echo $bill["totalPrice"]; ?> ฿</h5>
+                                </div>
+                                <?php
+                                    $_SESSION['bill_id2']=$bill['bill_id'];
+                                ?>
                             <div class="content-order order-btn">
+                            <form method="post" action="acceptStaff.php?action=confirm">
                                 <button class="btn btn-success">Confirm</button>
+                            </form>
                             </div>
                         </div>
-
-                        <div class="order">
-                            <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                                <h6>หมายเลขคำสั่งซื้อ</h6>
-                                <h1>0002</h1>
-                            </div>
-                            <div class="content-order order-detail"> <!-- รายการอาหาร -->
-
-                            </div>
-
-                            <div class="content-order order-img-payment" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                                <img src="Image_inventory/billtest.png" alt="" id="img-payment">
-                            </div>
-
-                            <div class="content-order order-type" data-bs-toggle="modal" data-bs-target="#infoModal"
-                                style="cursor: pointer;">
-                                <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
-                            </div>
-
-                            <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                                <h4>Total</h4>
-                                <h5>299.00฿</h5>
-                            </div>
-                            <div class="content-order order-btn">
-                                <button class="btn btn-success">Confirm</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="content" id="order-history"> <!--  -->
-                <h1>รายการคำสั่งซื้อ</h1>
-                <div class="box-list-order">
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0199</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
-                            <h6>รายการอาหาร</h6>
-                            <p>ข้าวไข่เจียว x2 | กะเพราหมู x2 | น้ำเปล่า x2</p>
-                        </div>
-                        <div class="content-order order-type">
-                            <h5>Delivery</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>120.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <!-- <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button> -->
-                        </div>
-                    </div>
-
-                    <div class="order">
-                        <div class="content-order order-num"> <!-- หมายเลขคำสั่งซื้อ -->
-                            <h6>หมายเลขคำสั่งซื้อ</h6>
-                            <h1>0200</h1>
-                        </div>
-                        <div class="content-order order-detail"> <!-- รายการอาหาร -->
-
-                        </div>
-                        <div class="content-order order-type">
-                            <h5>Self/Pick-up</h5> <!-- ประเภทของการสั่งซื้อ -->
-                        </div>
-                        <div class="content-order order-price"> <!-- ราคารวมสินค้า -->
-                            <h4>Total</h4>
-                            <h5>299.00฿</h5>
-                        </div>
-                        <div class="content-order order-btn">
-                            <!-- <button class="btn btn-success">Accept</button>
-                            <button class="btn btn-danger mt-2">Decline</button> -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
+                        <?php
+                            }
+                        }
+                    ?>
         </div>
 </body>
 
