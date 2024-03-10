@@ -359,7 +359,7 @@ require_once('./backend/api/config.php');
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="promotionModalLabel">Test I(Name Promotion)</h5>
+                            <h5 class="modal-title" id="promotionModalLabel"><?php echo $row[$key]['postName']; ?></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -370,7 +370,7 @@ require_once('./backend/api/config.php');
                                             <img src="<?php echo $row[$key]['postPicture']; ?>" class="w-100">
                                         </div>
                                         <div class="col-sm-12 mt-2">
-                                            <h2><?php echo $row[$key]['postName']; ?></h2>
+                                            <h2>รายละเอียดโปรโมชั่น</h2>
                                         </div>
                                         <hr>
                                         <div class="col-sm-12">
