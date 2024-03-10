@@ -167,18 +167,18 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="address-home">บ้านเลขที่</label>
-                                <input type="address-home" class="form-control">
+                                <input type="address-home" class="form-control" id="home">
                             </div>
                         </div><br>
                         <div class="row">
                             <div class="col">
                                 <label for="address-province">จังหวัด</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="province">
                             </div>
 
                             <div class="col">
                                 <label for="address-province">อำเภอ</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="district_1">
                             </div>
 
                         </div>
@@ -186,12 +186,12 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="address-province">ตำบล</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="district_2">
                             </div>
 
                             <div class="col">
                                 <label for="address-province">รหัสไปรษณีย์</label>
-                                <input type="address-province" class="form-control">
+                                <input type="address-province" class="form-control" id="postcode">
                             </div>
                         </div>
                     </form>
@@ -200,7 +200,7 @@ require_once('./backend/api/config.php');
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger mt-3" data-bs-dismiss="modal">Close</button>
-                    <button onclick="" type="button" class="btn btn-success mt-3">Add-staff</button>
+                    <button onclick="staffRegister()" type="button" class="btn btn-success mt-3">Add-staff</button>
                 </div>
 
             </div>
@@ -273,125 +273,28 @@ require_once('./backend/api/config.php');
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>0001</td>
-                                <td>Delivery</td>
-                                <td>15 รายการ</td>
-                                <td>1500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>0002</td>
-                                <td>Self/Pick-up</td>
-                                <td>5 รายการ</td>
-                                <td>500.00</td>
-                            </tr>
+
+                            <?php
+                            $query1 = "SELECT bill.*, SUM(orders.amount) AS order_amount FROM bill INNER JOIN orders ON bill.bill_id = orders.bill_id GROUP BY bill.bill_id";
+                            $stmt1 = $conn->prepare($query1);
+                            if ($stmt1->execute()) {
+                                $row1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+                                $num = 1;
+                                foreach ($row1 as $key => $value) {
+                            ?>
+                                    <tr>
+                                        <td><?php echo $num ?></td>
+                                        <td><?php echo $row1[$key]['bill_id'] ?></td>
+                                        <td><?php echo $row1[$key]['type'] ?></td>
+                                        <td><?php echo $row1[$key]['order_amount'] ?></td>
+                                        <td><?php echo $row1[$key]['totalPrice'] ?></td>
+                                    </tr>
+                            <?php
+                                    $num = $num + 1;
+                                }
+                            }
+                            ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -418,17 +321,31 @@ require_once('./backend/api/config.php');
                                 <th>ชื่อ-นามสกุล</th>
                                 <th>เบอร์โทรศัพท์</th>
                                 <th>Email</th>
-                                <th>ที่อยู่</th>
+                                <th>ตำแหน่ง</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>0001</td>
-                                <td>Delivery</td>
-                                <td>15 รายการ</td>
-                                <td>1500.00</td>
-                            </tr>
+                            <?php
+                            $query2 = "select * from users where groupID = ?";
+                            $stmt2 = $conn->prepare($query2);
+                            if ($stmt2->execute([2])) {
+                                $row2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                                $number = 1;
+                                foreach ($row2 as $key => $value) {
+                            ?>
+                                    <tr>
+                                        <td><?php echo $number ?></td>
+                                        <td><?php echo $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?></td>
+                                        <td><?php echo $row2[$key]['telephone'] ?></td>
+                                        <td><?php echo $row2[$key]['email'] ?></td>
+                                        <td>staff</td>
+                                    </tr>
+                            <?php
+                                    $number = $number + 1;
+                                }
+                            }
+                            ?>
+
                         </tbody>
                     </table>
                 </div>
@@ -447,15 +364,31 @@ require_once('./backend/api/config.php');
                             <th>เบอร์โทรศัพท์</th>
                             <th>Email</th>
                             <th>ที่อยู่</th>
-                            <th>สถานะ</th>
+                            <th>ลบพนักงาน</th>
                         </thead>
                         <tbody>
-                            <th>1</th>
-                            <th>AA AA</th>
-                            <th>059xxxx</th>
-                            <th>asd@gmail.com</th>
-                            <th>5 ซอย 9</th>
-                            <th><button class="btn btn-danger" style="margin: 0 auto;">ลบรายชื่อ</button></th>
+                            <?php
+                            $query2 = "select * from users where groupID = ?";
+                            $stmt2 = $conn->prepare($query2);
+                            if ($stmt2->execute([2])) {
+                                $row2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+                                $number = 1;
+                                foreach ($row2 as $key => $value) {
+                            ?>
+                                    <tr>
+                                        <td><?php echo $number ?></td>
+                                        <!-- <td><?php echo $row2[$key]["uid"] ?></td> -->
+                                        <td><?php echo "คุณ " . $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?></td>
+                                        <td><?php echo $row2[$key]['telephone'] ?></td>
+                                        <td><?php echo $row2[$key]['email'] ?></td>
+                                        <td>staff</td>
+                                        <td><button class="btn btn-danger" value="<?php echo $row2[$key]["uid"] ?>" onclick="delStaff(this)" style="margin: 0 auto;">ลบพนักงาน</button></td>
+                                    </tr>
+                            <?php
+                                    $number = $number + 1;
+                                }
+                            }
+                            ?>
                         </tbody>
                     </table>
                 </div>
@@ -523,30 +456,14 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="promotion" class="form-label">ชื่อโปรโมชั่น/โพสต์ :</label>
-                                <input type="promotion" class="form-control" id="promoName" name="promotion" placeholder="กรอกชื่อโปรโมชั่น">
-                            </div>
-
-                            <div class="col">
-                                <label for="typeFood" class="form-label">ขั้นต่ำ :</label>
-                                <input type="promotion" class="form-control" id="promoMin" name="promotion" value="0">
-                            </div>
-                        </div>
-
-                        <div class="row mt-3">
-                            <div class="col">
-                                <label for="sales-price" class="form-label">ลดราคา :</label>
-                                <input type="text" class="form-control" id="discount" placeholder=""><br>
-                            </div>
-                            <div class="col">
-                                <label for="sales-price" class="form-label">โค้ด :</label>
-                                <input type="text" class="form-control" id="code" placeholder=""><br>
+                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="กรอกชื่อโปรโมชั่น">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="foodDetail" class="form-label">รายละเอียด :</label>
-                                <textarea class="form-control" name="foodDetail" id="promoDetail" cols="30" rows="10" placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
+                                <textarea class="form-control" name="foodDetail" id="postDetail" cols="30" rows="10" placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
                             </div>
                         </div>
 
@@ -564,37 +481,80 @@ require_once('./backend/api/config.php');
             </div>
         </div>
         <script type="text/javascript">
+            function delStaff(button) {
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var userUid = button.value;
+                        console.log(userUid);
+                        $.ajax({
+                            method: "post",
+                            url: "./backend/api/delStaff.php",
+                            data: {
+                                userUid: userUid,
+                            },
+                            success: function(response) {
+                                console.log(response);
+                                try {
+                                    var responseObject = JSON.parse(response);
+                                    if (responseObject.RespCode == 200) {
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "ลบพนักงานสำเร็จ!!",
+                                            timer: 1000,
+                                            showConfirmButton: false
+                                        });
+                                        setTimeout(function() {
+                                            location.reload();
+                                        }, 1000);
+                                    } else if (responseObject.RespCode == 400) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "ลบพนักงานล้มเหลว!!",
+                                            timer: 2000,
+                                        });
+                                    } else if (responseObject.RespCode == 450) {
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "ไม่มี UID นี้ในระบบ",
+                                            timer: 2000,
+                                        });
+                                    }
+                                } catch (error) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "Something went wrong!",
+                                        timer: 2000,
+                                    });
+                                }
+                            },
+                            error: function(err) {
+                                console.log("badmakmak", err);
+                            }
+
+                        })
+                    }
+                });
+            };
+
+
             function addPromo() {
                 var pass = true;
-                if ($("#promoName").val().length <= 0) {
+                if ($("#postName").val().length <= 0) {
                     pass = false;
                     Swal.fire({
                         icon: "error",
                         title: "กรุณากรอกข้อมูลให้ครบ!!",
                         timer: 5000,
                     });
-                } else if ($("#promoMin").val().length <= 0) {
-                    pass = false;
-                    Swal.fire({
-                        icon: "error",
-                        title: "กรุณากรอกข้อมูลให้ครบ!!",
-                        timer: 5000,
-                    });
-                } else if ($("#discount").val().length <= 0) {
-                    pass = false;
-                    Swal.fire({
-                        icon: "error",
-                        title: "กรุณากรอกข้อมูลให้ครบ!!",
-                        timer: 5000,
-                    });
-                } else if ($("#code").val().length <= 0) {
-                    pass = false;
-                    Swal.fire({
-                        icon: "error",
-                        title: "กรุณากรอกข้อมูลให้ครบ!!",
-                        timer: 5000,
-                    });
-                } else if ($("#promoDetail").val().length <= 0) {
+                } else if ($("#postDetail").val().length <= 0) {
                     pass = false;
                     Swal.fire({
                         icon: "error",
@@ -608,11 +568,8 @@ require_once('./backend/api/config.php');
                         var formData = new FormData();
                         var files = $('#imgFile')[0].files;
                         formData.append('fileImg', files[0]);
-                        formData.append('promoName', $('#promoName').val());
-                        formData.append('promoMin', $('#promoMin').val());
-                        formData.append('discount', $('#discount').val());
-                        formData.append('code', $('#code').val());
-                        formData.append('promoDetail', $('#promoDetail').val());
+                        formData.append('postName', $('#postName').val());
+                        formData.append('postDetail', $('#postDetail').val());
 
                         $.ajax({
                             url: './addPromotion.php',
@@ -747,6 +704,142 @@ require_once('./backend/api/config.php');
                 }
             }
 
+            function staffRegister() {
+                var pass = true;
+                if ($("#uName").val().length <= 5) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Username must be at least 5 characters!!",
+                        timer: 5000,
+                    });
+                } else if (!validateEmail($("#email").val())) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "email is invalid!!",
+                        timer: 5000,
+                    });
+                } else if ($("#rPassword").val().length <= 5) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Password must be at least 5 characters!!",
+                        timer: 5000,
+                    });
+                } else if ($("#fName").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "First name can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#lName").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Last name can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#phone").val().length <= 8) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Phone must be at least 8 characters!!",
+                        timer: 5000,
+                    });
+                } else if ($("#home").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Address can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#province").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Address can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#district_1").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Address can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#district_2").val().length <= 0) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Address can't be empty!!",
+                        timer: 5000,
+                    });
+                } else if ($("#postcode").val().length != 5) {
+                    pass = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Postcode must be 5 characters!!",
+                        timer: 5000,
+                    });
+                }
+
+                if (pass) {
+                    $.ajax({
+                        method: "post",
+                        url: "./backend/api/staffsignup.php",
+                        data: {
+                            username: $("#uName").val(),
+                            password: $("#rPassword").val(),
+                            email: $("#email").val(),
+                            firstname: $("#fName").val(),
+                            lastname: $("#lName").val(),
+                            phone: $("#phone").val(),
+                            home: $("#home").val(),
+                            province: $("#province").val(),
+                            district_1: $("#district_1").val(),
+                            district_2: $("#district_2").val(),
+                            postcode: $("#postcode").val(),
+                        },
+                        success: function(response) {
+                            console.log("good", response);
+                            try {
+                                var responseObject = JSON.parse(response);
+                                console.log(responseObject.RespCode);
+                                if (responseObject.RespCode == 200) {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "add staff success!!",
+                                        timer: 1000,
+                                        showConfirmButton: false,
+                                    });
+                                    setTimeout(function() {
+                                        location.reload();
+                                    }, 1000);
+                                } else if (responseObject.RespCode == 400) {
+                                    Swal.fire({
+                                        icon: "error",
+                                        title: "add staff failed!!",
+                                        timer: 2000,
+                                    });
+                                }
+                            } catch (error) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Something went wrong!",
+                                    timer: 2000,
+                                });
+                            }
+
+                        },
+                        error: function(err) {
+                            console.log("badmakmak", err);
+                        },
+                    });
+                }
+            }
+
             function clearForm() {
                 $('#food').val('');
                 $('#type-food').val('NULL');
@@ -757,11 +850,8 @@ require_once('./backend/api/config.php');
             }
 
             function clearFormPromo() {
-                $('#promoName').val('');
-                $('#promoMin').val('');
-                $('#discount').val('');
-                $('#code').val('');
-                $('#promoDetail').val('');
+                $('#postName').val('');
+                $('#postDetail').val('');
                 $('#imgFile').val('');
             }
         </script>

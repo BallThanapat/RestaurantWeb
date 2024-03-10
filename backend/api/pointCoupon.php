@@ -7,12 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $stmt1->execute([$_SESSION['uID']]);
     $userPoint = $stmt1->fetchColumn(0);
     if ($userPoint >= 500) {
-        $check_query = "SELECT COUNT(*) AS userPromo FROM user_promotion WHERE uid = ? AND codeID = ?";
+        $check_query = "SELECT COUNT(*) AS userPromo FROM user_code WHERE uid = ? AND codeID = ?";
         $check_stmt = $conn->prepare($check_query);
         $check_stmt->execute([$_SESSION['uID'], 1]);
         $userPromo = $check_stmt->fetch(PDO::FETCH_ASSOC)['userPromo'];
         if ($userPromo < 1) {
-            $query5 = "INSERT INTO user_promotion (uid, used, codeID) VALUES (?,?,?)";
+            $query5 = "INSERT INTO user_code (uid, used, codeID) VALUES (?,?,?)";
             $stmt5 = $conn->prepare($query5);
             $stmt5->execute([$_SESSION['uID'], 0, 1]);
         }
@@ -20,11 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt2 = $conn->prepare($query2);
         $pbalance = $userPoint - 500;
         if ($stmt2->execute([$pbalance, $_SESSION['uID']])) {
-            $query3 = "SELECT used FROM user_promotion WHERE uid = ? AND codeID = ?";
+            $query3 = "SELECT used FROM user_code WHERE uid = ? AND codeID = ?";
             $stmt3 = $conn->prepare($query3);
             $stmt3->execute([$_SESSION['uID'], 1]);
             $useAble = $stmt3->fetchColumn(0);
-            $query4 = "UPDATE user_promotion SET used = ? WHERE uid = ? AND codeID = ?";
+            $query4 = "UPDATE user_code SET used = ? WHERE uid = ? AND codeID = ?";
             $stmt4 = $conn->prepare($query4);
             $useAble = $useAble + 1;
             if ($stmt4->execute([$useAble, $_SESSION['uID'], 1])) {
