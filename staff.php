@@ -108,6 +108,40 @@
             var imgClone = clickImg.cloneNode(true);
             modal_img.appendChild(imgClone);
         }
+        function acceptOrd(billID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "acceptStaff.php?action=accept&bill_id=" + billID, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location.reload();
+                    // $('.content').load(location.href + ' .content');
+                }
+            };
+            xhr.send();
+        }
+        function declineOrd(billID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "acceptStaff.php?action=decline&bill_id=" + billID, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location.reload();
+                }
+            };
+            xhr.send();
+        }
+        function confirmOrd(billID) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "acceptStaff.php?action=confirm&bill_id=" + billID, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    window.location.reload();
+                }
+            };
+            xhr.send();
+        }
     </script>
 
     <!-- Modal -->
@@ -162,8 +196,8 @@
             <div class="mainbar">
                 <div class="account-staff">
                     <?php
-                    $username = $_SESSION['username'];
-                    echo $username;
+                    // $username = $_SESSION['username'];
+                    // echo $username;
                     ?>
                 </div>
             </div>
@@ -294,13 +328,9 @@
                                     $_SESSION['bill_id']=$bill['bill_id'];
                                 ?>
                                 <div class="content-order order-btn">
-                                    <form method="post" action="acceptStaff.php?action=accept">
-                                        <button class="btn btn-success" id="btn-order"
-                                        data-target="custom-select3">Accept</button>
-                                    </form>
-                                    <form method="post" action="acceptStaff.php?action=decline">
-                                    <button class="btn btn-danger mt-2">Decline</button>
-                                    </form>
+                                        <button class="btn btn-success" id="btn-order" data-target="custom-select3"
+                                        onclick="acceptOrd('<?php echo $bill['bill_id'];?>')">Accept</button>
+                                        <button class="btn btn-danger mt-2" onclick="declineOrd('<?php echo $bill['bill_id'];?>')">Decline</button>
                                 </div>
                             </div>
                     <?php
@@ -439,9 +469,7 @@
                                     $_SESSION['bill_id2']=$bill['bill_id'];
                                 ?>
                             <div class="content-order order-btn">
-                            <form method="post" action="acceptStaff.php?action=confirm">
-                                <button class="btn btn-success">Confirm</button>
-                            </form>
+                                <button class="btn btn-success" onclick="confirmOrd('<?php echo $bill['bill_id'];?>')">Confirm</button>
                             </div>
                         </div>
                         <?php
