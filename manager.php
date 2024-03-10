@@ -87,6 +87,7 @@ require_once('./backend/api/config.php');
             } else {
                 checkbox.value = 0;
             }
+            console.log(checkbox.value);
 
         }
 
