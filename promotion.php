@@ -370,7 +370,7 @@ require_once('./backend/api/config.php');
                                             <img src="<?php echo $row[$key]['postPicture']; ?>" class="w-100">
                                         </div>
                                         <div class="col-sm-12 mt-2">
-                                            <h2>รายละเอียดโปรโมชั่น</h2>
+                                            <h2>รายละเอียดโปรโมชัน</h2>
                                         </div>
                                         <hr>
                                         <div class="col-sm-12">
