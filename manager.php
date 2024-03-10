@@ -87,7 +87,6 @@ require_once('./backend/api/config.php');
             } else {
                 checkbox.value = 0;
             }
-            console.log(checkbox.value);
 
         }
 
@@ -250,15 +249,81 @@ require_once('./backend/api/config.php');
             <div class="content dashboard" id="dashboard">
                 <div class="space-content">
                     <h1>Dashboard</h1>
+
+
+                    <!-- code กราฟจะ error หากในตาราง log ไม่มีข้อมูลของ 6 เดือนที่ผ่านมา วิธีแก้คือไป insert ตาราง bill แล้ว insert ตาราง log ให้มี data ของ 6 เดือนที่ผ่านมาคือเสร็จสิ้น -->
+                    <?php
+                    //คิวรี่รายได้รวมของ 6 เดือนที่ผ่านมา
+                    $query5 = "SELECT YEAR(date_log) AS year, MONTH(date_log) AS month, SUM(totalPrice) AS total_monthly_sales FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE date_log >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) GROUP BY YEAR(date_log), MONTH(date_log) ORDER BY YEAR(date_log), MONTH(date_log)";
+                    $stmt5 = $conn->prepare($query5);
+                    $stmt5->execute();
+                    $results = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+
+                    $dataPoints = array();
+                    foreach ($results as $row) {
+                        $dataPoints[] = array("label" => "{$row['year']}-{$row['month']}", "y" => $row['total_monthly_sales']);
+                    }
+
+                    $dataPoints = array(
+                        array("label" => $dataPoints[0]['label'], "y" => $dataPoints[0]['y']),
+                        array("label" => $dataPoints[1]['label'], "y" => $dataPoints[1]['y']),
+                        array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
+                        array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
+                        array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
+                        array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
+                    );
+
+                    ?>
+
+                    <script>
+                        window.onload = function() {
+
+                            var chart = new CanvasJS.Chart("chartContainer", {
+                                animationEnabled: true,
+                                theme: "light2", // "light1", "light2", "dark1", "dark2"
+                                title: {
+                                    text: "รายได้ต่อเดือนของ 6 เดือนล่าสุด"
+                                },
+                                axisY: {
+                                    title: "รายได้ต่อเดือน"
+                                },
+                                data: [{
+                                    type: "column",
+                                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                                }]
+                            });
+                            chart.render();
+
+                        }
+                    </script>
+
                     <div class="dashboard-output">
+                        <div id="chartContainer" style="height: 100%; width: 100%;"></div>
                         <!-- Chart -->
                     </div>
+                    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+
                     <div class="sum">
+                        <?php
+                        //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill โดยมีเงื่อนไขคือวันก่อนหน้าวันปัจจุบัน 1 วัน
+                        $query3 = 'SELECT SUM(bill.totalPrice) AS total_last_day FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE DATE(log.date_log) = CURDATE() - INTERVAL 1 DAY';
+                        $stmt3 = $conn->prepare($query3);
+                        $stmt3->execute();
+                        $result1 = $stmt3->fetch(PDO::FETCH_ASSOC);
+                        $totalLastDay = $result1['total_last_day'];
+
+                        //คิวรี่นี้ทำการหาผลรวมจาก totalPrice ในตาราง bill ที่อยู่ในเดือนปัจจุบัน
+                        $query4 = 'SELECT SUM(bill.totalPrice) AS total_this_month FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE YEAR(log.date_log) = YEAR(CURRENT_DATE) AND MONTH(log.date_log) = MONTH(CURRENT_DATE)';
+                        $stmt4 = $conn->prepare($query4);
+                        $stmt4->execute();
+                        $result2 = $stmt4->fetch(PDO::FETCH_ASSOC);
+                        $totalThisMonth = $result2['total_this_month'];
+                        ?>
                         <div class="sum-day">
-                            <h4>รายได้ต่อวันสุทธิ</h4>
+                            <h4>รายได้ต่อวันสุทธิ: <?php echo $totalLastDay; ?></h4>
                         </div>
                         <div class="sum-month">
-                            <h4>รายได้ต่อเดือนสุทธิ</h4>
+                            <h4>รายได้ต่อเดือนสุทธิ: <?php echo $totalThisMonth; ?></h4>
                         </div>
 
                     </div>
@@ -305,15 +370,32 @@ require_once('./backend/api/config.php');
                         </tbody>
                     </table>
                 </div>
+
+                <?php
+                $query6 = "SELECT SUM(amount) AS total_amount FROM orders";
+                $query7 = "SELECT SUM(totalPriceUnit) AS total_totalPriceUnit FROM orders";
+                $query8 = "SELECT AVG(totalPrice) AS average_totalPrice FROM (SELECT uid, SUM(totalPrice) AS totalPrice FROM bill GROUP BY uid) AS subquery";
+                $stmt6 = $conn->prepare($query6);
+                $stmt7 = $conn->prepare($query7);
+                $stmt8 = $conn->prepare($query8);
+                $stmt6->execute();
+                $stmt7->execute();
+                $stmt8->execute();
+                $val1 = $stmt6->fetchColumn();
+                $val2 = $stmt7->fetchColumn();
+                $val3 = $stmt8->fetchColumn();
+                $val3 = number_format($val3, 2);
+                ?>
+
                 <div class="summarize-day">
                     <div class="count">
-                        <h4>จำนวนคำสั่งซื้อ : </h4>
+                        <h4>จำนวนคำสั่งซื้อ : <?php echo $val1; ?> </h4>
                     </div>
                     <div class="income">
-                        <h4>ยอดขายสุทธิ : </h4>
+                        <h4>ยอดขายสุทธิ : <?php echo $val2; ?> </h4>
                     </div>
                     <div class="mean-income">
-                        <h4>ยอดขายเฉลี่ยต่อลูกค้า : </h4>
+                        <h4>ยอดขายเฉลี่ยต่อลูกค้า : <?php echo $val3; ?> </h4>
                     </div>
                 </div>
             </div>
