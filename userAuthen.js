@@ -280,8 +280,12 @@ function gotologout(page) {
                     icon: "success",
                     title: "Logout success!!",
                     timer: 5000,
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        window.location.href = "./index.php";
+                    }
                 });
-                window.location.href = "./index.php";
+                
             },
             error: function (xhr, status, error) {
                 // Handle error if AJAX request fails

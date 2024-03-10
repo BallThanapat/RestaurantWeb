@@ -232,6 +232,10 @@ if (!empty($_GET["action"])) {
         }
       };
       xhr.send();
+
+      setTimeout(function() {
+        location.reload();
+      }, 1000); // Reload after 1 seconds
     }
 
     function deleteItem(foodDetail) {
@@ -263,6 +267,7 @@ if (!empty($_GET["action"])) {
         }
       };
       xhr.send(); // ส่งพารามิเตอร์ foodDetail และ quantity ไปยัง menu.php
+
     }
 
     function addNum(foodDetail) {
@@ -954,6 +959,7 @@ if (!empty($_GET["action"])) {
               <script>
                 function checkLog() {
                   <?php
+                  
                   if (isset($_SESSION["uID"])) {
                     if (isset($_SESSION["cart_item"])) {
                       echo "location.href='purchaseOrder.php'";
