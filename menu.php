@@ -928,7 +928,7 @@ if (!empty($_GET["action"])) {
                               <div class="col-sm-2">
                                   <a href="#" class="btnRemoveAction"
                                     onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                    <img src="delete-icon.png" width="100%" alt="">
+                                    <img src="delete-icon.png" width="50%" alt="">
                                   </a>
                               </div>
 
