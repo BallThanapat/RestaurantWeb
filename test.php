@@ -58,10 +58,10 @@ if (!empty($_GET["action"])) {
     <title>Staff</title>
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    
+
     <style>
         <?php
-        include "menu.css";
+        include "test.css";
         include "managerPage.css";
         include "staff.css";
         ?>
@@ -99,7 +99,7 @@ if (!empty($_GET["action"])) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
-    
+
 
 
 
@@ -111,28 +111,28 @@ if (!empty($_GET["action"])) {
             var order01 = document.getElementById('order');
             var payment01 = document.getElementById('payment');
             var order_history01 = document.getElementById('order-history');
-            var menu = document.getElementById('menu');
+            var menu01 = document.getElementById('divMenu');
 
             if (menuType == "order") {
                 order01.style.display = 'block';
                 payment01.style.display = 'none';
                 order_history01.style.display = 'none';
-                menu = 'none';
+                menu01.style.display = 'none';
             } else if (menuType == "payment") {
                 order01.style.display = 'none';
                 payment01.style.display = 'block';
                 order_history01.style.display = 'none';
-                menu = 'none';
+                menu01.style.display = 'none';
             } else if (menuType == "order_history") {
                 order01.style.display = 'none';
                 payment01.style.display = 'none';
                 order_history01.style.display = 'block';
-                menu = 'none';
+                menu01.style.display = 'none';
             } else if (menuType == "menu") {
                 order01.style.display = 'none';
                 payment01.style.display = 'none';
                 order_history01.style.display = 'none';
-                menu = 'block';
+                menu01.style.display = 'block';
             }
         }
 
@@ -625,7 +625,7 @@ if (!empty($_GET["action"])) {
                 </div>
             </div>
 
-            <div class="content" id="menu">
+            <div class="content" id="divMenu">
                 <div class="menu-bar test1">
                     <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
                         <div class="menu-box-bar-image">
@@ -1055,124 +1055,140 @@ if (!empty($_GET["action"])) {
 
                     </div>
                 </div>
-            </div>
-            <div>
+                <div>
 
 
 
 
 
-                <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
-                    <i class="fa-solid fa-cart-shopping my-float"></i>
-                </a>
-                <!-- Shopping Cart Modals -->
-                <div class="modal fade" id="shoppingCartModal" tabindex="-1" aria-labelledby="shoppingCartModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="modal-cart">
-                                    <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
-                                        class="scrollspy-example" tabindex="0">
-                                        <div class="container">
-                                            <div class="row">
-                                                <?php
-                                                if (isset($_SESSION["cart_item"])) {
-                                                    $total_quantity = 0;
-                                                    $total_price = 0;
-                                                    foreach ($_SESSION["cart_item"] as $item) {
-                                                        $item_price = $item["quantity"] * $item["price"];
-                                                        ?>
-                                                        <div class="col-lg-6 mb-3"> <!-- Item of menu to order -->
-                                                            <div class="container">
-                                                                <div class="row">
-                                                                    <div class="col-sm-5">
-                                                                        <img src="<?php echo $item["picture"]; ?>"
-                                                                            class="w-100">
-                                                                        <!-- รูปภาพจาก MENU -->
-                                                                    </div>
-                                                                    <div class="col-sm-5">
-                                                                        <p>
-                                                                            <?php echo $item["foodName"]; ?>
-                                                                        </p> <!-- ชื่อของเมนู -->
-                                                                        <hr>
-                                                                        <div class="d-flex">
-                                                                            <p class="w-25">
-                                                                                <?php echo "x" . $item["quantity"]; ?>
-                                                                            </p> <!-- จำนวน -->
-                                                                            <p class="w-25 ms-auto text-danger">
-                                                                                <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
-                                                                            </p>
+                    <a href="#" class="float" data-bs-toggle="modal" data-bs-target="#shoppingCartModal">
+                        <i class="fa-solid fa-cart-shopping my-float"></i>
+                    </a>
+                    <!-- Shopping Cart Modals -->
+                    <div class="modal fade" id="shoppingCartModal" tabindex="-1"
+                        aria-labelledby="shoppingCartModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="shoppingCartModalLabel">รายการของคุณ</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="modal-cart">
+                                        <div data-bs-spy="scroll" data-bs-target="#navbar-example2" data-bs-offset="0"
+                                            class="scrollspy-example" tabindex="0">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <?php
+                                                    if (isset($_SESSION["cart_item"])) {
+                                                        $total_quantity = 0;
+                                                        $total_price = 0;
+                                                        foreach ($_SESSION["cart_item"] as $item) {
+                                                            $item_price = $item["quantity"] * $item["price"];
+                                                            ?>
+                                                            <div class="col-lg-6 mb-3"> <!-- Item of menu to order -->
+                                                                <div class="container">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-5">
+                                                                            <img src="<?php echo $item["picture"]; ?>"
+                                                                                class="w-100">
+                                                                            <!-- รูปภาพจาก MENU -->
                                                                         </div>
-                                                                        <!-- <p>
-                                  <a href="#" class="btnRemoveAction"
-                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                    <img src="delete-icon.png" width="90%" alt="">
-                                  </a>
-                                </p> -->
-                                                                    </div>
-                                                                    <div class="col-sm-2">
-                                                                        <a href="#" class="btnRemoveAction"
-                                                                            onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                                                            <img src="delete-icon.png" width="50%" alt="">
-                                                                        </a>
-                                                                    </div>
+                                                                        <div class="col-sm-5">
+                                                                            <p>
+                                                                                <?php echo $item["foodName"]; ?>
+                                                                            </p> <!-- ชื่อของเมนู -->
+                                                                            <hr>
+                                                                            <div class="d-flex">
+                                                                                <p class="w-25">
+                                                                                    <?php echo "x" . $item["quantity"]; ?>
+                                                                                </p> <!-- จำนวน -->
+                                                                                <p class="w-25 ms-auto text-danger">
+                                                                                    <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
+                                                                                </p>
+                                                                            </div>
+                                                                            <!-- <p>
+                  <a href="#" class="btnRemoveAction"
+                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                    <img src="delete-icon.png" width="90%" alt="">
+                  </a>
+                </p> -->
+                                                                        </div>
+                                                                        <div class="col-sm-2">
+                                                                            <a href="#" class="btnRemoveAction"
+                                                                                onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                                                                <img src="delete-icon.png" width="50%" alt="">
+                                                                            </a>
+                                                                        </div>
 
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
 
+                                                            <?php
+                                                            $total_quantity += $item["quantity"];
+                                                            $total_price += $item["price"] * $item["quantity"];
+                                                        }
+                                                        ?>
                                                         <?php
-                                                        $total_quantity += $item["quantity"];
-                                                        $total_price += $item["price"] * $item["quantity"];
+                                                    } else {
+                                                        ?>
+                                                        <div class="no-records">ตะกร้าว่างเปล่า</div>
+                                                        <?php
                                                     }
                                                     ?>
-                                                    <?php
-                                                } else {
-                                                    ?>
-                                                    <div class="no-records">ตระกร้าว่างเปล่า</div>
-                                                    <?php
-                                                }
-                                                ?>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <script>
-                                        // function checkLog() {
-                                            <?php
-                                            // if (isset($_SESSION["uID"])) {
-                                            //     echo "location.href='purchaseOrder.php'";
-                                            // } else {
-                                            //     echo "Swal.fire({
-                                            //     icon: \"error\",
-                                            //     title: \"You must login first. !!!\",
-                                            //     timer: 5000,
-                                            // });";
-                                            // }
-                                            ?>
-                                        // }
-                                    </script>
-                                    <div class="modal-footer d-flex justify-content-center">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">ปิด</button>
-                                        <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
+                                        <script>
+                                            function checkLog() {
+                                                <?php
 
-                                        <button type="button" onclick="location.href='purchaseOrder.php'"
-                  class="btn btn-warning">ทำการสั่งซื้อ</button>
-                                        <!-- <button type="button" onclick="checkLog()"
-                                            class="btn btn-warning">ทำการสั่งซื้อ</button> -->
+                                                if (isset($_SESSION["uID"])) {
+                                                    if (isset($_SESSION["cart_item"])) {
+                                                        echo "location.href='purchaseOrder.php'";
+                                                    } else {
+                                                        echo "Swal.fire({
+                                                            icon: \"error\",
+                                                            title: \"You must add menu first. !!!\",
+                                                            timer: 5000,
+                                                        });";
+                                                    }
+                                                } else {
+                                                    echo "Swal.fire({
+                                                        icon: \"error\",
+                                                        title: \"You must login first. !!!\",
+                                                        timer: 5000,
+                                                    });";
+                                                }
+                                                ?>
+                                            }
+                                        </script>
+                                        <div class="modal-footer d-flex justify-content-center">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">ปิด</button>
+                                            <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
+
+                                            <!-- <button type="button" onclick="location.href='purchaseOrder.php'"
+  class="btn btn-warning">ทำการสั่งซื้อ</button> -->
+                                            <button type="button" onclick="checkLog()" class="btn btn-warning"
+                                                style="color: white; background-color: orangered">ทำการสั่งซื้อ</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
             </div>
+
 
 
         </div>
