@@ -119,8 +119,8 @@ if (!empty($_GET["action"])) {
             xhr.send();
         }
 
-        $(document).ready(function() {
-            $(".select-option").click(function() {
+        $(document).ready(function () {
+            $(".select-option").click(function () {
 
                 $(".select-option").removeClass("selected");
 
@@ -218,6 +218,23 @@ if (!empty($_GET["action"])) {
 </head>
 
 <body>
+    <script>
+    <?php
+    if (isset($_SESSION["cart_item"])) {
+    } else {
+        echo "Swal.fire({
+                icon: \"error\",
+                title: \"You must add menu first. !!!\",
+                timer: 2500,
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    location.href='menu.php';
+                }
+            });";
+    }
+    ?>
+    </script>
+
     <?php
     if (isset($_POST['selectedValue'])) {
         $selectedValue = $_POST['selectedValue'];
@@ -319,7 +336,8 @@ if (!empty($_GET["action"])) {
                 </div>
 
                 <div class="d-flex below">
-                    <button class="btn btn-secondary me-1"><a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a></button>
+                    <button class="btn btn-secondary me-1"><a href="menu.php"
+                            style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
@@ -494,33 +512,35 @@ if (!empty($_GET["action"])) {
                                                 if (!empty($addr_array)) {
                                                     $count = 1;
                                                     foreach ($addr_array as $key => $value) {
-                                                ?>
+                                                        ?>
                                                         <?php $ad = $addr_array[$key]["addr_id"];
                                                         if ($count == 1) {
-                                                        ?>
+                                                            ?>
                                                             <div class="select-option selected" data-value="<?php echo $ad; ?>">
-                                                            <?php
+                                                                <?php
                                                         } else {
                                                             ?>
                                                                 <div class="select-option" data-value="<?php echo $ad; ?>">
-                                                                <?php
-                                                            }
-                                                            $count++;
-                                                                ?>
-                                                                <p><?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
+                                                                    <?php
+                                                        }
+                                                        $count++;
+                                                        ?>
+                                                                <p>
+                                                                    <?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
                                                                         . 'Tel. ' . $addr_array[$key]["telephone"] . ' <br>'
                                                                         . $addr_array[$key]["address"] . ' ' . $addr_array[$key]["province"] . ' ' . $addr_array[$key]["district"]
                                                                         . ' ' . $addr_array[$key]["sub_district"] . ' ' . $addr_array[$key]["postcode"]; ?>
                                                                 </p>
-                                                                </div>
-                                                        <?php
+                                                            </div>
+                                                            <?php
                                                     }
                                                 }
-                                                        ?>
-                                                            </div>
+                                                ?>
+                                                </div>
 
-                                                            <input type="hidden" class="selected-option" name="quantity" id="quantity">
-                                                            <!-- <button id="get-selected-btn">Get Selected Value</button> -->
+                                                <input type="hidden" class="selected-option" name="quantity"
+                                                    id="quantity">
+                                                <!-- <button id="get-selected-btn">Get Selected Value</button> -->
                                             </div>
                                         </div>
                                     </div>
