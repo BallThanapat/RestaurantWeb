@@ -92,7 +92,11 @@ if (!empty($_GET["action"])) {
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
-              alert("เพิ่มสินค้าสำเร็จ");
+              Swal.fire({
+                icon: "success",
+                title: "เพิ่มลงตะกร้าสำเร็จ",
+                timer: 2000,
+                  });
                 }
             };
             xhr.send();
