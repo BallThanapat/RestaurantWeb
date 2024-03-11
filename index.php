@@ -77,6 +77,7 @@ session_start();
         }
       });
     });
+
   </script>
 
   <title>Home</title>
