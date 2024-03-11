@@ -270,8 +270,8 @@
             <div class="mt-5 mb-2">
                 <!-- <hr> -->
                 <div class="numbered-hr">
-                    <span class="number num1" id="num1">1</span>
-                    <span class="number num2" id="num2">2</span>
+                    <span class="number num11" id="num1">1</span>
+                    <span class="number num22" id="num2">2</span>
                     <span class="number num3" id="num3">3</span>
                 </div>
             </div>
