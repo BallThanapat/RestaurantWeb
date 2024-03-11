@@ -704,6 +704,22 @@ footer {
     background-color: white;
 }
 
+.cart-action2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2%;
+}
+
+.cart-action2 button {
+    width: 30px;
+    height: 35%;
+    border: none;
+    border-radius: 2px;
+    border: 1px solid grey;
+    background-color: white;
+}
+
 
 /* #buttonBar1{
     color: white;
