@@ -103,6 +103,7 @@ if (!empty($_GET["action"])) {
 
         }
 
+        // เลือกประเภทการจัดส่ง
         function typePick(type) {
 
             if (type == "selfpickup") {
@@ -143,25 +144,25 @@ if (!empty($_GET["action"])) {
                 var selectedValue = $(this).val();
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
                 sessionStorage.setItem('selectedValue', selectedValue);
-                var storedValue = sessionStorage.getItem('selectedValue');
-                console.log(storedValue)
 
-                // $.ajax({
-                //     type: 'POST',
-                //     url: 'purchaseOrder.php',
-                //     data: {
-                //         selectedValue: selectedValue
-                //     },
-                //     success: function (response) {
-                //         // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
-                //         console.log("good");
-                //         // console.log(response);
-                //     },
-                //     error: function (xhr, status, error) {
-                //         // จัดการข้อผิดพลาด (ถ้ามี)
-                //         console.error(xhr.responseText);
-                //     }
-                // });
+                if (selectedValue == "1" || selectedValue == "2") {
+
+                    $(".item-container").hide();
+
+                    $("#div" + selectedValue).show();
+                }
+            });
+            $(".select-option2").click(function () {
+
+                $(".select-option2").removeClass("selected");
+
+                $(this).addClass("selected");
+
+                var selectedValue = $(this).val();
+                $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
+                sessionStorage.setItem('selectedValue', selectedValue);
+
+
 
                 if (selectedValue == "1" || selectedValue == "2") {
 
@@ -173,12 +174,11 @@ if (!empty($_GET["action"])) {
 
             $(".get-selected-btn").click(function () {
                 var targetCustomSelect = $(this).data("target");
-                // console.log(targetCustomSelect);
                 var selectedValue = $(".select-option.selected").data("value");
-
-                // var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
+                var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
                 console.log("Selected value: " + selectedValue);
 
+                var targetCustomSelect = $(this).data("target");
                 if (targetCustomSelect === "custom-select1") {
                     alert("Button 1 was clicked.");
                 } else if (targetCustomSelect === "custom-select2") {
@@ -193,8 +193,7 @@ if (!empty($_GET["action"])) {
                         },
                         success: function (response) {
                             // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
-                            console.log("good");
-                            // console.log(response);
+                            console.log(response);
                         },
                         error: function (xhr, status, error) {
                             // จัดการข้อผิดพลาด (ถ้ามี)
@@ -233,10 +232,10 @@ if (!empty($_GET["action"])) {
 
 <body>
     <script>
-    <?php
-    if (isset($_SESSION["cart_item"])) {
-    } else {
-        echo "Swal.fire({
+        <?php
+        if (isset($_SESSION["cart_item"])) {
+        } else {
+            echo "Swal.fire({
                 icon: \"error\",
                 title: \"You must add menu first. !!!\",
                 timer: 2500,
@@ -245,8 +244,8 @@ if (!empty($_GET["action"])) {
                     location.href='menu.php';
                 }
             });";
-    }
-    ?>
+        }
+        ?>
     </script>
 
     <?php
@@ -387,12 +386,10 @@ if (!empty($_GET["action"])) {
                                     <div class="col1-sub-content-2">
                                         <button class="select-option2 selected" value="1"
                                             onclick="typePick('delivery');">เดลิเวอรี่</button>
-                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                     <div class="col1-sub-content-2">
                                         <button class="select-option2"
                                             onclick="typePick('selfpickup');">รับที่ร้าน</button>
-                                        <!--แก้ ปรับ css ให้ปุ่ม -->
                                     </div>
                                 </div>
                             </div>
@@ -562,9 +559,8 @@ if (!empty($_GET["action"])) {
                                 <div class="modal-footer d-flex justify-content-center">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
 
-                                    <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();"
-                                        data-bs-dismiss="modal">ตกลง</button>
-                                    <!-- แก้ css ปุ่ม ตกลง -->
+                                    <button class="btn get-selected-btn" id="btn-order"
+                                        onclick="addToAddr();">ตกลง</button>
 
                                 </div>
                             </div>
