@@ -17,7 +17,6 @@ session_start();
         $_SESSION['type'] = "delivery";
     }
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        // $total_price2 = $_SESSION['tPrice'];
         $filename = $_FILES['fileImg']['name'];
         echo $filename;
         $ext = pathinfo($filename, PATHINFO_EXTENSION);

@@ -42,7 +42,6 @@ session_start();
                     $stmt = $conn->prepare($query);
                     $stmt->execute([
                     0]);
-                    // echo "<script>window.location.href='staff.php';</script>";
                 }else {
                     http_response_code(405);
                 }
@@ -68,7 +67,6 @@ session_start();
                     $query = "UPDATE users SET point=? where uid = $uidP ";
                     $stmt = $conn->prepare($query);
                     $stmt->execute([$totalPoint]);
-                    // echo "<script>window.location.href='staff.php';</script>";
                 }else {
                     http_response_code(405);
                 }

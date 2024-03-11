@@ -3,7 +3,6 @@
         private $host = "localhost";
         private $user = "root";
         private $password = "";
-        // private $database = "kruagame";
         private $database = "kruagame";
         private $conn;
 

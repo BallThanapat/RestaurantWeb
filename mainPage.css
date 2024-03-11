@@ -78,9 +78,6 @@ body {
     background-color: transparent;
     backdrop-filter: blur(40px);
     border-radius: 16px;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     z-index: 1;
 }
 
@@ -201,7 +198,6 @@ body {
     .header {
         width: 80%;
         height: auto;
-        /* padding: 10px; */
     }
 }
 
@@ -275,17 +271,9 @@ body {
 }
 
 .page3 img {
-    /* filter: brightness(); */
     max-height: 110vh;
 }
 
-/* .shadow-tab{
-    position: absolute;
-    background-color: rgb(0, 0, 0, 0.7);
-    width: 105%;
-    height: 100%;
-    z-index: 1;
-} */
 .page4 img {
     width: 100%;
     max-height: 120vh;
@@ -330,15 +318,6 @@ body {
     .box-text h1 {
         font-size: 3rem;
     }
-
-    /* .box-text p,
-    .box-text button {
-        font-size: 0.75rem;
-    }
-
-    .box-text button {
-        width: 20%;
-    } */
 }
 
 @media screen and (max-width: 768px) {
@@ -389,30 +368,6 @@ body {
     }
 }
 
-/* Modals */
-/* .modal-lg {
-    width: 100vh;
-}
-.modal-lg .modal-title{
-    font-weight: bolder;
-    font-size: 36px;
-} */
-/* #buttonBar1{
-    color: white;
-    border-color: #f79400;
-    background-color: #f79400;
-}
-#buttonBar1:hover, #buttonBar1:active, #buttonBar1:checked {
-    color: #fff;
-    background-color: #f79400;
-    border-color: #f79400;
-}
-#btnradio1:checked, #btnradio1:ac{
-    color: #fff;
-    background-color: #f79400;
-    border-color: #f79400;
-} */
-
 /* Footer */
 footer {
     height: auto;
@@ -431,10 +386,6 @@ footer {
 .footer .box-footer {
     width: 100%;
     height: auto;
-    /* border: 1px solid red; */
-    /* position: absolute; */
-    /* left: 50%;
-    transform: translate(-50%); */
     margin-top: 40px;
     z-index: 1;
     color: white;

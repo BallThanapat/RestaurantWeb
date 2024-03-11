@@ -234,7 +234,7 @@ require_once('./backend/api/config.php');
 
     <div class="adminmain">
         <div class="sidebar">
-            <div class="head-bar">KhunGame-Restaurant</div>
+            <div class="head-bar"><img src="Image_inventory/logo_restaurant.png" alt=""></div>
             <div class="datetime" id="datetime">
                 <i class="fa-regular fa-clock"></i>
                 <span id="clock-icon"></span>

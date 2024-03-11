@@ -160,9 +160,6 @@ if (!empty($_GET["action"])) {
 
                 var selectedValue = $(this).val();
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
-                // sessionStorage.setItem('selectedValue', selectedValue);
-
-
 
                 if (selectedValue == "1" || selectedValue == "2") {
 
@@ -182,7 +179,6 @@ if (!empty($_GET["action"])) {
                 if (targetCustomSelect === "custom-select1") {
                     alert("Button 1 was clicked.");
                 } else if (targetCustomSelect === "custom-select2") {
-                    // alert("Button 2 was clicked.");
                     click2();
 
                     $.ajax({
@@ -201,8 +197,6 @@ if (!empty($_GET["action"])) {
                         }
                     });
                 } else if (targetCustomSelect === "custom-select3") {
-                    // alert("Button 3 was clicked.");
-                    // click2();
                     location.href = "menu.php";
                 };
             });
@@ -369,7 +363,6 @@ if (!empty($_GET["action"])) {
                             echo "<a href=\"menu.php\" style=\"text-decoration: none; color: white; font-size: 1rem;\">ยกเลิก</a>";
                         }
                         ?>
-                        <!-- <a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a> -->
                     </button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>

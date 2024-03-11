@@ -204,7 +204,7 @@ session_start();
     </div>
 
     <div class="pic-main">
-        <span><a href="index.php" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
+        <span><a href="../index.php" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home">
                     <span id="span-i">> Profile</span></i></a>
         </span>
     </div>

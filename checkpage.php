@@ -5,6 +5,4 @@ session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $page = $_POST['mainPage'];
     $_SESSION['page'] = $page;
-    // $object = new stdClass();
-    // $object->RespCode = 200;
 }

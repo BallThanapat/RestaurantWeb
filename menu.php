@@ -66,19 +66,6 @@ if (!empty($_GET["action"])) {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-    integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-    crossorigin="anonymous"></script> -->
-
   <!-- Font Header-->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -342,17 +329,6 @@ if (!empty($_GET["action"])) {
       </div>
     </nav>
   </header>
-
-  <!-- <header class="header">
-    
-    <a href="index.html" class="header-link">KITCHENHOME</a>
-    <nav class="navbar01">
-      <a href="index.php" class="links"><i class="fa-solid fa-house-chimney" id="backHome"></i></a>
-      <a href="" class="links">โปรโมชั่น</a>
-      <a href="" class="links" data-bs-toggle="modal" data-bs-target="#loginRegisModal">เข้าสู่ระบบ/สมัครสมาชิก</a>
-      <i class="fa-solid fa-list-ul" id="list-menu"></i>
-    </nav>
-  </header> -->
   <script>
     document.getElementById("navbarToggle").addEventListener("click", function () {
       var nT = document.getElementById("navbarToggle");
@@ -480,13 +456,7 @@ if (!empty($_GET["action"])) {
   </div>
 
   <div class="pic-main">
-    <!-- <span><a href="index.php" class="links" id="backHome2"><i class="fa-solid fa-house-chimney" id="icon-home"> -->
-    <!-- <span id="span-i">> Menu</span></i></a> -->
-    <!-- </span> -->
   </div>
-
-  <!-- a href="" class="links" data-bs-toggle="modal"
-        data-bs-target="#shoppingCartModal">เข้าสู่ระบบ/สมัครสมาชิก</a> -->
 
   <div class="menu-bar test1">
     <div class="menu-box-bar" id="recomm-menu" onclick="showMenu('recommend')">
@@ -944,7 +914,7 @@ if (!empty($_GET["action"])) {
                               <div class="col-sm-2">
                                 <a href="#" class="btnRemoveAction"
                                   onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                  <img src="delete-icon.png" width="50%" alt="">
+                                  <img src="Image_inventory/delete-icon.png" width="50%" alt="">
                                 </a>
                               </div>
 
@@ -1020,9 +990,6 @@ if (!empty($_GET["action"])) {
               <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                 <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
-
-                <!-- <button type="button" onclick="location.href='purchaseOrder.php'"
-                  class="btn btn-warning">ทำการสั่งซื้อ</button> -->
                 <button type="button" onclick="checkLog('user')" class="btn btn-warning"
                   style="color: white; background-color: orangered">ทำการสั่งซื้อ</button>
               </div>

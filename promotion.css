@@ -29,7 +29,6 @@ body {
 .navbar01 .links i:hover {
     color: #ffbb00;
     transition: .7s;
-    /* width: 100%; */
 }
 
 .header-link {
@@ -65,7 +64,6 @@ body {
 .navbar01 a:hover {
     color: #ffd900;
     text-decoration: none;
-    /* width: 100%; */
     transition: .5s;
     border-bottom: 3px solid #ffd900;
     border-radius: 10px;
@@ -82,9 +80,6 @@ body {
     background-color: #ffffff;
     backdrop-filter: blur(40px);
     border-radius: 16px;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     box-shadow: 5px 5px 10px;
     z-index: 1;
 }
@@ -156,7 +151,6 @@ body {
 
 .promotionSlide {
     width: 100%;
-    /* height: auto; */
     height: 80%;
     position: relative;
     margin-bottom: 5px;
@@ -187,9 +181,7 @@ body {
 
 .bgImg img {
     max-height: 100vh;
-    /* filter: brightness(30%); */
     width: 100%;
-    /* visibility: hidden; */
     z-index: -1;
 }
 
@@ -204,12 +196,10 @@ body {
 }
 
 .boxes .box {
-    /* background-color: #ffffff; */
     height: 70vh;
     color: #000;
     text-decoration: none;
     display: flex;
-    /* box-shadow: 4px 6px 4px 4px #888; */
 }
 
 .box:hover {
@@ -234,7 +224,6 @@ body {
     top: 0;
     left: 40%;
     z-index: 2;
-    /* background-color: red; */
     color: white;
     padding: 6px;
     font-weight: bold;
@@ -267,8 +256,6 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    /* margin-left: 2%; */
-    /* margin-right: 2%; */
 }
 
 #allPromotion a {
@@ -310,7 +297,6 @@ body {
 
 .item {
     padding: 3vh;
-    /* margin: 3vh; */
     background-color: #ffae44;
     width: 100%;
 }
@@ -400,27 +386,20 @@ footer {
 }
 .footer {
     width: 100%;
-    /* padding: 20px; */
     min-height: 50vh;
     height: auto;
     background-color: #000000;
-    /* text-align: center; */
 }
 
 .footer .box-footer {
     width: 100%;
     height: auto;
-    /* border: 1px solid red; */
-    /* position: absolute; */
-    /* left: 50%;
-    transform: translate(-50%); */
     margin-top: 40px;
     z-index:     1;
     color: white;
 }
 
 .footer .box-footer p {
-    /* font-size: 20px; */
     font-size: 1em;
 }
 

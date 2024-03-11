@@ -10,7 +10,6 @@ require_once('./backend/api/config.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- <link rel="stylesheet" href="promotion.css"> -->
     <style>
         <?php include("promotion.css"); ?>
     </style>
@@ -30,7 +29,6 @@ require_once('./backend/api/config.php');
     <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
 
     <!-- Icon -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
@@ -195,7 +193,6 @@ require_once('./backend/api/config.php');
                             <label for="phone" class="col-form-label">เบอร์โทร:</label>
                             <input type="text" class="form-control" id="phone" />
                         </div>
-                        <!-- <div class="mx -->
 
                         <div class="row">
                             <div class="col">

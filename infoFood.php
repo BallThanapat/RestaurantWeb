@@ -182,7 +182,6 @@ if (!empty($_GET["action"])) {
     <?php
         require_once('./backend/api/config.php');
         $foodID = $_GET['food'];
-        // echo "The selected product is: " . $foodID;
         $query = "select * from menu where foodID = ?";
         $stmt = $conn->prepare($query);
         $stmt->execute([$foodID]);
@@ -213,7 +212,6 @@ if (!empty($_GET["action"])) {
                 <div class="detail-of-menu">
                     <p><?php echo $detail['foodDetail']; ?></p>
                 </div>
-              <!-- <button class="danger2">เพิ่มลงตะกร้า</button> -->
 
               <button class="danger2" onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>');">
               เพิ่มลงตะกร้า</button>

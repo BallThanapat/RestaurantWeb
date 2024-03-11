@@ -51,54 +51,38 @@ body {
 }
 
 .header {
-    /* position: absolute; */
     top: 0;
     left: 50%;
-    /* transform: translate(12.5%); */
     width: 100%;
     padding: 20px 40px;
     box-shadow: 5px 10px #888888;
-    /* background-color: black; */
-    /* background-color: transparent; */
-    /* backdrop-filter: blur(40px); */
     border-radius: 16px;
-    /* display: flex;
-    justify-content: space-between;
-    align-items: center; */
     z-index: 1;
 }
 
 .numbered-hr {
     position: relative;
     height: 40px;
-    /* ปรับความสูงตามต้องการ */
     line-height: 40px;
-    /* ปรับตามความสูง */
 }
 
 .numbered-hr:before {
     content: "";
     display: block;
     border-top: 1px solid black;
-    /* สีของเส้น hr */
     position: absolute;
     top: 35%;
     width: 100%;
 }
 
 .numbered-hr .number {
-    /* background: white; */
     border: 1px solid black;
     border-radius: 50%;
     width: 40px;
-    /* ขนาดของวงกลม */
     height: 40px;
-    /* ขนาดของวงกลม */
-    /* text-align: center; */
     justify-content: center;
     align-items: center;
     line-height: 25px;
-    /* ปรับตามขนาด */
     display: flex;
     position: absolute;
 }
@@ -380,18 +364,6 @@ label {
 }
 
 @media screen and (max-width: 1440px) {
-    .header-link::after {
-        /* content: "";
-        display: block;
-        position: absolute;
-        left: 1%;
-        bottom: 5px;
-        width: 0;
-        height: 5px;
-        border-radius: 10px;
-        background-color: #ffd900;
-        transition: width 0.7s; */
-    }
     
     .header-link:hover::after {
         width: 25%;

@@ -183,7 +183,6 @@
                 alert("Login success!!");
                 localStorage.setItem("username", responseObject.User.Username);
                 localStorage.setItem("uid", responseObject.User.Uid);
-                // window.location.href = "./menu.html";
                 if (responseObject.User.Gid == 2) {
                     window.location.href = "./staff.php";
                 }else if ((responseObject.User.Gid == 3)){

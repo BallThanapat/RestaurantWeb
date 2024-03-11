@@ -111,15 +111,12 @@ body {
     font-style: normal;
     font-size: 2rem;
     font-weight: bold;
-    /* text-align: left;
-    z-index: 1; */
 }
 
 .box-text p {
     font-family: "Mitr", sans-serif;
     font-style: normal;
     font-size: 1.2rem;
-    /* z-index: 1; */
 }
 
 .right {
@@ -178,13 +175,10 @@ iframe {
     }
     .box-text h1 {
         font-size: 0.75rem;
-        /* text-align: left;
-        z-index: 1; */
     }
     
     .box-text p {
         font-size: 0.75rem;
-        /* z-index: 1; */
     }
     iframe {
         height: 250px;
@@ -212,27 +206,20 @@ footer {
 }
 .footer {
     width: 100%;
-    /* padding: 20px; */
     min-height: 50vh;
     height: auto;
     background-color: #000000;
-    /* text-align: center; */
 }
 
 .footer .box-footer {
     width: 100%;
     height: auto;
-    /* border: 1px solid red; */
-    /* position: absolute; */
-    /* left: 50%;
-    transform: translate(-50%); */
     margin-top: 40px;
     z-index:     1;
     color: white;
 }
 
 .footer .box-footer p {
-    /* font-size: 20px; */
     font-size: 1em;
 }
 

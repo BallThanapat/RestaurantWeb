@@ -38,7 +38,6 @@ if (!empty($_GET["action"])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Icon -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
@@ -135,8 +134,6 @@ if (!empty($_GET["action"])) {
                 }
             });
             $(".select-option2").click(function () {
-                // $(this).siblings().removeClass("selected");
-                // $(this).addClass("selected");
 
                 $(".select-option2").removeClass("selected");
 
@@ -235,14 +232,6 @@ if (!empty($_GET["action"])) {
                     console.error(xhr.responseText);
                 }
             });
-
-            <?php
-            // if ($_SESSION["page"] == 'staff') {
-            //     echo "location.href='staff.php';";
-            // } else {
-            //     echo "location.href = 'menu.php';";
-            // }
-            ?>
         }
     </script>
 
@@ -555,7 +544,6 @@ if (!empty($_GET["action"])) {
 
                                                 <input type="hidden" class="selected-option" name="quantity"
                                                     id="quantity">
-                                                <!-- <button id="get-selected-btn">Get Selected Value</button> -->
                                             </div>
                                         </div>
                                     </div>

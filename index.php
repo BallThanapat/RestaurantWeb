@@ -48,15 +48,11 @@ session_start();
       var form2 = document.getElementById("form2");
       var buttonBar1 = document.getElementById("buttonBar1");
       var buttonBar2 = document.getElementById("buttonBar2");
-      // var btnLogin = document.getElementById("btnlogin");
-      // var btnRegis = document.getElementById("btnsignup");
 
       radio1.addEventListener("change", function () {
         if (radio1.checked) {
           form1.style.display = "block";
           form2.style.display = "none";
-          // btnLogin.style.display = "block";
-          // btnRegis.style.display = "none";
           buttonBar1.style.backgroundColor = "orange";
           buttonBar2.style.backgroundColor = "white";
           buttonBar1.style.color = "white";
@@ -68,8 +64,6 @@ session_start();
         if (radio2.checked) {
           form1.style.display = "none";
           form2.style.display = "block";
-          // btnLogin.style.display = "none";
-          // btnRegis.style.display = "block";
           buttonBar2.style.backgroundColor = "orange";
           buttonBar1.style.backgroundColor = "white";
           buttonBar1.style.color = "black";
