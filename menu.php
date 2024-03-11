@@ -1000,7 +1000,7 @@ if (!empty($_GET["action"])) {
                     <script>
                         Swal.fire({
                             icon: \"warning\",
-                            title: \"You must add menu first. !!!\",
+                            title: \"You can select menu from here!\",
                             timer: 5000,
                         });
                     </script>";

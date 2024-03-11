@@ -305,7 +305,15 @@ require_once('./backend/api/config.php');
                 </div>
 
                 <div class="col-lg-4 col-md-12">
-                    <a href="" class="box" data-bs-toggle="modal" data-bs-target="#loginRegisModal">
+                    <?php
+                    if (isset($_SESSION["username"])) {
+                        $username = $_SESSION["username"];
+                        echo "<a href='menu.php'>";
+                    } else {
+                        echo "<a href='' data-bs-toggle='modal' data-bs-target='#loginRegisModal'>";
+                    }
+                    ?>
+                    <div class="box">
                         <div class="w-100">
                             <div class="b-item d-flex justify-content-center">
                                 <div class="img">
@@ -314,6 +322,7 @@ require_once('./backend/api/config.php');
                                 </div>
                             </div>
                         </div>
+                    </div>
                     </a>
                 </div>
             </div>
@@ -382,7 +391,6 @@ require_once('./backend/api/config.php');
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                            <button type="button" class="btn btn-warning">สั่งซื้อ</button>
                         </div>
                     </div>
                 </div>

@@ -256,7 +256,7 @@ require_once('./backend/api/config.php');
                             class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
                 <div class="item"><a onclick="menuList1('addCode')"><i class="fa-solid fa-ticket"></i>COUPON</a></div>
                 <div class="item"><a onclick="gotologout('manager')"><i
-                            class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+                class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
 
@@ -280,27 +280,37 @@ require_once('./backend/api/config.php');
                     //คิวรี่รายได้รวมของ 6 เดือนที่ผ่านมา
                     $query5 = "SELECT YEAR(date_log) AS year, MONTH(date_log) AS month, SUM(totalPrice) AS total_monthly_sales FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE date_log >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) GROUP BY YEAR(date_log), MONTH(date_log) ORDER BY YEAR(date_log), MONTH(date_log)";
                     $stmt5 = $conn->prepare($query5);
-                    $stmt5->execute();
-                    $results = $stmt5->fetchAll(PDO::FETCH_ASSOC);
-
-                    $dataPoints = array();
-                    foreach ($results as $row) {
-                        $dataPoints[] = array("label" => "{$row['year']}-{$row['month']}", "y" => $row['total_monthly_sales']);
-                    }
-
-                    $dataPoints = array(
-                        array("label" => $dataPoints[0]['label'], "y" => $dataPoints[0]['y']),
-                        array("label" => $dataPoints[1]['label'], "y" => $dataPoints[1]['y']),
-                        array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
-                        array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
-                        array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
-                        array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
-                        array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
-                        array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
-                        array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
-                        array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
-                    );
-
+                    
+                        $results = $stmt5->fetchAll(PDO::FETCH_ASSOC);
+                        
+                        if (!empty($results)) {
+                        $dataPoints = array();
+                        foreach ($results as $row) {
+                            $dataPoints[] = array("label" => "{$row['year']}-{$row['month']}", "y" => $row['total_monthly_sales']);
+                        }
+                        
+                        $dataPoints = array(
+                            array("label" => $dataPoints[0]['label'], "y" => $dataPoints[0]['y']),
+                            array("label" => $dataPoints[1]['label'], "y" => $dataPoints[1]['y']),
+                            array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
+                            array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
+                            array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
+                            array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
+                            array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
+                            array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
+                            array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
+                            array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
+                        );
+                        }
+                        else {
+                            echo "<script>
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'ไม่มีข้อมูลในตาราง',
+                                timer: 2500 
+                            });
+                                </script>";
+                        };                        
                     ?>
 
                     <script>
