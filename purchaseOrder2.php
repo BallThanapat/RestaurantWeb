@@ -206,7 +206,11 @@
             var files = $('#formFile')[0].files;
             formData.append('fileImg', files[0]);
             if (files.length == 0) {
-                alert("กรุณาเลือกไฟล์รูปภาพ");
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'กรุณาแนบสลิป',
+                    timer: 2000,
+                });
                 event.preventDefault();
                 return;
             }
@@ -336,8 +340,7 @@
                 </div>
 
                 <div class="d-flex below">
-                    <!-- แก้สีปุ่ม ยกเลิก -->
-                    <button class="btn btn-warning" id="btn-order"><a href="menu.php">ยกเลิก</a></button>
+                    <button class="btn btn-secondary"><a href="menu.php" style="text-decoration: none; color: white;">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
@@ -524,8 +527,7 @@
                             <div class="modal-footer d-flex justify-content-center">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                                 
-                                <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();">ตกลง</button>
-                                <!-- แก้ css ปุ่ม ตกลง -->
+                                <button class="btn btn-warning" id="btn-order" onclick="addToAddr();">ตกลง</button>
 
                             </div>
                         </div>
