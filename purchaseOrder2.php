@@ -1,30 +1,30 @@
 <?php
-    session_start();
-    require_once('menuController.php');
-    $db_handle = new MenuControll();
-    require_once('./backend/api/config.php');
+session_start();
+require_once('menuController.php');
+$db_handle = new MenuControll();
+require_once('./backend/api/config.php');
 
-    if(!empty($_GET["action"])){
-        switch($_GET["action"]){
-            case "remove";
-                if(!empty($_SESSION["cart_item"])){
-                    foreach($_SESSION["cart_item"] as $k => $v) {
-                        if($_GET["foodDetail"] == $k)
-                            unset($_SESSION["cart_item"][$k]);
-                        if(empty($_SESSION["cart_item"]))
-                            unset($_SESSION["cart_item"]);
-                    }
+if (!empty($_GET["action"])) {
+    switch ($_GET["action"]) {
+        case "remove";
+            if (!empty($_SESSION["cart_item"])) {
+                foreach ($_SESSION["cart_item"] as $k => $v) {
+                    if ($_GET["foodDetail"] == $k)
+                        unset($_SESSION["cart_item"][$k]);
+                    if (empty($_SESSION["cart_item"]))
+                        unset($_SESSION["cart_item"]);
                 }
+            }
             break;
-            case "empty";
-                unset($_SESSION["cart_item"]);
+        case "empty";
+            unset($_SESSION["cart_item"]);
             break;
-            case "pickType";
-                $_SESSION['type'] = $_GET['type']; // เก็บค่า type เมื่อเลือกเดลิเวอรี่
+        case "pickType";
+            $_SESSION['type'] = $_GET['type']; // เก็บค่า type เมื่อเลือกเดลิเวอรี่
             break;
-                
-        }
+
     }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,9 +43,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
 
-<style>
-    <?php include "./purchaseOrder.css" ?>
-</style>
+    <style>
+        <?php include "./purchaseOrder.css" ?>
+    </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
@@ -94,10 +94,10 @@
                     console.log(type);
                 }
             };
-            if(type=='selfpickup'){
+            if (type == 'selfpickup') {
                 document.getElementById("div2").style.display = "block";
                 document.getElementById("div1").style.display = "none";
-            }else{
+            } else {
                 document.getElementById("div2").style.display = "none";
                 document.getElementById("div1").style.display = "block";
             }
@@ -116,17 +116,15 @@
                     type: 'POST',
                     url: 'purchaseOrder.php',
                     data: { selectedValue: selectedValue },
-                    success: function(response) {
+                    success: function (response) {
                         // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
-                        console.log(response);
+                        // console.log(response);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         // จัดการข้อผิดพลาด (ถ้ามี)
                         console.error(xhr.responseText);
                     }
                 });
-                
-                
 
                 if (selectedValue == "1" || selectedValue == "2") {
                     // Hide all item containers
@@ -137,8 +135,13 @@
                 }
             });
             $(".select-option2").click(function () {
-                $(this).siblings().removeClass("selected");
+                // $(this).siblings().removeClass("selected");
+                // $(this).addClass("selected");
+
+                $(".select-option2").removeClass("selected");
+
                 $(this).addClass("selected");
+
                 var selectedValue = $(this).data("value");
                 $(this).closest(".custom-select").next(".selected-option2").val(selectedValue);
 
@@ -153,7 +156,7 @@
             });
 
 
-            $(".get-selected-btn").click(function () { 
+            $(".get-selected-btn").click(function () {
                 var targetCustomSelect = $(this).data("target");
                 var selectedValue = $("#" + targetCustomSelect).next(".selected-option").val();
                 console.log("Selected value: " + selectedValue);
@@ -161,7 +164,7 @@
                 var targetCustomSelect = $(this).data("target");
                 if (targetCustomSelect === "custom-select1") { //ปุ่มเลือก addrs
                     alert("Button 1 was clicked.");
-                } else if (targetCustomSelect === "custom-select2") { 
+                } else if (targetCustomSelect === "custom-select2") {
                     // alert("Button 2 was clicked.");
                     click2();
                     var formData = new FormData();
@@ -179,7 +182,7 @@
                             console.error(xhr.responseText);
                         }
                     });
-                } else if (targetCustomSelect === "custom-select3") { 
+                } else if (targetCustomSelect === "custom-select3") {
                     // alert("Button 3 was clicked.");
                     click2();
                     location.href = "menu.php";
@@ -192,10 +195,10 @@
             $("p#address").text(selectedValue1);
             $("#quantity2").val(selectedAddrId); // เก็บค่า addr_id
             Swal.fire({
-                    icon: "success",
-                    title: "เลือกประเภทสำเร็จ!!",
-                    timer: 2000,
-                });
+                icon: "success",
+                title: "เลือกประเภทสำเร็จ!!",
+                timer: 2000,
+            });
         }
         function readValue() {
             var selectedValue = sessionStorage.getItem('selectedValue');
@@ -248,7 +251,7 @@
 
 <body>
     <?php
-    if(isset($_POST['selectedValue'])) {
+    if (isset($_POST['selectedValue'])) {
         $selectedValue = $_POST['selectedValue'];
         $addr = $selectedValue;
         $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
@@ -275,7 +278,7 @@
                     <span class="number num3" id="num3">3</span>
                 </div>
             </div>
-            
+
             <!-- First Page -->
             <div class="mt-2" id="page1" style="display: none;">
                 <h4 class="mb-4">รายการของคุณ</h4>
@@ -283,39 +286,45 @@
                     <div class="container">
                         <div class="row d-flex justify-content-center">
                             <?php
-                            if(isset($_SESSION["cart_item"])){
+                            if (isset($_SESSION["cart_item"])) {
                                 $total_quantity2 = 0;
                                 $total_price2 = 0;
-                                foreach($_SESSION["cart_item"] as $item) {
+                                foreach ($_SESSION["cart_item"] as $item) {
                                     $item_price = $item["quantity"] * $item["price"];
-                            ?>
+                                    ?>
 
-                                <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
-                                    <div class="container">
-                                        <div class="row row1">
-                                            <div class="col-sm-5">
-                                                <img src="<?php echo $item["picture"]; ?>" alt="">
-                                                <!-- รูปภาพจาก MENU -->
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <p><?php echo $item["foodName"]; ?></p> <!-- ชื่อของเมนู -->
-                                                <hr>
-                                                <div class="d-flex">
-                                                    <p class="w-25"><?php echo "x" . $item["quantity"]; ?></p> <!-- จำนวน -->
-                                                    <p class="w-25 ms-auto text-danger"><?php echo "THB". number_format($item["quantity"] * $item["price"], 2); ?></p>
+                                    <div class="col-md-5 bg-white m-3"> <!-- Item of menu to order -->
+                                        <div class="container">
+                                            <div class="row row1">
+                                                <div class="col-sm-5">
+                                                    <img src="<?php echo $item["picture"]; ?>" alt="">
+                                                    <!-- รูปภาพจาก MENU -->
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <p>
+                                                        <?php echo $item["foodName"]; ?>
+                                                    </p> <!-- ชื่อของเมนู -->
+                                                    <hr>
+                                                    <div class="d-flex">
+                                                        <p class="w-25">
+                                                            <?php echo "x" . $item["quantity"]; ?>
+                                                        </p> <!-- จำนวน -->
+                                                        <p class="w-25 ms-auto text-danger">
+                                                            <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                           
-                                <?php
+
+                                    <?php
                                     $total_quantity2 += $item["quantity"];
-                                    $total_price2 += $item["price"]*$item["quantity"];
-                                    }
-                                ?>
-                            <?php
+                                    $total_price2 += $item["price"] * $item["quantity"];
                                 }
+                                ?>
+                                <?php
+                            }
                             ?>
 
                         </div>
@@ -335,32 +344,35 @@
                         <h5>ราคารวม</h5>
                     </div>
                     <div class="ms-5">
-                        <p><?php echo "THB". number_format($total_price2, 2); ?></p>
+                        <p>
+                            <?php echo "THB" . number_format($total_price2, 2); ?>
+                        </p>
                     </div>
                 </div>
 
                 <div class="d-flex below">
-                    <button class="btn btn-secondary"><a href="menu.php" style="text-decoration: none; color: white;">ยกเลิก</a></button>
+                    <button class="btn btn-secondary"><a href="menu.php"
+                            style="text-decoration: none; color: white;">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
 
             <!-- Second Page -->
             <?php
-                $uID = $_SESSION['uID'];
-                $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
+            $uID = $_SESSION['uID'];
+            $addr_array = $db_handle->runQuery("SELECT users.firstName, users.lastName, users.telephone, 
                 address.address, address.province, address.district, address.sub_district, address.postcode, address.addr_id
                 FROM users
                 INNER JOIN address ON users.uid=address.uid where users.uid=$uID;");
-                $first_address = reset($addr_array);
-                $first_key = key($addr_array);
-                if(isset($_POST['selectedValue'])) {
-                    $selectedValue = $_POST['selectedValue'];
-                    $addr = $selectedValue;
-                    $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
-                } else {
-                    $_SESSION["addrID2"] = $first_address["addr_id"];
-                }
+            $first_address = reset($addr_array);
+            $first_key = key($addr_array);
+            if (isset($_POST['selectedValue'])) {
+                $selectedValue = $_POST['selectedValue'];
+                $addr = $selectedValue;
+                $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
+            } else {
+                $_SESSION["addrID2"] = $first_address["addr_id"];
+            }
             ?>
             <div class="mt-3" id="page2" style="display: block;">
                 <h4>รายละเอียดการจัดส่ง</h4>
@@ -372,14 +384,16 @@
                         <div class="custom-select" id="custom-select1">
                             <div class="container">
                                 <div class="row5" id="row-select">
-                                <div class="col1-sub-content-2">
-                                    <button class="select-option2 selected2"  value="1" onclick="typePick('delivery');">เดลิเวอรี่</button> 
-                                    <!--แก้ ปรับ css ให้ปุ่ม -->
-                                </div>
-                                <div class="col1-sub-content-2">
-                                    <button class="select-option2 selected2"  onclick="typePick('selfpickup');">รับที่ร้าน</button>
-                                    <!--แก้ ปรับ css ให้ปุ่ม -->
-                                </div>
+                                    <div class="col1-sub-content-2">
+                                        <button class="select-option2 selected" value="1"
+                                            onclick="typePick('delivery');">เดลิเวอรี่</button>
+                                        <!--แก้ ปรับ css ให้ปุ่ม -->
+                                    </div>
+                                    <div class="col1-sub-content-2">
+                                        <button class="select-option2"
+                                            onclick="typePick('selfpickup');">รับที่ร้าน</button>
+                                        <!--แก้ ปรับ css ให้ปุ่ม -->
+                                    </div>
                                 </div>
                             </div>
 
@@ -388,28 +402,29 @@
                     </div>
                 </div>
                 <div id="div1" class="item-container">
-                <h4>ที่อยู่จัดส่ง</h4>
-                <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
-                    <div class="container">
-                        <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
-                            <div class="col-sm-10">
-                                    <?php 
-                                    if(!empty($first_address)) { ?>
-                                        <p class="addr1" id="address"><?php echo $first_address["firstName"].' '.$first_address["lastName"],' <br>'
-                                            .'Tel. '. $first_address["telephone"],' <br>'
-                                            .$first_address["address"].' '.$first_address["province"].' '.$first_address["district"]
-                                            .' '.$first_address["sub_district"].' '.$first_address["postcode"]; ?>
-                                        </p>
+                    <h4>ที่อยู่จัดส่ง</h4>
+                    <a class="text-black address" data-bs-toggle="modal" data-bs-target="#addressModal">
+                        <div class="container">
+                            <div class="row d-flex justify-content-center mt-3 align-items-center" id="box-address">
+                                <div class="col-sm-10">
                                     <?php
+                                    if (!empty($first_address)) { ?>
+                                        <p class="addr1" id="address">
+                                            <?php echo $first_address["firstName"] . ' ' . $first_address["lastName"], ' <br>'
+                                                . 'Tel. ' . $first_address["telephone"], ' <br>'
+                                                . $first_address["address"] . ' ' . $first_address["province"] . ' ' . $first_address["district"]
+                                                . ' ' . $first_address["sub_district"] . ' ' . $first_address["postcode"]; ?>
+                                        </p>
+                                        <?php
                                     }
                                     ?>
                                 </div>
-                            <div class="col-sm-2 ms-auto" id="change-address">
-                                <h6 class="change">เปลี่ยน</h6>
+                                <div class="col-sm-2 ms-auto" id="change-address">
+                                    <h6 class="change">เปลี่ยน</h6>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
                 </div>
                 <div id="div2" class="item-container" style="display: none;">
                     <h3>ที่อยู่ร้าน</h3>
@@ -424,41 +439,49 @@
                 <div class="mt-5">
                     <h2>สั่งซื้อสินค้าแล้ว</h2>
                     <?php
-                        if(isset($_SESSION["cart_item"])){
-                            $total_quantity2 = 0;
-                            $total_price2 = 0;
-                        
-                    ?>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">รายการ</th>
-                                <th scope="col">ราคาต่อหน่วย</th>
-                                <th scope="col">จำนวน</th>
-                                <th scope="col">ราคารวม</th>
-                            </tr>
-                            <?php
-                                foreach($_SESSION["cart_item"] as $item) {
+                    if (isset($_SESSION["cart_item"])) {
+                        $total_quantity2 = 0;
+                        $total_price2 = 0;
+
+                        ?>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">รายการ</th>
+                                    <th scope="col">ราคาต่อหน่วย</th>
+                                    <th scope="col">จำนวน</th>
+                                    <th scope="col">ราคารวม</th>
+                                </tr>
+                                <?php
+                                foreach ($_SESSION["cart_item"] as $item) {
                                     $item_price = $item["quantity"] * $item["price"];
-                                
-                            ?>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td scope="row"><?php echo $item["foodName"]; ?></td>
-                                <td><?php echo $item["price"]; ?></td>
-                                <td><?php echo $item["quantity"]; ?></td>
-                                <td><?php echo number_format($item["quantity"] * $item["price"], 2); ?></td>
-                            </tr>
-                            <?php
-                                $total_quantity2 += $item["quantity"];
-                                $total_price2 += $item["price"]*$item["quantity"];
+
+                                    ?>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="row">
+                                            <?php echo $item["foodName"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $item["price"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $item["quantity"]; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo number_format($item["quantity"] * $item["price"], 2); ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                    $total_quantity2 += $item["quantity"];
+                                    $total_price2 += $item["price"] * $item["quantity"];
                                 }
-                            ?>
-                        </tbody>
-                    </table>
-                    <?php
-                        }
+                                ?>
+                            </tbody>
+                        </table>
+                        <?php
+                    }
                     ?>
                 </div>
 
@@ -481,7 +504,7 @@
                 </div>
 
                 <!-- Test -->
-                
+
 
                 <!-- Address Modals -->
                 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
@@ -500,74 +523,87 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="custom-select" id="custom-select1">
-                                                <?php 
-                                                    if(!empty($addr_array)){
-                                                        foreach($addr_array as $key => $value) {
-                                                ?>
-                                                    <?php $ad=$addr_array[$key]["addr_id"];?>
-                                                <div class="select-option selected" data-value="<?php echo $ad; ?>">
-                                                    <p><?php echo $addr_array[$key]["firstName"].' '.$addr_array[$key]["lastName"].' <br>'
-                                                        .'Tel. '. $addr_array[$key]["telephone"].' <br>'
-                                                        .$addr_array[$key]["address"].' '.$addr_array[$key]["province"].' '.$addr_array[$key]["district"]
-                                                        .' '.$addr_array[$key]["sub_district"].' '.$addr_array[$key]["postcode"]; ?>
-                                                        </p>
-                                                </div>
                                                 <?php
+                                                if (!empty($addr_array)) {
+                                                    $count = 1;
+                                                    foreach ($addr_array as $key => $value) {
+                                                        ?>
+                                                        <?php $ad = $addr_array[$key]["addr_id"];
+                                                        if ($count == 1) {
+                                                            ?>
+                                                            <div class="select-option selected" data-value="<?php echo $ad; ?>">
+                                                                <?php
+                                                        } else {
+                                                            ?>
+                                                                <div class="select-option" data-value="<?php echo $ad; ?>">
+                                                                    <?php
                                                         }
+                                                        $count++;
+                                                        ?>
+                                                                <p>
+                                                                    <?php echo $addr_array[$key]["firstName"] . ' ' . $addr_array[$key]["lastName"] . ' <br>'
+                                                                        . 'Tel. ' . $addr_array[$key]["telephone"] . ' <br>'
+                                                                        . $addr_array[$key]["address"] . ' ' . $addr_array[$key]["province"] . ' ' . $addr_array[$key]["district"]
+                                                                        . ' ' . $addr_array[$key]["sub_district"] . ' ' . $addr_array[$key]["postcode"]; ?>
+                                                                </p>
+                                                            </div>
+                                                            <?php
                                                     }
+                                                }
                                                 ?>
-                                            </div>
+                                                </div>
 
-                                            <input type="hidden" class="selected-option" name="quantity" id="quantity">
-                                            <!-- <button id="get-selected-btn">Get Selected Value</button> -->
+                                                <input type="hidden" class="selected-option" name="quantity"
+                                                    id="quantity">
+                                                <!-- <button id="get-selected-btn">Get Selected Value</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+
+                                    <button class="btn btn-warning" id="btn-order" onclick="addToAddr();">ตกลง</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third Page -->
+                <div class="mt-2 mb-5" id="page3" style="display: none;">
+                    <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="qr-payment">
+                                <img src="Image_inventory/PurchaseOrder/payment.png">
+                            </div>
+                            <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
+                                <div class="contanier">
+                                    <div class="row">
+                                        <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
+                                        <form class="col-sm-8 d-flex justify-content-center">
+                                            <input type="file" class="input-file" id="formFile"
+                                                accept=".png, .webp, .jpeg, .jpg" />
+                                        </form>
+                                        <div class="pay-btn">
+                                            <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
+                                            <button class="btn get-selected-btn" id="btn-order"
+                                                data-target="custom-select2" name="btn-conf"
+                                                onclick="uploadFile()">ยืนยัน</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
-                                
-                                <button class="btn btn-warning" id="btn-order" onclick="addToAddr();">ตกลง</button>
-
-                            </div>
                         </div>
                     </div>
                 </div>
+
+
+
             </div>
-
-            <!-- Third Page -->
-            <div class="mt-2 mb-5" id="page3" style="display: none;">
-                <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
-                <div class="container">
-                    <div class="row">
-                        <div class="qr-payment">
-                            <img src="Image_inventory/PurchaseOrder/payment.png">
-                        </div>
-                        <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
-                            <div class="contanier">
-                                <div class="row">
-                                    <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
-                                    <form class="col-sm-8 d-flex justify-content-center">
-                                        <input type="file" class="input-file" id="formFile"
-                                                    accept=".png, .webp, .jpeg, .jpg" />
-                                    </form>
-                                    <div class="pay-btn">
-                                        <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                        <button class="btn get-selected-btn" id="btn-order"
-                                                data-target="custom-select2" name="btn-conf"
-                                                onclick="uploadFile()">ยืนยัน</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
         </div>
-    </div>
 
 </body>
 
