@@ -302,7 +302,7 @@
                                 </div>
 
                                 <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                                    <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                                    <img src="<?php echo $bill['billPicture'];?>" alt="" id="img-payment">
                                 </div>
                             <?php
                                 if($bill["type"] == "delivery"){
@@ -442,7 +442,7 @@
                                 </div>
 
                                 <div class="content-order order-img-payment" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="viewPay(this)" id="imgpayment">
-                                    <img src="Image_inventory/billtest.png" alt="" id="img-payment">
+                                    <img src="<?php echo $bill['billPicture'];?>" alt="" id="img-payment">
                                 </div>
                             <?php
                                 if($bill["type"] == "delivery"){
