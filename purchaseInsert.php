@@ -73,5 +73,9 @@ session_start();
     unset($_SESSION["cart_item"]);
     unset($_SESSION["type"]);
     unset($_SESSION["addrID2"]);
-    
+    if ($_SESSION["page"] == 'staff') {
+        echo "<script>window.location.href='staff.php';</script>";
+    } else {
+        echo "<script>window.location.href='menu.php';</script>";
+    }
 ?>

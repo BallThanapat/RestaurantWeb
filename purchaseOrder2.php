@@ -202,39 +202,15 @@
             document.getElementById("demo").innerHTML = selectedValue;
         }
         function uploadFile() {
-        var formData = new FormData();
-        var files = $('#formFile')[0].files;
-        formData.append('fileImg', files[0]);
-
-        if (files.length == 0) {
-            Swal.fire({
-                icon: 'error',
-                title: 'กรุณาเลือกไฟล์รูปภาพ',
-                timer: 1000,
-            });
-            event.preventDefault();
-            return;
-            
-        }
-
-        $.ajax({
-            method: 'POST',
-            url: 'purchaseInsert.php',
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-                
-                // เมื่อสำเร็จ
-                console.log("Upload successful");
-                console.log(response);
-                
-            },
-            error: function (xhr, status, error) {
-                // เกิดข้อผิดพลาด
-                console.error(xhr.responseText);
+            var formData = new FormData();
+            var files = $('#formFile')[0].files;
+            formData.append('fileImg', files[0]);
+            if (files.length == 0) {
+                alert("กรุณาเลือกไฟล์รูปภาพ");
+                event.preventDefault();
+                return;
             }
-        });
+
             $.ajax({
                 method: 'POST',
                 url: 'purchaseInsert.php',
@@ -253,7 +229,14 @@
                 }
             });
 
-    }
+            <?php
+            // if ($_SESSION["page"] == 'staff') {
+            //     echo "location.href='staff.php';";
+            // } else {
+            //     echo "location.href = 'menu.php';";
+            // }
+            ?>
+        }
     </script>
 
     <title>สั่งซื้อสินค้า</title>
@@ -386,14 +369,14 @@
                         <div class="custom-select" id="custom-select1">
                             <div class="container">
                                 <div class="row5" id="row-select">
-                                    <div class="col1-sub-content-2">
-                                        <button class="select-option2 selected" value="1"
-                                            onclick="typePick('delivery');">เดลิเวอรี่</button>
-                                    </div>
-                                    <div class="col1-sub-content-2">
-                                        <button class="select-option2"
-                                            onclick="typePick('selfpickup');">รับที่ร้าน</button>
-                                    </div>
+                                <div class="col1-sub-content-2">
+                                    <button class="select-option2 selected2"  value="1" onclick="typePick('delivery');">เดลิเวอรี่</button> 
+                                    <!--แก้ ปรับ css ให้ปุ่ม -->
+                                </div>
+                                <div class="col1-sub-content-2">
+                                    <button class="select-option2 selected2"  onclick="typePick('selfpickup');">รับที่ร้าน</button>
+                                    <!--แก้ ปรับ css ให้ปุ่ม -->
+                                </div>
                                 </div>
                             </div>
 
@@ -494,6 +477,8 @@
                     <!-- onclick="click2()" -->
                 </div>
 
+                <!-- Test -->
+                
 
                 <!-- Address Modals -->
                 <div class="modal fade" id="addressModal" tabindex="-1" aria-labelledby="addressModalLabel"
@@ -542,37 +527,33 @@
                                 <button style="background-color: #ff7b00; color: white;" onclick="addToAddr();">ตกลง</button>
                                 <!-- แก้ css ปุ่ม ตกลง -->
 
-                                    <button class="btn btn-warning" id="btn-order" onclick="addToAddr();"
-                                        data-bs-dismiss="modal">ตกลง</button>
-
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-                <div class="mt-2 mb-5" id="page3" style="display: none;">
-                    <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
-                    <div class="container">
-                        <div class="row">
-                            <div class="qr-payment">
-                                <img src="Image_inventory/PurchaseOrder/payment.png">
-                            </div>
-                            <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
-                                <div class="contanier">
-                                    <div class="row">
-                                        <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
-                                        <form class="col-sm-8 d-flex justify-content-center">
-                                            <input type="file" class="input-file" id="formFile"
-                                                accept=".png, .webp, .jpeg, .jpg" />
-                                        </form>
-                                        <div class="pay-btn">
-                                            <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                            <button class="btn get-selected-btn" id="btn-order"
+            <!-- Third Page -->
+            <div class="mt-2 mb-5" id="page3" style="display: none;">
+                <h4 class="mt-5 mb-4">ชำระเงิน : QR พร้อมเพย์</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="qr-payment">
+                            <img src="Image_inventory/PurchaseOrder/payment.png">
+                        </div>
+                        <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
+                            <div class="contanier">
+                                <div class="row">
+                                    <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
+                                    <form class="col-sm-8 d-flex justify-content-center">
+                                        <input type="file" class="input-file" id="formFile"
+                                                    accept=".png, .webp, .jpeg, .jpg" />
+                                    </form>
+                                    <div class="pay-btn">
+                                        <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
+                                        <button class="btn get-selected-btn" id="btn-order"
                                                 data-target="custom-select2" name="btn-conf"
-                                                onclick="uploadFile()"><a href="purchaseInsert.php" style="text-decoration: none; color: white;">ยืนยัน</a></button>
-                                        </div>
+                                                onclick="uploadFile()">ยืนยัน</button>
                                     </div>
                                 </div>
                             </div>
