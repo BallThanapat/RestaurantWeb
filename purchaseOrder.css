@@ -103,6 +103,15 @@ body {
     position: absolute;
 }
 
+.num12 {
+    background: white;
+    color: black;
+}
+
+.num22 {
+    background: #ff7b00;
+    color: white;
+}
 .num1 {
     background: #ff7b00;
     color: white;

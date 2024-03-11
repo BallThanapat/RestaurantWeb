@@ -246,7 +246,7 @@ if (!empty($_GET["action"])) {
                     console.error(xhr.responseText);
                 }
             });
-            location.href = "menu.php";
+            // location.href = "menu.php";
         }
     </script>
 
@@ -294,8 +294,8 @@ if (!empty($_GET["action"])) {
             <div class="mt-5 mb-2">
                 <!-- <hr> -->
                 <div class="numbered-hr">
-                    <span class="number num1" id="num1">1</span>
-                    <span class="number num2" id="num2">2</span>
+                    <span class="number num12" id="num1">1</span>
+                    <span class="number num22" id="num2">2</span>
                     <span class="number num3" id="num3">3</span>
                 </div>
             </div>
@@ -611,7 +611,7 @@ if (!empty($_GET["action"])) {
                                         <div class="pay-btn">
                                             <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
                                                 <button class="btn get-selected-btn" id="btn-order"
-                                                    data-target="custom-select2" name="btn-conf" onclick="uploadFile()">ยืนยัน</button>
+                                                    data-target="custom-select2" name="btn-conf" onclick="uploadFile()"><a href="purchaseInsert.php">ยืนยัน</a></button>
                                         </div>
                                     </div>
                                 </div>
