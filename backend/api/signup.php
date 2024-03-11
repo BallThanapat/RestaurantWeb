@@ -46,6 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $query1 = "insert into address (uid, address, province, district, sub_district, postcode) values (?,?,?,?,?,?)";
             $stmt1 = $conn->prepare($query1);
             $stmt1->execute([$lastInsertedId, $home, $province, $district_1, $district_2, $postcode]);
+            $query2 = "insert into user_code (uid, used, codeID) values (?,?,?)";
+            $stmt2 = $conn->prepare($query2);
+            $stmt2->execute([$lastInsertedId, 0, 1]);
             session_start();
             $_SESSION['username'] = $username;
             $_SESSION['uID'] = $lastInsertedId;

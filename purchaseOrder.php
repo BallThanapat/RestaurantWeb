@@ -143,7 +143,7 @@ if (!empty($_GET["action"])) {
 
                 var selectedValue = $(this).val();
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
-                sessionStorage.setItem('selectedValue', selectedValue);
+                // sessionStorage.setItem('selectedValue', selectedValue);
 
                 if (selectedValue == "1" || selectedValue == "2") {
 
@@ -160,7 +160,7 @@ if (!empty($_GET["action"])) {
 
                 var selectedValue = $(this).val();
                 $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
-                sessionStorage.setItem('selectedValue', selectedValue);
+                // sessionStorage.setItem('selectedValue', selectedValue);
 
 
 
@@ -267,13 +267,7 @@ if (!empty($_GET["action"])) {
     </script>
 
     <?php
-    if (isset($_POST['selectedValue'])) {
-        $selectedValue = $_POST['selectedValue'];
-        $addr = $selectedValue;
-        $_SESSION["addrID2"] = $addr; //กำหนด session ให้ addr_id
-    } else {
-        echo "";
-    }
+    
     ?>
     <header class="header">
         <nav class="navbar navbar-expand-xxl navbar-dark">
