@@ -229,6 +229,11 @@ if (!empty($_GET["action"])) {
             var formData = new FormData();
             var files = $('#formFile')[0].files;
             formData.append('fileImg', files[0]);
+            if (files.length == 0) {
+                alert("กรุณาเลือกไฟล์รูปภาพ");
+                event.preventDefault();
+                return;
+            }
 
             $.ajax({
                 method:'POST',
