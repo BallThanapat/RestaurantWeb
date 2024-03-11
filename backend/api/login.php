@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 // echo "<script>console.log('Session ID: $session_id')</script>";
                 $_SESSION['username'] = $row['id'];
                 $_SESSION['uID'] = $row['uid'];
+                $_SESSION['Gid'] = $row['groupID'];
 
                 $object = new stdClass();
                 $object->RespCode = 200;

@@ -71,7 +71,7 @@ if (!empty($_GET["action"])) {
                 }
             };
             xhr.send("discount_code=" + discountCode); // ส่งค่าโค้ดส่วนลดไปยังไฟล์ PHP
-            
+
         }
 
 
@@ -148,22 +148,24 @@ if (!empty($_GET["action"])) {
                 var storedValue = sessionStorage.getItem('selectedValue');
                 console.log(storedValue)
 
-                // $.ajax({
-                //     type: 'POST',
-                //     url: 'purchaseOrder.php',
-                //     data: {
-                //         selectedValue: selectedValue
-                //     },
-                //     success: function (response) {
-                //         // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
-                //         console.log("good");
-                //         // console.log(response);
-                //     },
-                //     error: function (xhr, status, error) {
-                //         // จัดการข้อผิดพลาด (ถ้ามี)
-                //         console.error(xhr.responseText);
-                //     }
-                // });
+                if (selectedValue == "1" || selectedValue == "2") {
+
+                    $(".item-container").hide();
+
+                    $("#div" + selectedValue).show();
+                }
+            });
+            $(".select-option2  ").click(function () {
+
+                $(".select-option2  ").removeClass("selected");
+
+                $(this).addClass("selected");
+
+                var selectedValue = $(this).val();
+                $(this).closest(".custom-select").next(".selected-option").val(selectedValue);
+                sessionStorage.setItem('selectedValue', selectedValue);
+                var storedValue = sessionStorage.getItem('selectedValue');
+                console.log(storedValue)
 
                 if (selectedValue == "1" || selectedValue == "2") {
 
@@ -236,7 +238,7 @@ if (!empty($_GET["action"])) {
             }
 
             $.ajax({
-                method:'POST',
+                method: 'POST',
                 url: 'purchaseInsert.php',
                 data: formData,
                 processData: false,
@@ -251,6 +253,14 @@ if (!empty($_GET["action"])) {
                     console.error(xhr.responseText);
                 }
             });
+
+            <?php
+            if ($_SESSION["page"] == 'staff') {
+                echo "location.href='staff.php';";
+            } else {
+                echo "location.href = 'menu.php';";
+            }
+            ?>
             // location.href = "menu.php";
         }
     </script>
@@ -260,10 +270,10 @@ if (!empty($_GET["action"])) {
 
 <body>
     <script>
-    <?php
-    if (isset($_SESSION["cart_item"])) {
-    } else {
-        echo "Swal.fire({
+        <?php
+        if (isset($_SESSION["cart_item"])) {
+        } else {
+            echo "Swal.fire({
                 icon: \"error\",
                 title: \"You must add menu first. !!!\",
                 timer: 2500,
@@ -272,8 +282,8 @@ if (!empty($_GET["action"])) {
                     location.href='menu.php';
                 }
             });";
-    }
-    ?>
+        }
+        ?>
     </script>
 
     <?php
@@ -517,8 +527,10 @@ if (!empty($_GET["action"])) {
                         <h4>ราคารวม</h4>
                     </div>
                     <div class="ms-3">
-                    <?php $lastTotalPrice=$_SESSION['lastTotalPrice'];?>
-                        <p><?php echo "THB". number_format($lastTotalPrice, 2); ?></p>
+                        <?php $lastTotalPrice = $_SESSION['lastTotalPrice']; ?>
+                        <p>
+                            <?php echo "THB" . number_format($lastTotalPrice, 2); ?>
+                        </p>
                     </div>
                 </div>
 
@@ -609,14 +621,16 @@ if (!empty($_GET["action"])) {
                             <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
                                 <div class="contanier">
                                     <div class="row">
-                                    <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
+                                        <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
                                         <form class="col-sm-8 d-flex justify-content-center">
-                                            <input type="file" class="input-file" id="formFile" accept=".png, .webp, .jpeg, .jpg" />
+                                            <input type="file" class="input-file" id="formFile"
+                                                accept=".png, .webp, .jpeg, .jpg" />
                                         </form>
                                         <div class="pay-btn">
                                             <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                                <button class="btn get-selected-btn" id="btn-order"
-                                                    data-target="custom-select2" name="btn-conf" onclick="uploadFile()"><a href="purchaseInsert.php">ยืนยัน</a></button>
+                                            <button class="btn get-selected-btn" id="btn-order"
+                                                data-target="custom-select2" name="btn-conf"
+                                                onclick="uploadFile()">ยืนยัน</button>
                                         </div>
                                     </div>
                                 </div>

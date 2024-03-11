@@ -73,5 +73,5 @@ session_start();
     unset($_SESSION["cart_item"]);
     unset($_SESSION["type"]);
     unset($_SESSION["addrID2"]);
-    echo "<script>window.location.href='menu.php';</script>";
+    
 ?>

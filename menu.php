@@ -107,6 +107,13 @@ if (!empty($_GET["action"])) {
 </head>
 
 <body>
+  <?php
+  if (isset($_SESSION["page"])) {
+    $page = $_SESSION["page"];
+    echo "<script>console.log(test: $page)</script>";
+  }
+  ?>
+
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       var radio1 = document.getElementById("btnradio1");
@@ -233,7 +240,7 @@ if (!empty($_GET["action"])) {
       };
       xhr.send();
 
-      setTimeout(function() {
+      setTimeout(function () {
         location.reload();
       }, 1000); // Reload after 1 seconds
     }
@@ -264,10 +271,10 @@ if (!empty($_GET["action"])) {
         if (xhr.readyState == 4 && xhr.status == 200) {
           $('.modal-cart').load(location.href + ' .modal-cart');
           Swal.fire({
-                    icon: "success",
-                    title: "ล้างตะกร้าเรียบร้อย!!",
-                    timer: 2000,
-                });
+            icon: "success",
+            title: "ล้างตะกร้าเรียบร้อย!!",
+            timer: 2000,
+          });
         }
       };
       xhr.send(); // ส่งพารามิเตอร์ foodDetail และ quantity ไปยัง menu.php
@@ -935,10 +942,10 @@ if (!empty($_GET["action"])) {
                                 </p> -->
                               </div>
                               <div class="col-sm-2">
-                                  <a href="#" class="btnRemoveAction"
-                                    onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
-                                    <img src="delete-icon.png" width="50%" alt="">
-                                  </a>
+                                <a href="#" class="btnRemoveAction"
+                                  onclick="deleteItem('<?php echo $item['foodDetail']; ?>')">
+                                  <img src="delete-icon.png" width="50%" alt="">
+                                </a>
                               </div>
 
                             </div>
@@ -960,38 +967,64 @@ if (!empty($_GET["action"])) {
                   </div>
                 </div>
               </div>
-              <script>
-                function checkLog() {
-                  <?php
-                  
-                  if (isset($_SESSION["uID"])) {
-                    if (isset($_SESSION["cart_item"])) {
-                      echo "location.href='purchaseOrder.php'";
-                    } else {
-                      echo "Swal.fire({
-                        icon: \"error\",
-                        title: \"You must add menu first. !!!\",
-                        timer: 5000,
-                      });";
-                    }
-                  } else {
-                    echo "Swal.fire({
-                      icon: \"error\",
-                      title: \"You must login first. !!!\",
-                      timer: 5000,
-                  });";
-                  }
-                  ?>
+
+              <?php
+
+              // Check if the user is logged in
+              if (isset($_SESSION["uID"])) {
+                // Check if cart items are set
+                if (isset($_SESSION["cart_item"])) {
+                  echo "
+                    <script>
+                        function checkLog(page) {
+                            $.ajax({
+                                method: \"post\",
+                                url: \"./checkpage.php\",
+                                data: {
+                                    'mainPage': page,
+                                },
+                                success: function(response) {
+                                    window.location.href = 'purchaseOrder.php';
+                                },
+                                error: function(err) {
+                                    console.log('Error occurred:', err);
+                                },
+                            });
+                        }
+                    </script>";
+                  // Echoing JavaScript code
+                  // Additional JavaScript code can be echoed here if needed
+                } else {
+                  // If cart items are not set, show an error message
+                  echo "
+                    <script>
+                        Swal.fire({
+                            icon: \"warning\",
+                            title: \"You must add menu first. !!!\",
+                            timer: 5000,
+                        });
+                    </script>";
                 }
-              </script>
+              } else {
+                // If the user is not logged in, show an error message
+                echo "
+                  <script>
+                      Swal.fire({
+                          icon: \"error\",
+                          title: \"You must login first. !!!\",
+                          timer: 5000,
+                      });
+                  </script>";
+              }
+              ?>
               <div class="modal-footer d-flex justify-content-center">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
                 <button onclick="clear_cart()" class="btn btn-danger">ล้างตะกร้า</button>
 
                 <!-- <button type="button" onclick="location.href='purchaseOrder.php'"
                   class="btn btn-warning">ทำการสั่งซื้อ</button> -->
-                <button type="button" onclick="checkLog()"
-                  class="btn btn-warning" style="color: white; background-color: orangered">ทำการสั่งซื้อ</button>
+                <button type="button" onclick="checkLog('user')" class="btn btn-warning"
+                  style="color: white; background-color: orangered">ทำการสั่งซื้อ</button>
               </div>
             </div>
           </div>

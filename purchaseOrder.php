@@ -63,12 +63,12 @@ if (!empty($_GET["action"])) {
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // รับคำตอบจากไฟล์ PHP และทำตามคำแนะนำต่อไป
-                    console.log( ); // แสดงผลลัพธ์ที่ได้จากการตรวจสอบโค้ดส่วนลด (เพื่อเช็คว่าทำงานได้ถูกต้องหรือไม่)
+                    console.log(); // แสดงผลลัพธ์ที่ได้จากการตรวจสอบโค้ดส่วนลด (เพื่อเช็คว่าทำงานได้ถูกต้องหรือไม่)
                     location.href = "purchaseOrder2.php"
                 }
             };
             xhr.send("discount_code=" + discountCode); // ส่งค่าโค้ดส่วนลดไปยังไฟล์ PHP
-            
+
         }
 
 
@@ -231,19 +231,37 @@ if (!empty($_GET["action"])) {
 </head>
 
 <body>
+
+    <?php
+    $page = $_SESSION["page"];
+    echo "<script>console.log('$page'); </script>";
+    ?>
     <script>
         <?php
         if (isset($_SESSION["cart_item"])) {
         } else {
-            echo "Swal.fire({
-                icon: \"error\",
-                title: \"You must add menu first. !!!\",
-                timer: 2500,
-            }).then((result) => {
-                if (result.isConfirmed || result.isDismissed) {
-                    location.href='menu.php';
-                }
-            });";
+            if ($_SESSION["page"] == "staff") {
+                echo "Swal.fire({
+                    icon: \"error\",
+                    title: \"You must add menu first. !!!\",
+                    timer: 2500,
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        location.href='staff.php';
+                    }
+                });";
+            } else {
+                echo "Swal.fire({
+                    icon: \"error\",
+                    title: \"You must add menu first. !!!\",
+                    timer: 2500,
+                }).then((result) => {
+                    if (result.isConfirmed || result.isDismissed) {
+                        location.href='menu.php';
+                    }
+                });";
+            }
+
         }
         ?>
     </script>
@@ -350,7 +368,14 @@ if (!empty($_GET["action"])) {
 
                 <div class="d-flex below">
                     <button class="btn btn-secondary me-1">
-                        <a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a>
+                        <?php
+                        if ($_SESSION["page"] == "staff") {
+                            echo "<a href=\"staff.php\" style=\"text-decoration: none; color: white; font-size: 1rem;\">ยกเลิก</a>";
+                        } else if ($_SESSION["page"] == "user"){
+                            echo "<a href=\"menu.php\" style=\"text-decoration: none; color: white; font-size: 1rem;\">ยกเลิก</a>";
+                        }
+                        ?>
+                        <!-- <a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a> -->
                     </button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
@@ -488,8 +513,10 @@ if (!empty($_GET["action"])) {
                         <h4>ราคารวม</h4>
                     </div>
                     <div class="ms-3">
-                    <?php $lastTotalPrice=$_SESSION['lastTotalPrice'];?>
-                        <p><?php echo "THB". number_format($lastTotalPrice, 2); ?></p>
+                        <?php $lastTotalPrice = $_SESSION['lastTotalPrice']; ?>
+                        <p>
+                            <?php echo "THB" . number_format($lastTotalPrice, 2); ?>
+                        </p>
                     </div>
                 </div>
 

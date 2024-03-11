@@ -22,7 +22,9 @@ require_once('./backend/api/config.php');
     <!-- Font Common-text -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Permanent+Marker&display=swap"
+        rel="stylesheet">
 
     <!-- Icon -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
@@ -34,7 +36,8 @@ require_once('./backend/api/config.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/JQuery/3.5.1/JQuery.min.js" charset="UTF-8"></script>
 
     <!-- User Authentication -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="userAuthen.js"></script>
 
@@ -46,12 +49,29 @@ require_once('./backend/api/config.php');
 </head>
 
 <body>
+    <?php
+    if (isset($_SESSION["Gid"])) {
+        if ($_SESSION["Gid"] == 2 || $_SESSION["Gid"] == 3) {
+        } else {
+            echo "<script>Swal.fire({
+                icon: \"error\",
+                title: \"You don't have permission on this page. !!!\",
+                timer: 2500,
+            }).then((result) => {
+                if (result.isConfirmed || result.isDismissed) {
+                    location.href='index.php';
+                }
+            });</script>";
+        }
+    }
+    ?>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var staffMenuItem = document.querySelector('.sub-btn');
             var subMenu = document.querySelector('.sub-menu');
 
-            staffMenuItem.addEventListener('click', function() {
+            staffMenuItem.addEventListener('click', function () {
                 subMenu.style.display = (subMenu.style.display === "block") ? "none" : "block";
                 staffMenuItem.classList.toggle('active');
             });
@@ -74,7 +94,7 @@ require_once('./backend/api/config.php');
             datetimeElement.textContent = getCurrentDateTime();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateDateTime();
             setInterval(updateDateTime, 1000);
         });
@@ -220,19 +240,23 @@ require_once('./backend/api/config.php');
                 <span id="clock-icon"></span>
             </div>
             <div class="menu">
-                <div class="item"><a onclick="menuList1('dashboard')"><i class="fa-solid fa-desktop"></i>DASHBOARD</a></div>
+                <div class="item"><a onclick="menuList1('dashboard')"><i class="fa-solid fa-desktop"></i>DASHBOARD</a>
+                </div>
                 <div class="item"><a onclick="menuList1('manage')"><i class="fa-regular fa-file"></i>MANAGE</a></div>
                 <div class="item">
-                    <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i class="fas fa-angle-right dropdown"></i></a>
+                    <a class="sub-btn"><i class="fa-regular fa-user"></i>STAFF <i
+                            class="fas fa-angle-right dropdown"></i></a>
                     <div class="sub-menu" id="sub-menu">
                         <a class="sub-item" onclick="menuList1('listStaff')"><span>All Staff</span></a>
                         <a class="sub-item" onclick="menuList1('addStaff')"><span>Add Staff</span></a>
                     </div>
                 </div>
                 <div class="item"><a onclick="menuList1('addMenu')"><i class="fa-solid fa-utensils"></i>MENU</a></div>
-                <div class="item"><a onclick="menuList1('addPromotion')"><i class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
+                <div class="item"><a onclick="menuList1('addPromotion')"><i
+                            class="fa-solid fa-bullhorn"></i>ANNOUNCEMENT</a></div>
                 <div class="item"><a onclick="menuList1('addCode')"><i class="fa-solid fa-ticket"></i>COUPON</a></div>
-                <div class="item"><a onclick="gotologout('manager')"><i class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
+                <div class="item"><a onclick="gotologout('manager')"><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>LOG OUT</a></div>
             </div>
         </div>
 
@@ -280,7 +304,7 @@ require_once('./backend/api/config.php');
                     ?>
 
                     <script>
-                        window.onload = function() {
+                        window.onload = function () {
 
                             var chart = new CanvasJS.Chart("chartContainer", {
                                 animationEnabled: true,
@@ -328,10 +352,14 @@ require_once('./backend/api/config.php');
                         $totalThisMonth = $result2['total_this_month'];
                         ?>
                         <div class="sum-day">
-                            <h4>รายได้ต่อวันสุทธิ: <?php echo $totalThisDay; ?></h4>
+                            <h4>รายได้ต่อวันสุทธิ:
+                                <?php echo $totalThisDay; ?>
+                            </h4>
                         </div>
                         <div class="sum-month">
-                            <h4>รายได้ต่อเดือนสุทธิ: <?php echo $totalThisMonth; ?></h4>
+                            <h4>รายได้ต่อเดือนสุทธิ:
+                                <?php echo $totalThisMonth; ?>
+                            </h4>
                         </div>
 
                     </div>
@@ -361,15 +389,25 @@ require_once('./backend/api/config.php');
                                 $row1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
                                 $num = 1;
                                 foreach ($row1 as $key => $value) {
-                            ?>
+                                    ?>
                                     <tr>
-                                        <td><?php echo $num ?></td>
-                                        <td><?php echo $row1[$key]['bill_id'] ?></td>
-                                        <td><?php echo $row1[$key]['type'] ?></td>
-                                        <td><?php echo $row1[$key]['order_amount'] ?></td>
-                                        <td><?php echo $row1[$key]['totalPrice'] ?></td>
+                                        <td>
+                                            <?php echo $num ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row1[$key]['bill_id'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row1[$key]['type'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row1[$key]['order_amount'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row1[$key]['totalPrice'] ?>
+                                        </td>
                                     </tr>
-                            <?php
+                                    <?php
                                     $num = $num + 1;
                                 }
                             }
@@ -397,13 +435,19 @@ require_once('./backend/api/config.php');
 
                 <div class="summarize-day">
                     <div class="count">
-                        <h4>จำนวนคำสั่งซื้อ : <?php echo $val1; ?> </h4>
+                        <h4>จำนวนคำสั่งซื้อ :
+                            <?php echo $val1; ?>
+                        </h4>
                     </div>
                     <div class="income">
-                        <h4>ยอดขายสุทธิ : <?php echo $val2; ?> </h4>
+                        <h4>ยอดขายสุทธิ :
+                            <?php echo $val2; ?>
+                        </h4>
                     </div>
                     <div class="mean-income">
-                        <h4>ยอดขายเฉลี่ยต่อลูกค้า : <?php echo $val3; ?> </h4>
+                        <h4>ยอดขายเฉลี่ยต่อลูกค้า :
+                            <?php echo $val3; ?>
+                        </h4>
                     </div>
                 </div>
             </div>
@@ -429,15 +473,23 @@ require_once('./backend/api/config.php');
                                 $row2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                 $number = 1;
                                 foreach ($row2 as $key => $value) {
-                            ?>
+                                    ?>
                                     <tr>
-                                        <td><?php echo $number ?></td>
-                                        <td><?php echo $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?></td>
-                                        <td><?php echo $row2[$key]['telephone'] ?></td>
-                                        <td><?php echo $row2[$key]['email'] ?></td>
+                                        <td>
+                                            <?php echo $number ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row2[$key]['telephone'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row2[$key]['email'] ?>
+                                        </td>
                                         <td>staff</td>
                                     </tr>
-                            <?php
+                                    <?php
                                     $number = $number + 1;
                                 }
                             }
@@ -452,7 +504,8 @@ require_once('./backend/api/config.php');
                 <div class="content add-staff">
                     <div class="head-add-staff">
                         <h2>เพิ่ม-ลบรายชื่อพนักงาน</h2>
-                        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addStaff">เพิ่มรายชื่อ</button>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                            data-bs-target="#addStaff">เพิ่มรายชื่อ</button>
                     </div>
                     <table class="table">
                         <thead>
@@ -471,17 +524,26 @@ require_once('./backend/api/config.php');
                                 $row2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                                 $number = 1;
                                 foreach ($row2 as $key => $value) {
-                            ?>
+                                    ?>
                                     <tr>
                                         <!-- <td><?php echo $number ?></td> -->
-                                        <td><?php echo $row2[$key]["uid"] ?></td>
-                                        <td><?php echo "คุณ " . $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?></td>
-                                        <td><?php echo $row2[$key]['telephone'] ?></td>
-                                        <td><?php echo $row2[$key]['email'] ?></td>
+                                        <td>
+                                            <?php echo $row2[$key]["uid"] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo "คุณ " . $row2[$key]['firstName'] . " " . $row2[$key]['lastName'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row2[$key]['telephone'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row2[$key]['email'] ?>
+                                        </td>
                                         <td>staff</td>
-                                        <td><button class="btn btn-danger" value="<?php echo $row2[$key]["uid"] ?>" onclick="delStaff(this)" style="margin: 0 auto;">ลบพนักงาน</button></td>
+                                        <td><button class="btn btn-danger" value="<?php echo $row2[$key]["uid"] ?>"
+                                                onclick="delStaff(this)" style="margin: 0 auto;">ลบพนักงาน</button></td>
                                     </tr>
-                            <?php
+                                    <?php
                                     $number = $number + 1;
                                 }
                             }
@@ -498,7 +560,8 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="food" class="form-label">ชื่ออาหาร :</label>
-                                <input type="food" class="form-control" id="food" name="food" placeholder="กรอกชื่ออาหาร">
+                                <input type="food" class="form-control" id="food" name="food"
+                                    placeholder="กรอกชื่ออาหาร">
                             </div>
 
                             <div class="col">
@@ -519,7 +582,8 @@ require_once('./backend/api/config.php');
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="price" class="form-label">ราคา :</label>
-                                <input type="text" class="form-control" id="price" name="price" placeholder="กรอกราคาอาหาร" style="width: 20%;"><br>
+                                <input type="text" class="form-control" id="price" name="price"
+                                    placeholder="กรอกราคาอาหาร" style="width: 20%;"><br>
 
                             </div>
                         </div>
@@ -527,19 +591,23 @@ require_once('./backend/api/config.php');
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="foodDetail" class="form-label">รายละเอียด :</label>
-                                <textarea class="form-control" name="foodDetail" id="foodDetail" cols="30" rows="10"></textarea><br>
+                                <textarea class="form-control" name="foodDetail" id="foodDetail" cols="30"
+                                    rows="10"></textarea><br>
                                 <label for="recommendCheck" class="form-label">Recommend</label>
-                                <input class="form-check-input" type="checkbox" id="recommendCheck" name="recommendCheck" value="1" onclick="updateCheckboxValue()">
+                                <input class="form-check-input" type="checkbox" id="recommendCheck"
+                                    name="recommendCheck" value="1" onclick="updateCheckboxValue()">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <label for="formFile" class="form-label">แนบไฟล์รูปภาพ</label>
-                            <input class="form-control" type="file" id="formFile" accept=".png, .webp, .jpeg, .jpg" name="uploadfile" style="width: 30%;">
+                            <input class="form-control" type="file" id="formFile" accept=".png, .webp, .jpeg, .jpg"
+                                name="uploadfile" style="width: 30%;">
                         </div><br>
 
                         <div class="btn">
-                            <button type="button" class="btn btn-success" name="btn-addmenu" onclick="addMenu()">Add Menu</button>
+                            <button type="button" class="btn btn-success" name="btn-addmenu" onclick="addMenu()">Add
+                                Menu</button>
                         </div>
 
                     </form>
@@ -553,20 +621,23 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="promotion" class="form-label">ชื่อโปรโมชั่น/โพสต์ :</label>
-                                <input type="promotion" class="form-control" id="postName" name="promotion" placeholder="กรอกชื่อโปรโมชั่น">
+                                <input type="promotion" class="form-control" id="postName" name="promotion"
+                                    placeholder="กรอกชื่อโปรโมชั่น">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="foodDetail" class="form-label">รายละเอียด :</label>
-                                <textarea class="form-control" name="foodDetail" id="postDetail" cols="30" rows="10" placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
+                                <textarea class="form-control" name="foodDetail" id="postDetail" cols="30" rows="10"
+                                    placeholder="รายละเอียดของโปรโมชั่น...."></textarea>
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <label for="formFile" class="form-label">แนบไฟล์รูปภาพ</label>
-                            <input class="form-control" type="file" id="imgFile" accept=".png, .webp, .jpeg, .jpg" style="width: 30%;">
+                            <input class="form-control" type="file" id="imgFile" accept=".png, .webp, .jpeg, .jpg"
+                                style="width: 30%;">
                         </div><br>
 
                         <div class="btn">
@@ -584,19 +655,22 @@ require_once('./backend/api/config.php');
                         <div class="row">
                             <div class="col">
                                 <label for="promotion" class="form-label">รหัส Code ส่วนลด :</label>
-                                <input type="promotion" class="form-control" id="codeText" name="promotion" placeholder="กรอกรหัส code ส่วนลดที่ต้องการใช้">
+                                <input type="promotion" class="form-control" id="codeText" name="promotion"
+                                    placeholder="กรอกรหัส code ส่วนลดที่ต้องการใช้">
                             </div>
                         </div>
 
                         <div class="row mt-3">
                             <div class="col">
                                 <label for="promotion" class="form-label">ขั้นต่ำการใช้คูปอง/code : </label>
-                                <input type="promotion" class="form-control" id="codeMin" name="promotion" placeholder="ราคาขั้นต่ำการใช้">
+                                <input type="promotion" class="form-control" id="codeMin" name="promotion"
+                                    placeholder="ราคาขั้นต่ำการใช้">
                             </div>
 
                             <div class="col">
                                 <label for="promotion" class="form-label">ส่วนลด : </label>
-                                <input type="promotion" class="form-control" id="codeDiscount" name="promotion" placeholder="ราคาส่วนลด">
+                                <input type="promotion" class="form-control" id="codeDiscount" name="promotion"
+                                    placeholder="ราคาส่วนลด">
                             </div>
                         </div>
 
@@ -630,7 +704,7 @@ require_once('./backend/api/config.php');
                             data: {
                                 userUid: userUid,
                             },
-                            success: function(response) {
+                            success: function (response) {
                                 console.log(response);
                                 try {
                                     var responseObject = JSON.parse(response);
@@ -641,7 +715,7 @@ require_once('./backend/api/config.php');
                                             timer: 1000,
                                             showConfirmButton: false
                                         });
-                                        setTimeout(function() {
+                                        setTimeout(function () {
                                             location.reload();
                                         }, 1000);
                                     } else if (responseObject.RespCode == 400) {
@@ -665,7 +739,7 @@ require_once('./backend/api/config.php');
                                     });
                                 }
                             },
-                            error: function(err) {
+                            error: function (err) {
                                 console.log("badmakmak", err);
                             }
 
@@ -709,7 +783,7 @@ require_once('./backend/api/config.php');
                             codeMin: $("#codeMin").val(),
                             codeDiscount: $("#codeDiscount").val()
                         },
-                        success: function(response) {
+                        success: function (response) {
                             console.log(response);
                             try {
                                 var responseObject = JSON.parse(response);
@@ -741,7 +815,7 @@ require_once('./backend/api/config.php');
                                 });
                             }
                         },
-                        error: function(err) {
+                        error: function (err) {
                             console.log("bad", err);
                         }
                     })
@@ -768,7 +842,7 @@ require_once('./backend/api/config.php');
                 }
 
                 if (pass) {
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         var formData = new FormData();
                         var files = $('#imgFile')[0].files;
                         formData.append('fileImg', files[0]);
@@ -781,7 +855,7 @@ require_once('./backend/api/config.php');
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function(response) {
+                            success: function (response) {
                                 console.log(response);
                                 try {
                                     var responseObject = JSON.parse(response);
@@ -809,7 +883,7 @@ require_once('./backend/api/config.php');
                                     });
                                 }
                             },
-                            error: function(err) {
+                            error: function (err) {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Something went wrong!",
@@ -854,7 +928,7 @@ require_once('./backend/api/config.php');
                 }
 
                 if (pass) {
-                    $(document).ready(function() {
+                    $(document).ready(function () {
                         var formData = new FormData();
                         var files = $('#formFile')[0].files;
                         formData.append('fileImg', files[0]);
@@ -870,7 +944,7 @@ require_once('./backend/api/config.php');
                             data: formData,
                             contentType: false,
                             processData: false,
-                            success: function(response) {
+                            success: function (response) {
                                 console.log(response);
                                 try {
                                     var responseObject = JSON.parse(response);
@@ -898,7 +972,7 @@ require_once('./backend/api/config.php');
                                     });
                                 }
                             },
-                            error: function(err) {
+                            error: function (err) {
                                 Swal.fire({
                                     icon: "error",
                                     title: "Something went wrong!",
@@ -1008,7 +1082,7 @@ require_once('./backend/api/config.php');
                             district_2: $("#district_2").val(),
                             postcode: $("#postcode").val(),
                         },
-                        success: function(response) {
+                        success: function (response) {
                             console.log("good", response);
                             try {
                                 var responseObject = JSON.parse(response);
@@ -1020,7 +1094,7 @@ require_once('./backend/api/config.php');
                                         timer: 1000,
                                         showConfirmButton: false,
                                     });
-                                    setTimeout(function() {
+                                    setTimeout(function () {
                                         location.reload();
                                     }, 1000);
                                 } else if (responseObject.RespCode == 400) {
@@ -1039,7 +1113,7 @@ require_once('./backend/api/config.php');
                             }
 
                         },
-                        error: function(err) {
+                        error: function (err) {
                             console.log("badmakmak", err);
                         },
                     });
