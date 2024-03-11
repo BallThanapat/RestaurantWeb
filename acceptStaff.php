@@ -49,11 +49,25 @@ session_start();
                 break;
             case "confirm":
                 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-
                     $query = "UPDATE bill SET status=? where bill_id = $billID ";
                     $stmt = $conn->prepare($query);
                     $stmt->execute([
                     3]);
+
+                    $up_point = $db_handle->runQuery("SELECT * from bill WHERE bill_id = $billID");
+                    $rowP = $up_point[0];
+                    $totalPrice = $rowP['totalPrice'];
+                    $pointP = floor($totalPrice/10);
+                    $uidP = $rowP['uid'];
+
+                    $resultU = $db_handle->runQuery("SELECT * from users WHERE uid = $uidP");
+                    $rowU = $resultU[0];
+                    $pointU = $rowU['point'];
+                    $totalPoint = $pointU+$pointP;
+
+                    $query = "UPDATE users SET point=? where uid = $uidP ";
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$totalPoint]);
                     // echo "<script>window.location.href='staff.php';</script>";
                 }else {
                     http_response_code(405);

@@ -47,6 +47,7 @@ if (!empty($_GET["action"])) {
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         //addfunction click1
         function click1() {
@@ -56,15 +57,17 @@ if (!empty($_GET["action"])) {
             document.getElementById("num2").style.color = "white";
             document.getElementById("page1").style.display = "none";
             document.getElementById("page2").style.display = "block";
-            var discountCode = document.getElementById("discount-code").value.trim(); // รับค่าจาก input field //เพิ่ม trim ถ้าใส่เว้นวรรคหน้าหลังก็ยังใช้ได้
+            var discountCode = document.getElementById("discount-code").value; // รับค่าจาก input field
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "check_discount.php", true); // ระบุไฟล์ PHP ที่จะตรวจสอบโค้ดส่วนลด
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function () {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     // รับคำตอบจากไฟล์ PHP และทำตามคำแนะนำต่อไป
-                    console.log( ); // แสดงผลลัพธ์ที่ได้จากการตรวจสอบโค้ดส่วนลด (เพื่อเช็คว่าทำงานได้ถูกต้องหรือไม่)
-                    location.href = "purchaseOrder2.php"
+                    console.log(xhr.responseText); // แสดงผลลัพธ์ที่ได้จากการตรวจสอบโค้ดส่วนลด (เพื่อเช็คว่าทำงานได้ถูกต้องหรือไม่)
+                    location.href = "purchaseOrder.php"
+                    document.getElementById("page1").style.display = "none";
+                    document.getElementById("page2").style.display = "block";
                 }
             };
             xhr.send("discount_code=" + discountCode); // ส่งค่าโค้ดส่วนลดไปยังไฟล์ PHP
@@ -86,8 +89,7 @@ if (!empty($_GET["action"])) {
             document.getElementById("num2").style.color = "black";
             document.getElementById("num1").style.background = "#ff7b00";
             document.getElementById("num1").style.color = "white";
-            document.getElementById("page1").style.display = "block";
-            document.getElementById("page2").style.display = "none";
+            location.href = "purchaseOrder.php"
         }
 
         function back2() {
@@ -180,30 +182,26 @@ if (!empty($_GET["action"])) {
                 console.log("Selected value: " + selectedValue);
 
                 if (targetCustomSelect === "custom-select1") {
-                    alert("Button 1 was clicked.");
+                    // alert("Button 1 was clicked.");
                 } else if (targetCustomSelect === "custom-select2") {
                     // alert("Button 2 was clicked.");
                     click2();
-
+                    var formData = new FormData();
+                    var files = $('#formFile')[0].files;
+                    formData.append('fileImg', files[0]);
+                    formData.append('selectedValue', selectedValue);
                     $.ajax({
                         type: 'POST',
                         url: 'purchaseOrder.php',
-                        data: {
-                            selectedValue: selectedValue
-                        },
+                        data: formData,
                         success: function (response) {
-                            // ตอบสนองจากเซิร์ฟเวอร์ (ถ้ามี)
                             console.log("good");
-                            // console.log(response);
                         },
                         error: function (xhr, status, error) {
-                            // จัดการข้อผิดพลาด (ถ้ามี)
                             console.error(xhr.responseText);
                         }
                     });
                 } else if (targetCustomSelect === "custom-select3") {
-                    // alert("Button 3 was clicked.");
-                    // click2();
                     location.href = "menu.php";
                 };
             });
@@ -225,6 +223,30 @@ if (!empty($_GET["action"])) {
         function readValue() {
             var selectedValue = sessionStorage.getItem('selectedValue');
             document.getElementById("demo").innerHTML = selectedValue;
+        }
+
+        function uploadFile() {
+            var formData = new FormData();
+            var files = $('#formFile')[0].files;
+            formData.append('fileImg', files[0]);
+
+            $.ajax({
+                method:'POST',
+                url: 'purchaseInsert.php',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    // เมื่อสำเร็จ
+                    console.log("Upload successful");
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                    // เกิดข้อผิดพลาด
+                    console.error(xhr.responseText);
+                }
+            });
+            location.href = "menu.php";
         }
     </script>
 
@@ -279,7 +301,7 @@ if (!empty($_GET["action"])) {
             </div>
 
             <!-- First Page -->
-            <div class="mt-2" id="page1">
+            <div class="mt-2" id="page1" style="display: none;">
                 <h4 class="mb-4">รายการของคุณ</h4>
                 <div class="order p-2 w-80 d-flex justify-content-center">
                     <div class="container">
@@ -350,9 +372,8 @@ if (!empty($_GET["action"])) {
                 </div>
 
                 <div class="d-flex below">
-                    <button class="btn btn-secondary me-1">
-                        <a href="menu.php" style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a>
-                    </button>
+                    <button class="btn btn-secondary me-1"><a href="menu.php"
+                            style="text-decoration: none; color: white; font-size: 1rem;">ยกเลิก</a></button>
                     <button class="btn btn-warning" id="btn-order" onclick="click1()">สั่งซื้อสินค้า</button>
                 </div>
             </div>
@@ -374,7 +395,7 @@ if (!empty($_GET["action"])) {
                 $_SESSION["addrID2"] = $first_address["addr_id"];
             }
             ?>
-            <div class="mt-3" id="page2" style="display: none;">
+            <div class="mt-3" id="page2" style="display: block;">
                 <h4>รายละเอียดการจัดส่ง</h4>
                 <div class="mt-3 mb-3">
                     <div>
@@ -583,16 +604,14 @@ if (!empty($_GET["action"])) {
                             <div class="col-sm-7 h-auto d-flex justify-content-center align-items-center">
                                 <div class="contanier">
                                     <div class="row">
-                                        <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
+                                    <h5 class="col-sm-8 mt-5">หลักฐานการโอนเงิน</h5>
                                         <form class="col-sm-8 d-flex justify-content-center">
-                                            <input type="file" class="input-file" />
+                                            <input type="file" class="input-file" id="formFile" accept=".png, .webp, .jpeg, .jpg" />
                                         </form>
                                         <div class="pay-btn">
                                             <button class="btn btn-secondary me-1" onclick="back2()">ย้อนกลับ</button>
-                                            <form method="post" action="purchaseInsert.php">
                                                 <button class="btn get-selected-btn" id="btn-order"
-                                                    data-target="custom-select3">ยืนยัน</button>
-                                            </form>
+                                                    data-target="custom-select2" name="btn-conf" onclick="uploadFile()">ยืนยัน</button>
                                         </div>
                                     </div>
                                 </div>
