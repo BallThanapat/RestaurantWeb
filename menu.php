@@ -627,7 +627,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('recommend');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -663,7 +663,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('fried');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -698,7 +698,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('soup');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -733,7 +733,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('seafood');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"]  . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -768,7 +768,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('steak');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -804,7 +804,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('dessert');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -840,7 +840,7 @@ if (!empty($_GET["action"])) {
               </div>
               <div class="col1-sub-content-2"><button style="background-color: transparent;border: none;"
                   onclick="addToCart('<?php echo $product_array[$key]['foodDetail']; ?>'); showMenu('drink');">
-                  <?php echo "THB " . $product_array[$key]["price"]; ?>
+                  <?php echo $product_array[$key]["price"] . "฿"; ?>
                 </button>
               </div>
             </div>
@@ -901,7 +901,7 @@ if (!empty($_GET["action"])) {
                                     <?php echo "x" . $item["quantity"]; ?>
                                   </p> <!-- จำนวน -->
                                   <p class="w-25 ms-auto text-danger">
-                                    <?php echo "THB" . number_format($item["quantity"] * $item["price"], 2); ?>
+                                    <?php echo number_format($item["quantity"] * $item["price"], 2) . "฿"; ?>
                                   </p>
                                 </div>
                                 <!-- <p>

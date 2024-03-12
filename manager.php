@@ -280,7 +280,7 @@ require_once('./backend/api/config.php');
                     //คิวรี่รายได้รวมของ 6 เดือนที่ผ่านมา
                     $query5 = "SELECT YEAR(date_log) AS year, MONTH(date_log) AS month, SUM(totalPrice) AS total_monthly_sales FROM log INNER JOIN bill ON log.bill_id = bill.bill_id WHERE date_log >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH) GROUP BY YEAR(date_log), MONTH(date_log) ORDER BY YEAR(date_log), MONTH(date_log)";
                     $stmt5 = $conn->prepare($query5);
-                    
+                    $stmt5->execute();
                         $results = $stmt5->fetchAll(PDO::FETCH_ASSOC);
                         
                         if (!empty($results)) {
@@ -295,11 +295,7 @@ require_once('./backend/api/config.php');
                             array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
                             array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
                             array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
-                            array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
-                            array("label" => $dataPoints[2]['label'], "y" => $dataPoints[2]['y']),
-                            array("label" => $dataPoints[3]['label'], "y" => $dataPoints[3]['y']),
-                            array("label" => $dataPoints[4]['label'], "y" => $dataPoints[4]['y']),
-                            array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y']),
+                            array("label" => $dataPoints[5]['label'], "y" => $dataPoints[5]['y'])
                         );
                         }
                         else {
