@@ -327,12 +327,7 @@ if (!empty($_GET["action"])) {
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "เพิ่มสินค้าสำเร็จ!!",
-                        timer: 1000,
-                        showConfirmButton: false
-                    });
+                    alert("เพิ่มสินค้าสำเร็จ");
                 }
             };
             xhr.send();
@@ -345,12 +340,7 @@ if (!empty($_GET["action"])) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     $('.modal-cart').load(location.href + ' .modal-cart');
-                    Swal.fire({
-                        icon: "success",
-                        title: "ลบสินค้าสำเร็จ!!",
-                        timer: 1000,
-                        showConfirmButton: false
-                    });
+                    alert("ลบสำเร็จ");
                 }
             };
             xhr.send();
@@ -363,12 +353,7 @@ if (!empty($_GET["action"])) {
             xhr.onreadystatechange = function() {
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     $('.modal-cart').load(location.href + ' .modal-cart');
-                    Swal.fire({
-                        icon: "success",
-                        title: "ล้างตะกร้าสำเร็จ!!",
-                        timer: 1000,
-                        showConfirmButton: false
-                    });
+                    alert("ล้างตะกร้าสำเร็จ");
                 }
             };
             xhr.send(); // ส่งพารามิเตอร์ foodDetail และ quantity ไปยัง menu.php
@@ -451,16 +436,18 @@ if (!empty($_GET["action"])) {
                             $total_quantity2 = 0;
                             $total_price2 = 0;
                             $foodL = '';
-                            if (isset($_SESSION["cart_item2"])) {
-                                foreach ($_SESSION["cart_item2"] as $item) {
-                                    $item_food = $item["foodName"];
-                                    $item_quantity = $item["quantity"];
-                                    $total_price2 += $item["price"] * $item_quantity;
-                                    $total_quantity2 += $item_quantity;
-                                    $foodL .= $item_food . ' x' . $item_quantity . ' | ';
+                            $billID_list = $bill["bill_id"];
+                            $bill_list_array = $db_handle->runQuery("SELECT o.foodID, o.amount, m.foodName FROM orders o JOIN menu m ON o.foodID = m.foodID WHERE o.bill_id = $billID_list;");
+                            $foodL = "";
+                            if (!empty($bill_list_array)) {
+                                foreach ($bill_list_array as $key => $bill_list_row) {
+                                    $bill_list_foodName = $bill_list_row['foodName'];
+                                    $bill_list_foodAmount = $bill_list_row['amount'];
+                                    $foodL .= $bill_list_foodName . ' x' . $bill_list_foodAmount . ' | ';
                                 }
                             }
                             $billID = $bill["bill_id"];
+
                     ?>
                             <!-- The Modal Info -->
                             <div class="modal fade" id="s<?php echo $billID ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -608,16 +595,17 @@ if (!empty($_GET["action"])) {
                                 $total_quantity2 = 0;
                                 $total_price2 = 0;
                                 $foodL = '';
-                                if (isset($_SESSION["cart_item2"])) {
-                                    foreach ($_SESSION["cart_item2"] as $item) {
-                                        $item_food = $item["foodName"];
-                                        $item_quantity = $item["quantity"];
-                                        $total_price2 += $item["price"] * $item_quantity;
-                                        $total_quantity2 += $item_quantity;
-                                        $foodL .= $item_food . ' x' . $item_quantity . ' | ';
-                                    }
-                                    $billID = $bill["bill_id"];
-                                } ?>
+                                $billID_list_2 = $bill['bill_id'];
+                                $bill_list_array = $db_handle->runQuery("SELECT o.foodID, o.amount, m.foodName FROM orders o JOIN menu m ON o.foodID = m.foodID WHERE o.bill_id = $billID_list_2;");
+                                if (!empty($bill_list_array)) {
+                                foreach ($bill_list_array as $key => $bill_list_row) {
+                                    $bill_list_foodName = $bill_list_row['foodName'];
+                                    $bill_list_foodAmount = $bill_list_row['amount'];
+                                    $foodL .= $bill_list_foodName . ' x' . $bill_list_foodAmount . ' | ';
+                                }
+                            }
+                                $billID = $bill["bill_id"];
+                        ?>
 
                                 <!-- The Modal Info -->
                                 <div class="modal fade" id="s<?php echo $billID ?>" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -1253,6 +1241,7 @@ if (!empty($_GET["action"])) {
             </div>
 
         </div>
+    </div>
 </body>
 
 </html>
