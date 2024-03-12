@@ -301,7 +301,7 @@
 
 .col1 {
     width: 29%;
-    height: 40vh;
+    max-height: 40vh;
     box-sizing: border-box;
     box-shadow: 5px 5px 20px;
     background-color: white;
@@ -583,7 +583,7 @@ footer {
 
 .cart-action button {
     width: 20px;
-    height: 35%;
+    height: auto;
     border: none;
     border-radius: 2px;
     border: 1px solid grey;
@@ -620,7 +620,12 @@ footer {
     }
 
     .col1-sub-content {
+        margin-top: 2%;
         font-size: 18px;
+        height: auto;
+    }
+    .cart-action button, .cart-action input{
+        height: auto;
     }
     .shopping-cart {
         position: relative;
@@ -727,6 +732,10 @@ footer {
         font-size: 18px;
     }
 
+    .cart-action button{
+        height: 80%;
+    }
+
     .shopping-cart {
         position: relative;
         left: calc(100% - 15%);
@@ -767,15 +776,6 @@ footer {
         background-color: white;
     }
 
-    .cart-action button {
-        width: 20px;
-        height: 35%;
-        border: none;
-        border-radius: 2px;
-        border: 1px solid grey;
-        background-color: white;
-        font-size: 10px;
-    }
     .cart-action input{
         width: 40%;
         font-size: 14px;
