@@ -337,7 +337,7 @@
     position: relative;
     width: 70%;
     height: 100%;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     display: flex;
     padding-left: 5%;
@@ -783,9 +783,14 @@ footer {
         font-size: 14px;
     }
 
+    .cart-action button {
+        font-size: 14px;
+        height: 100%;
+    }
+
     .col1-sub-content-2:hover button::before {
         font-size: 12px;
-        content: "Add to Cart";
+        content: "Add";
     }
 
     .test1 {

@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($num == 1) {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             //gid 2 = staff, gid 3 = manager
-            if ($row['groupID'] === 2 || $row['groupID'] === 3) {
-                if ($txt_password === $row['password']) {
+            if ($row['groupID'] == 2 || $row['groupID'] == 3) {
+                if ($txt_password == $row['password']) {
 
                     session_start();
                     $_SESSION['username'] = $row['id'];
@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     $object->RespMessage = 'invalidpassword';
                     $object->Log = 1;
                 }
-                echo json_encode($object);
             } else {
                 $object = new stdClass();
                 $object->RespCode = 500;
@@ -49,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $object->RespMessage = 'usernameisnotexist';
         $object->Log = 2;
     }
+    echo json_encode($object);
 } else {
     http_response_code(405);
 }
